@@ -151,3 +151,14 @@ input, select, textarea {
   animation: alertStrobe 1.2s infinite ease-in-out;
 }
 
+/* ─── Leaflet Non-Blocking Tooltips ─────────────────────── */
+/* Tooltips must never intercept pointer clicks on underlying map features */
+.leaflet-tooltip,
+.leaflet-tooltip * {
+  pointer-events: none !important;
+}
+
+.zone-centroid-badge {
+  pointer-events: auto !important;
+}
+

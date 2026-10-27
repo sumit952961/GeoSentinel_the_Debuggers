@@ -119,18 +119,9 @@ function calculatePolygonAreaSqMeters(coordinates) {
   return Math.round(area > 15 ? area : 110);
 }
 
-// Deterministic hash helper for reproducible, per-building diagnostic variation
-function getBuildingSeed(id, salt = 0) {
-  let h = (Number(id) || 1) * 2654435761 + salt * 40503;
-  h = (h ^ (h >> 16)) * 2246822507;
-  h = (h ^ (h >> 13)) * 3266489909;
-  return ((h ^ (h >> 16)) >>> 0) / 4294967296.0;
-}
-
 // Compute comprehensive 10/10 Disaster Engineering Building Damage Profile
 function getDetailedBuildingProfile(building, scenarioId, zoneInfo, priorityInfo) {
   if (!building) return null;
-  const bId = building.buildingId || building.building_id || building.id || 1;
   const dClass = building.damageClass || 'no-damage';
   const geom = building.geometry || building.originalGeometry;
   const coords = geom?.coordinates;
@@ -152,360 +143,73 @@ function getDetailedBuildingProfile(building, scenarioId, zoneInfo, priorityInfo
     }
   }
 
-  // Format Geodetic GPS with correct hemisphere (N/S and E/W)
-  const latStr = `${Math.abs(lat).toFixed(5)}° ${lat >= 0 ? 'N' : 'S'}`;
-  const lonStr = `${Math.abs(lon).toFixed(5)}° ${lon >= 0 ? 'E' : 'W'}`;
-  const gpsCoords = `${latStr}, ${lonStr}`;
-
-  // Deterministic seeds for unique per-building attributes
-  const s1 = getBuildingSeed(bId, 1);
-  const s2 = getBuildingSeed(bId, 2);
-  const s3 = getBuildingSeed(bId, 3);
-  const s4 = getBuildingSeed(bId, 4);
-
-  // Realistic Structural Type by Scenario, Area, and Building Specs
+  // Realistic Structural Type
   let structureType = 'Reinforced Concrete (RC) Moment Frame';
   const rawType = (building.buildingType || building.type || '').toLowerCase();
-  if (scenarioId === 1) { // Woolsey Wildfire (California)
-    if (areaSqMeters > 500) {
-      structureType = 'Multi-Tier Mediterranean Estate (Class A Barrel Tile Roof, Stucco Shear Walls)';
-    } else if (areaSqMeters > 240) {
-      structureType = 'Custom Type V-A Heavy-Timber & Stucco Residence (Tempered Dual-Glaze Windows)';
-    } else if (areaSqMeters > 130) {
-      structureType = 'Two-Story Contemporary Craftsman Residence (Fire-Resistant Composite Shingles)';
-    } else if (areaSqMeters > 70) {
-      structureType = 'Single-Story California Ranch Home (Fiber-Cement Siding, Metal Soffit Eaves)';
+  if (scenarioId === 2) {
+    if (areaSqMeters < 115) {
+      structureType = 'Traditional Stone Masonry with Mud Mortar (Slope Dwelling)';
+    } else if (areaSqMeters > 200) {
+      structureType = 'Multi-Story Reinforced Concrete (RC) Administrative / Lodge Facility';
     } else {
-      structureType = 'Detached Accessory Dwelling Unit / Studio (Type V Wood-Framed Structure)';
+      structureType = 'Confined Stone & Brick Masonry with Reinforced RC Bands';
     }
-  } else if (scenarioId === 2) { // Chamoli Glacial Flash Flood
-    if (areaSqMeters > 220) {
-      structureType = 'Reinforced Concrete (RC) Administrative & Hydropower Control Complex (IS 456 Spec)';
-    } else if (areaSqMeters > 115) {
-      structureType = 'Confined Stone & Brick Masonry with Reinforced RC Plinth & Lintel Bands';
-    } else if (areaSqMeters > 60) {
-      structureType = 'Multi-Tier Traditional Garhwali Slate-and-Timber Homestead (Dry Bedrock Base)';
-    } else {
-      structureType = 'Alpine Livestock Byre (Granite Rubble Wall with Corrugated CGI Roofing)';
-    }
-  } else if (scenarioId === 3) { // Cyclone Fani
-    if (areaSqMeters > 200) {
-      structureType = 'Multi-Story Cyclone Shelter & Community Facility (IS 875 Wind-Resistant Pucca Spec)';
-    } else if (areaSqMeters > 100) {
-      structureType = 'Pucca Coastal Brick & Concrete Construction with Anchored Slab Roof';
-    } else if (areaSqMeters > 55) {
-      structureType = 'Semi-Pucca Masonry Residence with Hurricane-Strapped CGI Corrugated Panels';
-    } else {
-      structureType = 'Coastal Vernacular Bamboo-Reinforced Wattle & Thatch Habitation';
-    }
-  } else if (scenarioId === 4) { // Dharali Flash Flood
-    if (areaSqMeters > 180) {
-      structureType = 'Reinforced Mountain Commercial Lodge with Heavy Foundation Pier Tie-Beams';
-    } else if (areaSqMeters > 100) {
-      structureType = 'Vernacular Koti Banal Multi-Story Timber-Laced Dry Stone Architecture';
-    } else {
-      structureType = 'Alpine Timber-Frame Dwelling with Deodar Trusses & Granite Masonry Base';
-    }
+  } else if (scenarioId === 1) {
+    structureType = areaSqMeters > 220 
+      ? 'Custom Type V Wood-Frame & Stucco Estate' 
+      : 'Single-Story Composition Shingle Residential Home';
+  } else if (scenarioId === 3) {
+    structureType = 'Pucca Coastal Brick & Concrete Construction';
+  } else if (scenarioId === 4) {
+    structureType = 'Vernacular Timber-Laced Alpine Masonry (Koti Banal Framing)';
   }
-  if (rawType.includes('hospital')) structureType = 'Critical Healthcare Facility (Reinforced RC Shear Wall)';
-  if (rawType.includes('school')) structureType = 'Educational Assembly Facility (Seismic Reinforced Frame)';
+  if (rawType.includes('hospital')) structureType = 'Critical Healthcare Facility (RC Moment Frame)';
+  if (rawType.includes('school')) structureType = 'Educational Assembly Facility (Reinforced Frame)';
 
   // Calibrated Occupant Exposure
   const estOccupants = Math.max(1, Math.round(areaSqMeters / (rawType.includes('commercial') ? 18 : 28)));
-  const zoneName = zoneInfo?.name || 'Assigned Operational Sector';
 
   // Component-by-Component Subsystem Diagnostics
-  let roofDiagnostics, wallDiagnostics, foundationDiagnostics, hazardExposure, placard, usarDirective;
+  let roofDiagnostics = { status: '100% Intact', detail: 'Weather-tight envelope, zero rafter deformation.', pct: 100, color: '#10b981' };
+  let wallDiagnostics = { status: '100% Sound', detail: 'Plumb and level bearing frame, no structural shear.', pct: 100, color: '#10b981' };
+  let foundationDiagnostics = { status: 'Stable Ground', detail: 'Undisturbed bedrock/compacted soil footing.', color: '#10b981' };
+  let hazardExposure = { label: 'Nominal Margin', detail: 'Outside direct hazard scour corridor (+15m elevation buffer).', color: '#10b981' };
+  let placard = { tag: 'GREEN TAG', status: 'INSPECTED & HABITABLE', bg: '#059669', border: '#10b981', text: '#ffffff' };
+  let usarDirective = { priority: 'PRIORITY 4 — REFUGE APPROVED', action: 'Structure structurally sound; safe for temporary shelter / staging.' };
 
   if (dClass === 'destroyed') {
-    const remnantPct = (s1 * 4.2).toFixed(1);
-    const roofDetails = {
-      1: `Total roof envelope consumed by crowning wildfire front; framing incinerated down to ash bed.`,
-      2: `Roof superstructure completely sheared off and swept away by 4.5m hyper-concentrated surge.`,
-      3: `Catastrophic roof blow-off under Category 4 cyclonic suction; primary trusses torn from anchor plates.`,
-      4: `Pulverized by boulder-laden flash flood crest; roof framing obliterated and dispersed downstream.`
-    };
-    roofDiagnostics = {
-      status: `${remnantPct}% Framing Remnant (Obliterated)`,
-      detail: roofDetails[scenarioId] || roofDetails[1],
-      pct: parseFloat(remnantPct),
-      color: '#ef4444'
-    };
-
-    const wallDetails = {
-      1: `Load-bearing studs completely incinerated; stucco walls collapsed inward into rubble scatter.`,
-      2: `Primary load-bearing masonry walls crushed and swept away by high-energy boulder surge.`,
-      3: `Complete structural wall collapse under combined 205 km/h wind shear and wave impact.`,
-      4: `Masonry bearing piers crushed and swept into riverbed debris fan; zero structural volume.`
-    };
-    wallDiagnostics = {
-      status: `0% Load Capacity (Total Collapse)`,
-      detail: wallDetails[scenarioId] || wallDetails[1],
-      pct: 0,
-      color: '#ef4444'
-    };
-
-    const foundDetails = {
-      1: `Severe post-burn slope destabilization; hillside debris slide undermined 80% of foundation pad.`,
-      2: `Complete foundation scour; bedrock erosion washed away subgrade footing; site unbuildable.`,
-      3: `Plinth undermined and sheared off at grade by combined 3.5m surge scour and buoyant uplift.`,
-      4: `Subgrade foundation obliterated by hyper-concentrated gravel scour in main riverbed.`
-    };
-    foundationDiagnostics = {
-      status: `Severe Geotechnical Foundation Failure`,
-      detail: foundDetails[scenarioId] || foundDetails[1],
-      color: '#ef4444'
-    };
-
-    const hazLabels = {
-      1: 'Total Flame Front Immolation',
-      2: 'Direct 4.5m Glacial Torrent Surge',
-      3: '205 km/h Cyclonic Eye-Wall Surge',
-      4: 'Direct Hit: 20.4 ha Debris Torrent'
-    };
-    const hazDetails = {
-      1: `Directly overrun by high-intensity crowning wildfire front with flame lengths exceeding 25 meters.`,
-      2: `High-energy kinetic debris impact carrying multi-ton boulders; hydrodynamic breaching.`,
-      3: `Direct beachfront coastal collision; 3.8m storm surge wave action combined with 210 km/h gusts.`,
-      4: `Direct impact within main Kheer Ganga flash-flood chute; continuous alluvial inundation.`
-    };
+    roofDiagnostics = { status: '0% Intact (Obliterated)', detail: 'Roof structure completely sheared off, rafters swept downstream by flood surge.', pct: 0, color: '#ef4444' };
+    wallDiagnostics = { status: '100% Structural Failure', detail: 'Primary load-bearing masonry walls buckled, crushed and collapsed into rubble scatter.', pct: 0, color: '#ef4444' };
+    foundationDiagnostics = { status: 'Severe Scour & Undermining', detail: 'Sub-grade footing washed out; geotechnical slope failure and toe erosion.', color: '#ef4444' };
     hazardExposure = {
-      label: hazLabels[scenarioId] || hazLabels[1],
-      detail: hazDetails[scenarioId] || hazDetails[1],
+      label: scenarioId === 2 ? 'Direct 3.5m Glacial Torrent Surge' : (scenarioId === 1 ? 'Total Flame Front Immolation' : '205 km/h Wind Failure & Surge'),
+      detail: 'High-energy kinetic debris impact; hydrodynamic wall breaching observed.',
       color: '#ef4444'
     };
-
-    placard = {
-      tag: 'RED TAG',
-      status: 'UNSAFE — DO NOT ENTER',
-      bg: '#b91c1c',
-      border: '#ef4444',
-      text: '#ffffff'
-    };
-
-    usarDirective = {
-      priority: `PRIORITY 1 — HEAVY USAR EXTRICATION [Structure #${bId}]`,
-      action: `Immediate void-space search & rescue. Deploy canine and acoustic listening sensors. Maintain 40m collapse safety zone in ${zoneName}.`
-    };
-
+    placard = { tag: 'RED TAG', status: 'UNSAFE — DO NOT ENTER', bg: '#b91c1c', border: '#ef4444', text: '#ffffff' };
+    usarDirective = { priority: 'PRIORITY 1 — HEAVY USAR EXTRICATION', action: 'Immediate void space search & rescue; deploy canine and acoustic listening sensors.' };
   } else if (dClass === 'major-damage') {
-    const roofPct = (22.0 + s1 * 16.0).toFixed(1);
-    const roofDetails = {
-      1: `Thermal ember penetration through dormer vent; attic framing charred up to 18mm; partial rafter sag.`,
-      2: `High-water surge breached lower roof overhang; fractured secondary purlins; 45% roof decking compromised.`,
-      3: `Severe cyclonic uplift sheared >55% of roof sheeting; twisted light-gauge steel trusses; heavy deluge ingress.`,
-      4: `Kinetic debris impact shattered riverward roof gable; multiple purlin fractures under sediment weight.`
-    };
-    roofDiagnostics = {
-      status: `${roofPct}% Intact (Severe Trauma)`,
-      detail: roofDetails[scenarioId] || roofDetails[1],
-      pct: parseFloat(roofPct),
-      color: '#f97316'
-    };
-
-    const wallPct = (26.0 + s2 * 14.0).toFixed(1);
-    const wallDetails = {
-      1: `Load-bearing wood studs charred to >16mm depth; lateral shear resistance compromised; outward wall lean of ${(2.8 + s2 * 2.5).toFixed(1)}°.`,
-      2: `Severe diagonal X-shear fissures (>20mm); outward wall displacement of ${(3.0 + s2 * 2.0).toFixed(1)}° under sediment load.`,
-      3: `Partial collapse of leeward masonry panels; progressive diagonal shear failure across main bearing piers.`,
-      4: `Streamward stone wall breached by 2-ton boulder impact; outward lateral displacement of ${(3.2 + s2 * 2.0).toFixed(1)}°.`
-    };
-    wallDiagnostics = {
-      status: `${wallPct}% Compromised Framing`,
-      detail: wallDetails[scenarioId] || wallDetails[1],
-      pct: parseFloat(wallPct),
-      color: '#f97316'
-    };
-
-    const settlementMm = (15 + s3 * 35).toFixed(0);
-    const foundDetails = {
-      1: `Thermal expansion spalling on stem walls; post-fire slope creep (-${settlementMm}mm differential settlement).`,
-      2: `Toe erosion and 0.45m footing undermining on streamward corner; differential settlement of -${settlementMm}mm.`,
-      3: `Subgrade saturated soil loss and plinth rotation up to 3.5°; differential settlement of -${settlementMm}mm.`,
-      4: `Debris scour around upstream footing; localized footing displacement (-${settlementMm}mm settlement).`
-    };
-    foundationDiagnostics = {
-      status: `Compromised Footing (-${settlementMm}mm Settlement)`,
-      detail: foundDetails[scenarioId] || foundDetails[1],
-      color: '#f97316'
-    };
-
-    const hazLabels = {
-      1: 'Thermal Radiation & Ember Breach',
-      2: '1.4m Mud & Silt Inundation',
-      3: '160 km/h Severe Gust Shear',
-      4: '1.8m Hyper-Concentrated Debris Slurry'
-    };
-    const hazDetails = {
-      1: `Direct radiant thermal flux (>35 kW/m²); sustained ember storm ignited adjacent deck and eaves.`,
-      2: `Submerged in 1.4m sediment-laden flash flood torrent; sustained hydrodynamic drag pressure.`,
-      3: `Direct Category 4 eye-wall gust corridor (160+ km/h) with 1.4m saline storm surge wave intrusion.`,
-      4: `Located inside active debris deposition lobe; lateral sediment pressure on bearing walls.`
-    };
+    roofDiagnostics = { status: '30% Intact (Severe Trauma)', detail: 'Corrugated roof partially collapsed; exposed roof beams with multiple puncturing breaches.', pct: 30, color: '#f97316' };
+    wallDiagnostics = { status: '65% Compromised', detail: 'Severe diagonal X-shear cracks (>25mm wide); lateral displacement exceeding 6 degrees.', pct: 35, color: '#f97316' };
+    foundationDiagnostics = { status: 'Compromised Footing', detail: 'Erosion around perimeter footings; localized differential settlement detected.', color: '#f97316' };
     hazardExposure = {
-      label: hazLabels[scenarioId] || hazLabels[1],
-      detail: hazDetails[scenarioId] || hazDetails[1],
+      label: scenarioId === 2 ? '1.4m Mud & Silt Inundation' : (scenarioId === 1 ? 'Thermal Radiation & Ember Breach' : '150 km/h Severe Gust Shear'),
+      detail: 'Hydrostatic mud pressure on retaining walls; partial waterlogging.',
       color: '#f97316'
     };
-
-    placard = {
-      tag: 'YELLOW TAG',
-      status: 'RESTRICTED USE — SEARCH ONLY',
-      bg: '#c2410c',
-      border: '#f97316',
-      text: '#ffffff'
-    };
-
-    usarDirective = {
-      priority: `PRIORITY 2 — STRUCTURAL SHORING & EVACUATION [Structure #${bId}]`,
-      action: `Structural raker shoring required before human entry. Expedited controlled evacuation for ~${estOccupants} occupants in ${zoneName}.`
-    };
-
+    placard = { tag: 'YELLOW TAG', status: 'RESTRICTED USE — SEARCH ONLY', bg: '#c2410c', border: '#f97316', text: '#ffffff' };
+    usarDirective = { priority: 'PRIORITY 2 — SHORING & CONTROLLED EVACUATION', action: 'Structural shoring required before human entry; rapid controlled evacuation required.' };
   } else if (dClass === 'minor-damage') {
-    const roofPct = (76.0 + s1 * 11.0).toFixed(1);
-    const roofDetails = {
-      1: `Superficial heat blistering on asphalt ridge cap (<5% area); exterior fascia scorched; rafters structurally sound.`,
-      2: `Minor splash debris impact on cantilevered eaves; bent downspout guttering; timber framing sound.`,
-      3: `Isolated loss of 2-4 CGI roof sheets along leeward edge; timber purlins firmly anchored.`,
-      4: `Localized slate tile slippage along northern valley (<0.8m²); internal framing dry; zero roof deflection.`
-    };
-    roofDiagnostics = {
-      status: `${roofPct}% Intact (Minor Loss)`,
-      detail: roofDetails[scenarioId] || roofDetails[1],
-      pct: parseFloat(roofPct),
-      color: '#f59e0b'
-    };
-
-    const wallPct = (78.0 + s2 * 10.0).toFixed(1);
-    const wallDetails = {
-      1: `Superficial heat blistering on exterior paint; localized vinyl window frame warping; structural studs intact.`,
-      2: `Superficial plaster hairline cracks (<1.5mm wide); peripheral water mark at +0.25m; masonry frame sound.`,
-      3: `Localized windborne projectile impact chipping on stucco facade; structural frame unaffected.`,
-      4: `Minor alluvial sediment splash along plinth; deodar timber framing verified intact and plumb.`
-    };
-    wallDiagnostics = {
-      status: `${wallPct}% Intact (Superficial Fissures)`,
-      detail: wallDetails[scenarioId] || wallDetails[1],
-      pct: parseFloat(wallPct),
-      color: '#f59e0b'
-    };
-
-    const foundDetails = {
-      1: `Peripheral soil hydrophobicity from intense ground heating; stem wall footings fully stable.`,
-      2: `Superficial alluvial sediment deposition (<0.15m); foundation footings firmly anchored.`,
-      3: `Superficial perimeter topsoil runoff; foundation slab verified sound with zero angular distortion.`,
-      4: `Minor sediment accumulation around stone plinth; no detectable foundation movement.`
-    };
-    foundationDiagnostics = {
-      status: `Stable Ground (0.0mm Settlement)`,
-      detail: foundDetails[scenarioId] || foundDetails[1],
-      color: '#f59e0b'
-    };
-
-    const bufferM = (8 + s4 * 18).toFixed(0);
-    const hazLabels = {
-      1: `Exterior Smoke & Ember Margin (+${bufferM}m)`,
-      2: `0.3m Shallow Surface Runoff (+${bufferM}m)`,
-      3: `Peripheral Wind Corridor (+${bufferM}m)`,
-      4: `Peripheral Debris Edge (+${bufferM}m)`
-    };
-    const hazDetails = {
-      1: `Located ${bufferM}m from brush boundary; ember shower quenched by defensive perimeter line.`,
-      2: `Shallow backwater overflow (<0.25m depth) across exterior apron; living quarters elevated and dry.`,
-      3: `Peripheral Category 4 wind corridor (130-145 km/h gusts); localized tree branch debris on perimeter.`,
-      4: `Located outside active boulder chute; superficial fine mud sediment over access pathway.`
-    };
+    roofDiagnostics = { status: '85% Intact (Minor Loss)', detail: 'Superficial ridge tile loss and bent gutters; internal trusses and rafters structurally sound.', pct: 85, color: '#f59e0b' };
+    wallDiagnostics = { status: '15% Superficial Cracking', detail: 'Cosmetic hairline plaster fissures (<2mm); load-bearing columns and lintels fully intact.', pct: 85, color: '#f59e0b' };
+    foundationDiagnostics = { status: 'Stable Ground', detail: 'Surface mud deposits around perimeter; no detectable foundation movement.', color: '#f59e0b' };
     hazardExposure = {
-      label: hazLabels[scenarioId] || hazLabels[1],
-      detail: hazDetails[scenarioId] || hazDetails[1],
+      label: scenarioId === 2 ? '0.3m Shallow Surface Runoff' : (scenarioId === 1 ? 'Exterior Soot & Smoke Staining' : 'Minor Shingle Displacement'),
+      detail: 'Localized peripheral ingress; dry living quarters.',
       color: '#f59e0b'
     };
-
-    placard = {
-      tag: 'GREEN TAG',
-      status: 'HABITABLE — RESTRICTED ACCESS',
-      bg: '#d97706',
-      border: '#f59e0b',
-      text: '#ffffff'
-    };
-
-    usarDirective = {
-      priority: `PRIORITY 3 — HAZARD MITIGATION & WELFARE CHECK [Structure #${bId}]`,
-      action: `Inspect severed utilities; isolate damaged gas/electrical connections. Safe for temporary sheltered residence (~${estOccupants} persons) in ${zoneName}.`
-    };
-
-  } else { // no-damage
-    const roofPct = (96.0 + s1 * 4.0).toFixed(1);
-    const roofDetails = {
-      1: `Class A fire-rated tile roof envelope; ember vent baffle screens intact; zero thermal rafter scorching.`,
-      2: `Superstructure dry and unaffected by riverine surge; rafter spans plumb and level; zero truss deformation.`,
-      3: `Aerodynamic hipped roof configuration; heavy-duty purlin hurricane straps intact; zero sheet detachment.`,
-      4: `Alpine pitched slate roof intact; snow/water-shedding eaves undamaged; attic envelope weather-tight.`
-    };
-    roofDiagnostics = {
-      status: `${roofPct}% Intact (Weather-Tight)`,
-      detail: roofDetails[scenarioId] || roofDetails[1],
-      pct: parseFloat(roofPct),
-      color: '#10b981'
-    };
-
-    const wallPct = (97.5 + s2 * 2.5).toFixed(1);
-    const wallDetails = {
-      1: `Non-combustible exterior stucco uncompromised; dual-pane tempered fenestration intact; zero wall deflection.`,
-      2: `Reinforced masonry bearing walls plumb; zero hydro-static shear cracking; dry living quarters.`,
-      3: `Reinforced concrete frame plumb; windward wall panels intact with zero structural fissuring.`,
-      4: `Koti Banal timber-laced stone masonry plumb; zero structural settlement; dry ground floor perimeter.`
-    };
-    wallDiagnostics = {
-      status: `${wallPct}% Sound (Full Integrity)`,
-      detail: wallDetails[scenarioId] || wallDetails[1],
-      pct: parseFloat(wallPct),
-      color: '#10b981'
-    };
-
-    const foundDetails = {
-      1: `Undisturbed native bedrock / compacted soil subgrade; no burn scar slope destabilization.`,
-      2: `Footings deeply keyed into bedrock; zero undermining outside direct active fluvial scour zone.`,
-      3: `Stable plinth foundation; compacted sandy loam soil; zero saline liquefaction detected.`,
-      4: `Granite foundation pad keyed into mountain terrace; zero slope creep or undermining.`
-    };
-    foundationDiagnostics = {
-      status: `Stable Bedrock Subgrade (0.0mm Settlement)`,
-      detail: foundDetails[scenarioId] || foundDetails[1],
-      color: '#10b981'
-    };
-
-    const bufferM = (30 + s4 * 70).toFixed(0);
-    const hazLabels = {
-      1: `Defensible Firebreak Clearance (+${bufferM}m)`,
-      2: `Fluvial Runout Buffer (+${bufferM}m)`,
-      3: `Protected Coastal Dune Buffer (+${bufferM}m)`,
-      4: `Alpine Terrace Elevation Buffer (+${bufferM}m)`
-    };
-    const hazDetails = {
-      1: `${bufferM}m defensible space clearance verified; active fire perimeter buffered by irrigated clearance zone.`,
-      2: `Elevated +${(12 + s4 * 12).toFixed(1)}m above 100-year flood channel; outside hydrodynamic velocity corridor.`,
-      3: `Protected behind tertiary coastal sand dune barrier; shielded from direct marine surge impact.`,
-      4: `Located on elevated river terrace +${(15 + s4 * 10).toFixed(1)}m above Kheer Ganga torrent bed.`
-    };
-    hazardExposure = {
-      label: hazLabels[scenarioId] || hazLabels[1],
-      detail: hazDetails[scenarioId] || hazDetails[1],
-      color: '#10b981'
-    };
-
-    placard = {
-      tag: 'GREEN TAG',
-      status: 'INSPECTED & HABITABLE',
-      bg: '#059669',
-      border: '#10b981',
-      text: '#ffffff'
-    };
-
-    usarDirective = {
-      priority: `PRIORITY 4 — REFUGE APPROVED [Structure #${bId}]`,
-      action: `Structural envelope 100% verified sound. Designated as civilian rally point / staging shelter for up to ~${estOccupants} individuals in ${zoneName}.`
-    };
+    placard = { tag: 'GREEN TAG', status: 'HABITABLE — RESTRICTED ACCESS', bg: '#d97706', border: '#f59e0b', text: '#ffffff' };
+    usarDirective = { priority: 'PRIORITY 3 — ASSISTED WELFARE CHECK', action: 'Inspect electrical and gas lines; safe for temporary shelter-in-place.' };
   }
 
   return {
@@ -513,7 +217,7 @@ function getDetailedBuildingProfile(building, scenarioId, zoneInfo, priorityInfo
     areaSqMeters,
     areaSqFt,
     estOccupants,
-    gpsCoords,
+    gpsCoords: `${(lat || 0).toFixed(5)}° N, ${(lon || 0).toFixed(5)}° E`,
     roofDiagnostics,
     wallDiagnostics,
     foundationDiagnostics,
@@ -638,6 +342,18 @@ function DisasterMap() {
         attribution: '&copy; OpenStreetMap contributors | DRAS Platform',
         maxZoom: 19
       }).addTo(map);
+
+      // Dedicated Leaflet Panes for strict, infallible Z-Index layering:
+      // zonesPane (350): Macro operational sectors & hazard swaths in background
+      // buildingsPane (450): Individual structures & damage markers in foreground (always clickable)
+      if (!map.getPane('zonesPane')) {
+        const zp = map.createPane('zonesPane');
+        zp.style.zIndex = '350';
+      }
+      if (!map.getPane('buildingsPane')) {
+        const bp = map.createPane('buildingsPane');
+        bp.style.zIndex = '450';
+      }
 
       Object.values(layerGroupsRef.current).forEach(lg => lg.addTo(map));
       mapInstanceRef.current = map;
@@ -804,34 +520,6 @@ function DisasterMap() {
     }
   }, [selectedBuilding]);
 
-  useEffect(() => {
-    window.__DRAS_SELECT_BUILDING__ = (bId) => {
-      const feat = rawDataRef.current?.damages?.features?.find(f => 
-        (f.properties?.buildingId != null && String(f.properties.buildingId) === String(bId)) || 
-        (f.properties?.id != null && String(f.properties.id) === String(bId)) ||
-        (f.id != null && String(f.id) === String(bId))
-      );
-      if (feat) {
-        const p = feat.properties || {};
-        const priMatch = rawDataRef.current?.priorities?.features?.find(f => 
-          String(f.properties?.building_id) === String(bId) || 
-          String(f.properties?.id) === String(bId)
-        );
-        setSelectedBuilding({
-          ...p,
-          id: bId,
-          geometry: feat.geometry,
-          priorityInfo: priMatch?.properties
-        });
-        return true;
-      }
-      return false;
-    };
-    return () => {
-      delete window.__DRAS_SELECT_BUILDING__;
-    };
-  }, []);
-
   function renderLayers() {
     const map = mapInstanceRef.current;
     if (!map) return;
@@ -863,6 +551,7 @@ function DisasterMap() {
     if (layers.boundary && rawDataRef.current.scenario?.boundary) {
       try {
         const boundLayer = L.geoJSON(rawDataRef.current.scenario.boundary, {
+          pane: 'zonesPane',
           style: {
             color: '#dc2626',
             weight: 2,
@@ -880,6 +569,7 @@ function DisasterMap() {
     if (layers.hazards && rawDataRef.current.hazards?.features) {
       const isDharali = selectedScenarioId === 4;
       const hzLayer = L.geoJSON(rawDataRef.current.hazards, {
+        pane: 'zonesPane',
         style: (feat) => {
           const p = feat.properties || {};
           const hType = p.hazard_type || p.hazardType || '';
@@ -953,6 +643,7 @@ function DisasterMap() {
     // A2. Operational Zones Layer (Macro / Sector Overview)
     if ((viewLevel === 'ZONES' || viewLevel === 'BOTH') && layers.zones && rawDataRef.current.zones?.features) {
       const zoneLayer = L.geoJSON(rawDataRef.current.zones, {
+        pane: 'zonesPane',
         style: (feat) => {
           const crit = (feat.properties?.criticality || 'LOW').toUpperCase();
           const isSelected = selectedZone?.id === feat.properties?.id;
@@ -986,17 +677,15 @@ function DisasterMap() {
 
           layer.on({
             mouseover: (e) => {
-              e.target.setStyle({ weight: 5, fillOpacity: 0.52, color: '#ffffff', opacity: 1.0 });
-              if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-                e.target.bringToFront();
-              }
+              // Highlight stroke without moving polygon above building layers
+              e.target.setStyle({ weight: 4.5, fillOpacity: 0.45, color: '#ffffff', opacity: 1.0 });
             },
             mouseout: (e) => {
               if (selectedZone?.id !== p.id) {
                 zoneLayer.resetStyle(e.target);
               }
             },
-            click: () => {
+            click: (e) => {
               setSelectedZone(p);
               setSelectedBuilding(null);
               if (layer.getBounds && layer.getBounds().isValid()) {
@@ -1004,20 +693,6 @@ function DisasterMap() {
               }
             }
           });
-
-          layer.bindTooltip(`
-            <div style="font-family: Inter, sans-serif; font-size: 11px; padding: 4px 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); border-radius: 6px;">
-              <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 2px;">
-                <span style="background: ${zCfg.badgeBg}; color: #ffffff; padding: 1px 5px; border-radius: 3px; font-weight: 800; font-size: 9px; text-transform: uppercase;">
-                  ${crit} SECTOR
-                </span>
-                <strong style="font-size: 11px; color: ${tokens.textPrimary};">${p.name}</strong>
-              </div>
-              <div style="font-size: 10px; color: ${tokens.textSecondary};">
-                Buildings: <strong>${p.totalBuildings}</strong> &bull; Destroyed: <strong style="color: #ef4444;">${p.destroyedCount}</strong> &bull; Criticality: <strong>${((p.criticalityScore || 0) * 100).toFixed(0)}%</strong>
-              </div>
-            </div>
-          `, { sticky: true, direction: 'center' });
 
           // High-visibility, prominent, non-colliding Centroid Badge Marker
           if (layer.getBounds && layer.getBounds().isValid()) {
@@ -1141,6 +816,7 @@ function DisasterMap() {
       });
 
       const dmgLayer = L.geoJSON({ type: 'FeatureCollection', features: processedFeatures }, {
+        pane: 'buildingsPane',
         pointToLayer: (feat, latlng) => {
           const dClass = feat.properties?.damageClass || 'no-damage';
           const col = DAMAGE_COLORS[dClass] || '#94a3b8';
@@ -1148,6 +824,7 @@ function DisasterMap() {
           const cIds = selectedZone ? (selectedZone.constituentBuildingIds || selectedZone.constituent_building_ids || []) : [];
           const isConstituent = selectedZone && cIds.includes(bId);
           return L.circleMarker(latlng, {
+            pane: 'buildingsPane',
             radius: isConstituent ? 11 : 8,
             color: isConstituent ? '#ffffff' : (DAMAGE_BORDER_COLORS[dClass] || '#0f172a'),
             weight: isConstituent ? 3.5 : 2.2,
@@ -1163,6 +840,7 @@ function DisasterMap() {
           const cIds = selectedZone ? (selectedZone.constituentBuildingIds || selectedZone.constituent_building_ids || []) : [];
           const isConstituent = selectedZone && cIds.includes(bId);
           return {
+            pane: 'buildingsPane',
             color: isConstituent ? '#ffffff' : strokeCol,
             weight: isConstituent ? 3.5 : 2.2,
             fillColor: col,
@@ -1193,7 +871,10 @@ function DisasterMap() {
             mouseout: (e) => {
               if (dmgLayer.resetStyle) dmgLayer.resetStyle(e.target);
             },
-            click: () => {
+            click: (e) => {
+              if (e?.originalEvent) {
+                L.DomEvent.stopPropagation(e);
+              }
               const priMatch = rawDataRef.current.priorities?.features?.find(f => f.properties?.building_id === bId || f.properties?.id === bId);
               setSelectedBuilding({
                 ...p,
@@ -1206,7 +887,7 @@ function DisasterMap() {
 
           // Interactive HUD Tooltip on Hover
           layer.bindTooltip(`
-            <div style="font-family: Inter, -apple-system, sans-serif; font-size: 11px; padding: 4px 7px; border-radius: 5px; box-shadow: 0 4px 14px rgba(0,0,0,0.4); background: ${isDark ? 'rgba(15,23,42,0.95)' : '#ffffff'}; color: ${isDark ? '#f8fafc' : '#0f172a'};">
+            <div style="font-family: Inter, -apple-system, sans-serif; font-size: 11px; padding: 4px 7px; border-radius: 5px; box-shadow: 0 4px 14px rgba(0,0,0,0.4); background: ${isDark ? 'rgba(15,23,42,0.95)' : '#ffffff'}; color: ${isDark ? '#f8fafc' : '#0f172a'}; pointer-events: none;">
               <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 3px;">
                 <strong style="font-size: 11px;">Structure #${bId}</strong>
                 <span style="background: ${DAMAGE_COLORS[dClass]}; color: #ffffff; padding: 1px 5px; border-radius: 3px; font-weight: 800; font-size: 9px; text-transform: uppercase;">
@@ -1217,7 +898,7 @@ function DisasterMap() {
                 Confidence: <strong>${conf}%</strong> &bull; Footprint: <strong>${areaM2} m²</strong>
               </div>
             </div>
-          `, { sticky: true, direction: 'top', offset: [0, -8] });
+          `, { sticky: false, direction: 'top', offset: [0, -10] });
 
           const evidenceLabel = isChamoli 
             ? 'Verified Reference Footprint (EIDC)'
@@ -1270,6 +951,7 @@ function DisasterMap() {
       });
 
       const priLayer = L.geoJSON({ type: 'FeatureCollection', features: processedPriFeatures }, {
+        pane: 'buildingsPane',
         pointToLayer: (feat, latlng) => {
           const lvl = feat.properties?.priority_level || 'LOW';
           const col = PRIORITY_COLORS[lvl] || '#059669';
@@ -1277,6 +959,7 @@ function DisasterMap() {
           const cIds = selectedZone ? (selectedZone.constituentBuildingIds || selectedZone.constituent_building_ids || []) : [];
           const isConstituent = selectedZone && cIds.includes(bId);
           return L.circleMarker(latlng, {
+            pane: 'buildingsPane',
             radius: isConstituent ? 11 : 8.5,
             color: isConstituent ? '#ffffff' : '#0f172a',
             weight: isConstituent ? 3.5 : 2.2,
@@ -1291,6 +974,7 @@ function DisasterMap() {
           const cIds = selectedZone ? (selectedZone.constituentBuildingIds || selectedZone.constituent_building_ids || []) : [];
           const isConstituent = selectedZone && cIds.includes(bId);
           return {
+            pane: 'buildingsPane',
             color: isConstituent ? '#ffffff' : '#0f172a',
             weight: isConstituent ? 3.5 : 2.2,
             fillColor: col,
@@ -1320,7 +1004,10 @@ function DisasterMap() {
             mouseout: (e) => {
               if (priLayer.resetStyle) priLayer.resetStyle(e.target);
             },
-            click: () => {
+            click: (e) => {
+              if (e?.originalEvent) {
+                L.DomEvent.stopPropagation(e);
+              }
               const dmgMatch = rawDataRef.current.damages?.features?.find(f => f.properties?.buildingId === bId || f.properties?.id === bId);
               setSelectedBuilding({
                 ...p,
@@ -1334,7 +1021,7 @@ function DisasterMap() {
 
           // Interactive HUD Tooltip on Hover
           layer.bindTooltip(`
-            <div style="font-family: Inter, -apple-system, sans-serif; font-size: 11px; padding: 4px 7px; border-radius: 5px; box-shadow: 0 4px 14px rgba(0,0,0,0.4); background: ${isDark ? 'rgba(15,23,42,0.95)' : '#ffffff'}; color: ${isDark ? '#f8fafc' : '#0f172a'};">
+            <div style="font-family: Inter, -apple-system, sans-serif; font-size: 11px; padding: 4px 7px; border-radius: 5px; box-shadow: 0 4px 14px rgba(0,0,0,0.4); background: ${isDark ? 'rgba(15,23,42,0.95)' : '#ffffff'}; color: ${isDark ? '#f8fafc' : '#0f172a'}; pointer-events: none;">
               <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 2px;">
                 <strong style="font-size: 11px;">Target #${bId}</strong>
                 <span style="background: ${PRIORITY_COLORS[lvl]}; color: #ffffff; padding: 1px 5px; border-radius: 3px; font-weight: 800; font-size: 9px; text-transform: uppercase;">
@@ -1345,7 +1032,7 @@ function DisasterMap() {
                 Multi-Factor Triage &bull; Action Required
               </div>
             </div>
-          `, { sticky: true, direction: 'top', offset: [0, -8] });
+          `, { sticky: false, direction: 'top', offset: [0, -10] });
 
           layer.bindPopup(`
             <div style="font-family: -apple-system, BlinkMacSystemFont, sans-serif; font-size: 12px; min-width: 200px;">
@@ -1368,6 +1055,8 @@ function DisasterMap() {
     // D. Ground Truth Footprints Layer
     if (layers.buildings && rawDataRef.current.buildings?.features) {
       const bldgLayer = L.geoJSON(rawDataRef.current.buildings, {
+        pane: 'zonesPane',
+        interactive: false,
         style: () => ({
           color: '#0284c7',
           weight: 1.5,
@@ -1476,8 +1165,10 @@ function DisasterMap() {
         const isExtreme = alert.severity === 'Extreme';
         const alertCol = isExtreme ? '#ef4444' : '#f59e0b';
 
-        // 1. Red/Amber alert polygon with glowing dashed border
+        // 1. Red/Amber alert polygon with glowing dashed border in zonesPane (background)
         const aLayer = L.geoJSON(alert.geometry, {
+          pane: 'zonesPane',
+          interactive: false,
           style: {
             color: alertCol,
             weight: 3.5,
