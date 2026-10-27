@@ -1,0 +1,29 @@
+{
+  "event_id": "sikkim_glacial_flood_2023",
+  "event_name": "South Lhonak Glacial Lake Outburst Flood (GLOF) 2023",
+  "hazard_type": "Glacial Lake Outburst Flood (GLOF)",
+  "country": "India",
+  "state": "Sikkim",
+  "district": "North Sikkim & Pakyong",
+  "latitude_range": [
+    27.5,
+    27.8
+  ],
+  "longitude_range": [
+    88.5,
+    88.75
+  ],
+  "event_date": "2023-10-04",
+  "pre_image_date": "2023-09-28",
+  "post_image_date": "2023-10-06",
+  "sensor": "Sentinel-1 SAR / Sentinel-2 MSI / Cartosat-2",
+  "resolution": "10m - 20m",
+  "data_source": "ISRO NRSC GLOF Assessment / Copernicus Data Space",
+  "licence": "ISRO Open Data / Copernicus Open Access",
+  "label_quality": "WEAK",
+  "annotation_method": "Chungthang dam failure corridor and Teesta river valley scour extent",
+  "number_of_buildings": 890,
+  "number_of_damage_labels": 140,
+  "number_of_weak_labels": 750,
+  "notes": "Chungthang hydro dam collapse, scouring of riverbank settlements and highway NH-10 washouts."
+}

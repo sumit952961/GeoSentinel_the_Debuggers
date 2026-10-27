@@ -1,0 +1,406 @@
+{
+  "exp0_xbd_baseline_pre_post": {
+    "checkpoint": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\ai-service\\models\\unet_resnet34_pre_post.pth",
+    "mode": "pre_post",
+    "num_tiles_evaluated": 24,
+    "mean_latency_ms": 573.85,
+    "metrics": {
+      "pixel_accuracy": 0.164,
+      "balanced_accuracy": 0.2606,
+      "macro_f1": 0.0951,
+      "weighted_f1": 0.2802,
+      "building_iou": 0.0054,
+      "building_dice": 0.0108,
+      "per_class": {
+        "background": {
+          "f1": 0.2813,
+          "precision": 1.0,
+          "recall": 0.1637
+        },
+        "no-damage": {
+          "f1": 0.1915,
+          "precision": 0.1139,
+          "recall": 0.6012
+        },
+        "minor-damage": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0
+        },
+        "major-damage": {
+          "f1": 0.0005,
+          "precision": 0.0003,
+          "recall": 0.0648
+        },
+        "destroyed": {
+          "f1": 0.0024,
+          "precision": 0.0012,
+          "recall": 0.4735
+        }
+      },
+      "confusion_matrix": [
+        [
+          64069,
+          950,
+          18972,
+          188711,
+          118733
+        ],
+        [
+          0,
+          208,
+          0,
+          30,
+          108
+        ],
+        [
+          1,
+          227,
+          0,
+          35,
+          129
+        ],
+        [
+          0,
+          324,
+          1,
+          48,
+          368
+        ],
+        [
+          0,
+          117,
+          1,
+          41,
+          143
+        ]
+      ],
+      "classes": [
+        "background",
+        "no-damage",
+        "minor-damage",
+        "major-damage",
+        "destroyed"
+      ]
+    },
+    "by_event": {
+      "chamoli_2021": {
+        "num_tiles": 8,
+        "pixel_accuracy": 0.1796,
+        "balanced_accuracy": 0.264,
+        "macro_f1": 0.1061,
+        "weighted_f1": 0.3031
+      },
+      "fani_2019": {
+        "num_tiles": 10,
+        "pixel_accuracy": 0.145,
+        "balanced_accuracy": 0.264,
+        "macro_f1": 0.0858,
+        "weighted_f1": 0.2516
+      },
+      "dharali_2025": {
+        "num_tiles": 6,
+        "pixel_accuracy": 0.1746,
+        "balanced_accuracy": 0.2751,
+        "macro_f1": 0.1021,
+        "weighted_f1": 0.2961
+      }
+    }
+  },
+  "exp1_india_tuned_v1": {
+    "checkpoint": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\models\\india_v1\\best_model.pth",
+    "mode": "pre_post",
+    "num_tiles_evaluated": 24,
+    "mean_latency_ms": 628.73,
+    "metrics": {
+      "pixel_accuracy": 0.1483,
+      "balanced_accuracy": 0.2638,
+      "macro_f1": 0.0912,
+      "weighted_f1": 0.2567,
+      "building_iou": 0.0053,
+      "building_dice": 0.0106,
+      "per_class": {
+        "background": {
+          "f1": 0.2577,
+          "precision": 1.0,
+          "recall": 0.1479
+        },
+        "no-damage": {
+          "f1": 0.1954,
+          "precision": 0.1176,
+          "recall": 0.578
+        },
+        "minor-damage": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0
+        },
+        "major-damage": {
+          "f1": 0.0006,
+          "precision": 0.0003,
+          "recall": 0.0796
+        },
+        "destroyed": {
+          "f1": 0.0026,
+          "precision": 0.0013,
+          "recall": 0.5132
+        }
+      },
+      "confusion_matrix": [
+        [
+          57884,
+          888,
+          7241,
+          206783,
+          118639
+        ],
+        [
+          0,
+          200,
+          0,
+          29,
+          117
+        ],
+        [
+          0,
+          220,
+          0,
+          38,
+          134
+        ],
+        [
+          0,
+          285,
+          2,
+          59,
+          395
+        ],
+        [
+          0,
+          108,
+          0,
+          39,
+          155
+        ]
+      ],
+      "classes": [
+        "background",
+        "no-damage",
+        "minor-damage",
+        "major-damage",
+        "destroyed"
+      ]
+    },
+    "by_event": {
+      "chamoli_2021": {
+        "num_tiles": 8,
+        "pixel_accuracy": 0.1899,
+        "balanced_accuracy": 0.2644,
+        "macro_f1": 0.1074,
+        "weighted_f1": 0.3177
+      },
+      "fani_2019": {
+        "num_tiles": 10,
+        "pixel_accuracy": 0.089,
+        "balanced_accuracy": 0.2605,
+        "macro_f1": 0.0687,
+        "weighted_f1": 0.1617
+      },
+      "dharali_2025": {
+        "num_tiles": 6,
+        "pixel_accuracy": 0.1914,
+        "balanced_accuracy": 0.2892,
+        "macro_f1": 0.112,
+        "weighted_f1": 0.32
+      }
+    }
+  },
+  "exp2_india_tuned_v2": {
+    "checkpoint": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\models\\india_v2\\best_model.pth",
+    "mode": "pre_post",
+    "num_tiles_evaluated": 24,
+    "mean_latency_ms": 781.76,
+    "metrics": {
+      "pixel_accuracy": 0.1995,
+      "balanced_accuracy": 0.2618,
+      "macro_f1": 0.0834,
+      "weighted_f1": 0.3308,
+      "building_iou": 0.0056,
+      "building_dice": 0.0112,
+      "per_class": {
+        "background": {
+          "f1": 0.3322,
+          "precision": 1.0,
+          "recall": 0.1992
+        },
+        "no-damage": {
+          "f1": 0.0807,
+          "precision": 0.0437,
+          "recall": 0.5231
+        },
+        "minor-damage": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0
+        },
+        "major-damage": {
+          "f1": 0.0018,
+          "precision": 0.0009,
+          "recall": 0.2456
+        },
+        "destroyed": {
+          "f1": 0.002,
+          "precision": 0.001,
+          "recall": 0.3411
+        }
+      },
+      "confusion_matrix": [
+        [
+          77967,
+          3399,
+          13604,
+          196183,
+          100282
+        ],
+        [
+          0,
+          181,
+          1,
+          68,
+          96
+        ],
+        [
+          1,
+          172,
+          0,
+          89,
+          130
+        ],
+        [
+          0,
+          279,
+          4,
+          182,
+          276
+        ],
+        [
+          0,
+          108,
+          1,
+          90,
+          103
+        ]
+      ],
+      "classes": [
+        "background",
+        "no-damage",
+        "minor-damage",
+        "major-damage",
+        "destroyed"
+      ]
+    },
+    "by_event": {
+      "chamoli_2021": {
+        "num_tiles": 8,
+        "pixel_accuracy": 0.2146,
+        "balanced_accuracy": 0.2712,
+        "macro_f1": 0.0815,
+        "weighted_f1": 0.3518
+      },
+      "fani_2019": {
+        "num_tiles": 10,
+        "pixel_accuracy": 0.1754,
+        "balanced_accuracy": 0.2599,
+        "macro_f1": 0.0846,
+        "weighted_f1": 0.2964
+      },
+      "dharali_2025": {
+        "num_tiles": 6,
+        "pixel_accuracy": 0.2194,
+        "balanced_accuracy": 0.2813,
+        "macro_f1": 0.0873,
+        "weighted_f1": 0.3582
+      }
+    }
+  },
+  "stage1_building_localization": {
+    "checkpoint": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\ai-service\\models\\stage1_building_loc_best.pth",
+    "mean_latency_ms": 762.67,
+    "metrics": {
+      "pixel_accuracy": 0.9971,
+      "balanced_accuracy": 0.9706,
+      "building_iou": 0.5925,
+      "building_dice": 0.7441,
+      "building_precision": 0.6142,
+      "building_recall": 0.9439,
+      "building_f1": 0.7441
+    }
+  },
+  "stage2_damage_classification": {
+    "checkpoint": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\ai-service\\models\\stage2_damage_clf_best.pth",
+    "total_crops_evaluated": 1044,
+    "mean_crop_latency_ms": 31.82,
+    "metrics": {
+      "overall_accuracy": 0.5556,
+      "balanced_accuracy": 0.6006,
+      "macro_f1": 0.5624,
+      "weighted_f1": 0.5513,
+      "confusion_matrix": {
+        "classes": [
+          "no-damage",
+          "minor-damage",
+          "major-damage",
+          "destroyed"
+        ],
+        "matrix": [
+          [
+            161,
+            52,
+            106,
+            73
+          ],
+          [
+            59,
+            129,
+            14,
+            22
+          ],
+          [
+            55,
+            17,
+            187,
+            38
+          ],
+          [
+            18,
+            5,
+            5,
+            103
+          ]
+        ]
+      },
+      "per_class": {
+        "no-damage": {
+          "f1": 0.4701,
+          "precision": 0.5495,
+          "recall": 0.4107
+        },
+        "minor-damage": {
+          "f1": 0.6042,
+          "precision": 0.6355,
+          "recall": 0.5759
+        },
+        "major-damage": {
+          "f1": 0.6141,
+          "precision": 0.5994,
+          "recall": 0.6296
+        },
+        "destroyed": {
+          "f1": 0.5613,
+          "precision": 0.4364,
+          "recall": 0.7863
+        }
+      }
+    }
+  }
+}

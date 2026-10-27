@@ -1,0 +1,29 @@
+{
+  "event_id": "chamoli_2021",
+  "event_name": "Chamoli Flash Flood / Ice-Debris Flow 2021",
+  "hazard_type": "Flash Flood / Avalanche",
+  "country": "India",
+  "state": "Uttarakhand",
+  "district": "Chamoli",
+  "latitude_range": [
+    30.45,
+    30.6
+  ],
+  "longitude_range": [
+    79.65,
+    79.8
+  ],
+  "event_date": "2021-02-07",
+  "pre_image_date": "2021-01-28",
+  "post_image_date": "2021-02-10",
+  "sensor": "Sentinel-2 L2A (10m) / Pleiades (0.5m)",
+  "resolution": "0.5m vector / 10m optical",
+  "data_source": "NERC EIDC Westoby et al. (2023) / ESA Copernicus",
+  "licence": "Open Government Licence v3.0 / Copernicus Open Access",
+  "label_quality": "EXACT",
+  "annotation_method": "Field survey & high-resolution photo-interpretation",
+  "number_of_buildings": 6455,
+  "number_of_damage_labels": 6421,
+  "number_of_weak_labels": 34,
+  "notes": "Verified native binary grading (Condition 1: Intact, Condition 2: Obstructed/Damaged, Condition 0: Washed Out)."
+}

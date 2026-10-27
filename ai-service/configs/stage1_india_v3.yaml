@@ -1,0 +1,38 @@
+# ============================================================
+# DRAS Model V3 — Stage 1 Building Localisation Configuration
+# ============================================================
+model:
+  architecture: "U-Net++"
+  encoder: "timm-efficientnet-b2"
+  in_channels: 6
+  classes: 1
+  activation: null
+  pretrained: true
+
+dataset:
+  name: "DRAS India Disaster Dataset V3"
+  manifest_path: "data/india/india_v3_manifest.csv"
+  image_size: [512, 512]
+  augmentations:
+    horizontal_flip: 0.5
+    vertical_flip: 0.5
+    random_rotate90: 0.5
+    brightness_contrast: 0.3
+
+training:
+  epochs: 50
+  batch_size: 8
+  learning_rate: 0.0003
+  weight_decay: 0.0001
+  optimizer: "AdamW"
+  lr_scheduler: "CosineAnnealingLR"
+  min_lr: 0.000001
+  loss: "CombinedBCEAndDiceLoss"
+  loss_weights:
+    bce: 0.5
+    dice: 0.5
+  mixed_precision: true
+  gradient_accumulation_steps: 2
+  early_stopping_patience: 10
+  checkpoint_dir: "models/india_v3/stage1"
+  save_best_only: false

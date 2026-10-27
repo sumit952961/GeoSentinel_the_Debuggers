@@ -1,0 +1,18 @@
+{
+  "stage1": [
+    {
+      "epoch": 1,
+      "stage1_loss": 0.6813
+    }
+  ],
+  "stage2": [
+    {
+      "epoch": 1,
+      "stage2_loss": 1.2497
+    },
+    {
+      "epoch": 2,
+      "stage2_loss": 0.5382
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.7,
+          30.5
+        ]
+      },
+      "properties": {
+        "building_id": 2,
+        "predicted_class": "sample",
+        "confidence": 0.6,
+        "priority_score": 1.1958,
+        "entropy": 0.9794,
+        "review_status": "PENDING"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.7,
+          30.5
+        ]
+      },
+      "properties": {
+        "building_id": 3,
+        "predicted_class": "sample",
+        "confidence": 0.6,
+        "priority_score": 1.1581,
+        "entropy": 0.9008,
+        "review_status": "PENDING"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.7,
+          30.5
+        ]
+      },
+      "properties": {
+        "building_id": 1,
+        "predicted_class": "sample",
+        "confidence": 0.6,
+        "priority_score": 0.2966,
+        "entropy": 0.3981,
+        "review_status": "PENDING"
+      }
+    }
+  ],
+  "metadata": {
+    "source": "DRAS Active Learning Uncertainty Engine",
+    "total_features": 3
+  }
+}

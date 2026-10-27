@@ -1,0 +1,10 @@
+[
+  {
+    "benchmark": "completed",
+    "evaluated_models": [
+      "siamese_resnet18",
+      "siamese_resnet50",
+      "siamese_efficientnet_b0"
+    ]
+  }
+]

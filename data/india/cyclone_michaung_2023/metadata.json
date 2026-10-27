@@ -1,0 +1,29 @@
+{
+  "event_id": "cyclone_michaung_2023",
+  "event_name": "Cyclone Michaung Urban Deluge 2023",
+  "hazard_type": "Tropical Cyclone & Urban Inundation",
+  "country": "India",
+  "state": "Tamil Nadu",
+  "district": "Chennai, Tiruvallur & Kanchipuram",
+  "latitude_range": [
+    12.95,
+    13.2
+  ],
+  "longitude_range": [
+    80.1,
+    80.3
+  ],
+  "event_date": "2023-12-04",
+  "pre_image_date": "2023-11-25",
+  "post_image_date": "2023-12-07",
+  "sensor": "Sentinel-1 SAR / Sentinel-2 MSI",
+  "resolution": "10m",
+  "data_source": "TNDMA / GCC / Copernicus Data Space",
+  "licence": "Open Access",
+  "label_quality": "WEAK",
+  "annotation_method": "Waterlogging extent extraction from SAR backscatter drop",
+  "number_of_buildings": 7200,
+  "number_of_damage_labels": 0,
+  "number_of_weak_labels": 7200,
+  "notes": "Severe urban water stagnation across Velachery, Tambaram and Pallikaranai wetland catchments."
+}

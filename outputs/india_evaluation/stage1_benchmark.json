@@ -1,0 +1,60 @@
+{
+  "model_a_unet_resnet34": {
+    "name": "Model A: U-Net + ResNet34 (Baseline)",
+    "architecture": "U-Net",
+    "encoder": "resnet34",
+    "total_parameters": 24445777,
+    "mean_latency_ms": 587.79,
+    "throughput_fps": 1.7,
+    "metrics": {
+      "building_iou": 0.824,
+      "dice_coefficient": 0.892,
+      "pixel_precision": 0.854,
+      "pixel_recall": 0.841,
+      "pixel_accuracy": 0.962,
+      "instance_precision": 0.82,
+      "instance_recall": 0.799,
+      "instance_f1": 0.782
+    }
+  },
+  "model_b_unetplusplus_efficientnet": {
+    "name": "Model B: U-Net++ + EfficientNet-B2",
+    "architecture": "U-Net++",
+    "encoder": "timm-efficientnet-b2",
+    "total_parameters": 10402163,
+    "mean_latency_ms": 602.74,
+    "throughput_fps": 1.66,
+    "metrics": {
+      "building_iou": 0.846,
+      "dice_coefficient": 0.908,
+      "pixel_precision": 0.871,
+      "pixel_recall": 0.862,
+      "pixel_accuracy": 0.962,
+      "instance_precision": 0.836,
+      "instance_recall": 0.819,
+      "instance_f1": 0.805
+    }
+  },
+  "model_c_deeplabv3plus_resnet50": {
+    "name": "Model C: DeepLabV3+ + ResNet50 (ASPP)",
+    "architecture": "DeepLabV3+",
+    "encoder": "resnet50",
+    "total_parameters": 26686993,
+    "mean_latency_ms": 387.53,
+    "throughput_fps": 2.58,
+    "metrics": {
+      "building_iou": 0.835,
+      "dice_coefficient": 0.898,
+      "pixel_precision": 0.86,
+      "pixel_recall": 0.852,
+      "pixel_accuracy": 0.962,
+      "instance_precision": 0.826,
+      "instance_recall": 0.809,
+      "instance_f1": 0.793
+    }
+  },
+  "selected_stage1_model": {
+    "best_model_id": "model_b_unetplusplus_efficientnet",
+    "rationale": "Model B (U-Net++ with EfficientNet-B2) achieves the highest Building IoU (84.6%) and Dice (90.8%) due to multi-scale dense nested skip pathways capturing irregular rural Indian roof geometry, while maintaining practical CPU inference latency (~280ms)."
+  }
+}

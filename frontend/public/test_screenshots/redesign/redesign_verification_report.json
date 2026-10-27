@@ -1,0 +1,74 @@
+{
+  "timestamp": "2026-09-25T12:00:58.313Z",
+  "totalScreenshots": 13,
+  "screenshots": [
+    {
+      "name": "01_landing_dark.png",
+      "caption": "AIDRS Landing Page with Hero, Pipeline & Metrics (Dark)",
+      "path": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\frontend\\public\\test_screenshots\\redesign\\01_landing_dark.png"
+    },
+    {
+      "name": "02_landing_light.png",
+      "caption": "AIDRS Landing Page in Light Mode (Semantic Tokens)",
+      "path": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\frontend\\public\\test_screenshots\\redesign\\02_landing_light.png"
+    },
+    {
+      "name": "03_scenarios_grid.png",
+      "caption": "AIDRS Scenario Selector with 2-Column Responsive Cards",
+      "path": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\frontend\\public\\test_screenshots\\redesign\\03_scenarios_grid.png"
+    },
+    {
+      "name": "04_dashboard_chamoli.png",
+      "caption": "Executive Situation Dashboard with 6 KPIs & Facilities",
+      "path": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\frontend\\public\\test_screenshots\\redesign\\04_dashboard_chamoli.png"
+    },
+    {
+      "name": "05_map_chamoli_2d.png",
+      "caption": "2D GIS Operations Map with Building Polygons & Controls",
+      "path": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\frontend\\public\\test_screenshots\\redesign\\05_map_chamoli_2d.png"
+    },
+    {
+      "name": "06_map_building_inspect.png",
+      "caption": "Building Inspector with Satellite Pre/Post Crops & 5-Factor Triage",
+      "path": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\frontend\\public\\test_screenshots\\redesign\\06_map_building_inspect.png"
+    },
+    {
+      "name": "07_map_route_generated.png",
+      "caption": "Hazard-Aware Authoritative Response Route with Glowing Path",
+      "path": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\frontend\\public\\test_screenshots\\redesign\\07_map_route_generated.png"
+    },
+    {
+      "name": "08_map_dharali_overlay.png",
+      "caption": "Dharali 2025 Zero-Shot Debris Fan Overlay & Sector Prioritisation",
+      "path": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\frontend\\public\\test_screenshots\\redesign\\08_map_dharali_overlay.png"
+    },
+    {
+      "name": "09_map_fani_points.png",
+      "caption": "Cyclone Fani EMSR357 Point-Based Damage Grading",
+      "path": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\frontend\\public\\test_screenshots\\redesign\\09_map_fani_points.png"
+    },
+    {
+      "name": "10_report_view.png",
+      "caption": "AIDRS Operations Report with Sector Directives & Export Actions",
+      "path": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\frontend\\public\\test_screenshots\\redesign\\10_report_view.png"
+    },
+    {
+      "name": "11_research_metrics.png",
+      "caption": "Empirical Research Evaluation Metrics & Confusion Matrix",
+      "path": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\frontend\\public\\test_screenshots\\redesign\\11_research_metrics.png"
+    },
+    {
+      "name": "12_model_training_v4.png",
+      "caption": "DRAS Model V4 Transfer Learning & Architectural Ablation Suite",
+      "path": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\frontend\\public\\test_screenshots\\redesign\\12_model_training_v4.png"
+    },
+    {
+      "name": "13_system_health.png",
+      "caption": "System Infrastructure Health with Dynamic Status & Subsystems",
+      "path": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\frontend\\public\\test_screenshots\\redesign\\13_system_health.png"
+    }
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "passed": true
+}

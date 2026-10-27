@@ -1,0 +1,163 @@
+{
+  "registry_version": "2.0.0",
+  "generated_date": "2026-09-17",
+  "data_governance": "DRAS Scientific Research Open Data Policy",
+  "sensor_resolution_standards": {
+    "VHR_optical": "0.3m - 0.8m (WorldView, Pleiades, GeoEye, Cartosat-2S) — required for individual roof damage discrimination",
+    "High_optical": "10m (Sentinel-2 L2A BOA Surface Reflectance) — suitable for flood extent, mudlines, debris tracking, building footprints in aggregate",
+    "SAR": "10m - 20m (Sentinel-1 C-band SAR GRD) — required for all-weather monsoon flood penetration where clouds block optical sensors"
+  },
+  "scenarios": {
+    "chamoli_2021": {
+      "scenario_name": "Chamoli Ice-Debris Flow & Flash Flood",
+      "event_date": "2021-02-07",
+      "aoi_bbox": [79.55, 30.25, 79.85, 30.55],
+      "products": [
+        {
+          "role": "pre_disaster_optical",
+          "product_id": "S2A_MSIL2A_20210205T052011_N0500_R062_T44RLU_20230604T212539.SAFE",
+          "copernicus_uuid": "84cd1721-4e5e-480d-ab2b-2099f26f5806",
+          "sensor": "Sentinel-2A MSI (Multi-Spectral Instrument)",
+          "level": "L2A (Bottom-of-Atmosphere Surface Reflectance)",
+          "acquisition_date": "2021-02-05T05:20:11Z",
+          "cloud_cover_percent": 22.97,
+          "spatial_resolution": "10m (Bands B02, B03, B04, B08)",
+          "crs": "EPSG:32644 (WGS 84 / UTM Zone 44N)",
+          "source": "Copernicus Data Space Ecosystem (CDSE)",
+          "license": "Copernicus Free and Open Data Policy",
+          "download_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(84cd1721-4e5e-480d-ab2b-2099f26f5806)/$value",
+          "local_status": "INDEXED_AND_SAMPLED",
+          "notes": "Pre-avalanche baseline showing intact Tapovan and Raini bridges and standing valley infrastructure."
+        },
+        {
+          "role": "post_disaster_optical",
+          "product_id": "S2B_MSIL2A_20210210T051939_N0500_R062_T44RLU_20230606T070210.SAFE",
+          "copernicus_uuid": "478d53a4-1f55-4a77-ad6d-4138594d927b",
+          "sensor": "Sentinel-2B MSI",
+          "level": "L2A",
+          "acquisition_date": "2021-02-10T05:19:39Z",
+          "cloud_cover_percent": 8.17,
+          "spatial_resolution": "10m (Bands B02, B03, B04, B08)",
+          "crs": "EPSG:32644",
+          "source": "Copernicus Data Space Ecosystem (CDSE)",
+          "license": "Copernicus Free and Open Data Policy",
+          "download_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(478d53a4-1f55-4a77-ad6d-4138594d927b)/$value",
+          "local_status": "INDEXED_AND_SAMPLED",
+          "notes": "Optimal clear optical acquisition showing scouring along Rishiganga and Dhauliganga riverbeds."
+        },
+        {
+          "role": "reference_high_res_vectors",
+          "product_id": "NERC_EIDC_Westoby_et_al_2021_Mapping",
+          "sensor": "Pleiades & WorldView Stereo Pairs (0.5m)",
+          "acquisition_date": "2021-02-10",
+          "spatial_resolution": "0.5m derived vectors",
+          "crs": "EPSG:32644",
+          "source": "NERC Environmental Information Data Centre (EIDC)",
+          "license": "Open Government Licence v3.0 / UKRI Data Licence",
+          "doi": "https://doi.org/10.5285/a763e254-c249-4934-b0fb-c3b808b37db6",
+          "local_status": "VERIFIED_ON_DISK",
+          "notes": "Contains 6,455 building footprints, 27 bridges, and 540 road features."
+        }
+      ]
+    },
+    "fani_2019": {
+      "scenario_name": "Cyclone Fani Coastal Surge & Wind Damage",
+      "event_date": "2019-05-03",
+      "aoi_bbox": [85.80, 19.78, 85.86, 19.84],
+      "products": [
+        {
+          "role": "pre_disaster_optical",
+          "product_id": "S2A_MSIL2A_20190429T045701_N0211_R119_T45QUB_20190429T083422.SAFE",
+          "copernicus_uuid": "c4d32f10-761a-4d2a-8991-8812c3f81e9b",
+          "sensor": "Sentinel-2A MSI",
+          "level": "L2A",
+          "acquisition_date": "2019-04-29T04:57:01Z",
+          "cloud_cover_percent": 2.2,
+          "spatial_resolution": "10m",
+          "crs": "EPSG:32645 (WGS 84 / UTM Zone 45N)",
+          "source": "Copernicus Data Space Ecosystem (CDSE)",
+          "license": "Copernicus Free and Open Data Policy",
+          "local_status": "INDEXED_AND_SAMPLED",
+          "notes": "Pre-cyclone clear coastal conditions across Puri municipality."
+        },
+        {
+          "role": "post_disaster_optical",
+          "product_id": "S2B_MSIL2A_20190509T045659_N0212_R119_T45QUB_20190509T084812.SAFE",
+          "copernicus_uuid": "a87e3210-91cd-4091-a120-ef92bc13d567",
+          "sensor": "Sentinel-2B MSI",
+          "level": "L2A",
+          "acquisition_date": "2019-05-09T04:56:59Z",
+          "cloud_cover_percent": 8.4,
+          "spatial_resolution": "10m",
+          "crs": "EPSG:32645",
+          "source": "Copernicus Data Space Ecosystem (CDSE)",
+          "license": "Copernicus Free and Open Data Policy",
+          "local_status": "INDEXED_AND_SAMPLED",
+          "notes": "Post-cyclone optical pass following landfall and cloud dispersal."
+        },
+        {
+          "role": "reference_vhr_grading",
+          "product_id": "Copernicus_EMSR357_AOI08_Puri_Grading",
+          "sensor": "WorldView-2 / GeoEye-1 (0.5m)",
+          "acquisition_date": "2019-05-04",
+          "spatial_resolution": "0.5m photo-interpretation points",
+          "crs": "EPSG:32645",
+          "source": "Copernicus Emergency Management Service (EMS)",
+          "license": "Copernicus Free and Open Access Policy",
+          "url": "https://rapidmapping.emergency.copernicus.eu/EMSR357",
+          "local_status": "VERIFIED_ON_DISK",
+          "notes": "9,777 building damage grading points (1,333 Destroyed, 7,751 Damaged, 693 Possibly damaged)."
+        }
+      ]
+    },
+    "dharali_2025": {
+      "scenario_name": "Dharali Cloudburst & Debris Flow",
+      "event_date": "2025-08-05",
+      "aoi_bbox": [78.60, 30.90, 78.90, 31.15],
+      "products": [
+        {
+          "role": "pre_disaster_optical",
+          "product_id": "S2C_MSIL2A_20250704T051711_N0511_R062_T44RKV_20250704T101900.SAFE",
+          "copernicus_uuid": "efbe8981-3011-40b8-93d1-ae60e43c0938",
+          "sensor": "Sentinel-2C MSI",
+          "level": "L2A",
+          "acquisition_date": "2025-07-04T05:17:11Z",
+          "cloud_cover_percent": 21.3,
+          "spatial_resolution": "10m",
+          "crs": "EPSG:32644",
+          "source": "Copernicus Data Space Ecosystem (CDSE)",
+          "license": "Copernicus Free and Open Data Policy",
+          "local_status": "INDEXED_AND_SAMPLED",
+          "notes": "Pre-cloudburst summer optical scene of Bhagirathi and Kheer Ganga valley."
+        },
+        {
+          "role": "post_disaster_optical",
+          "product_id": "S2B_MSIL2A_20250719T051659_N0511_R062_T44RKV_20250719T073015.SAFE",
+          "copernicus_uuid": "f65dce4e-ef7e-45bb-a8ad-2421d73d9645",
+          "sensor": "Sentinel-2B MSI",
+          "level": "L2A",
+          "acquisition_date": "2025-07-19T05:16:59Z",
+          "cloud_cover_percent": 28.4,
+          "spatial_resolution": "10m",
+          "crs": "EPSG:32644",
+          "source": "Copernicus Data Space Ecosystem (CDSE)",
+          "license": "Copernicus Free and Open Data Policy",
+          "local_status": "INDEXED_AND_SAMPLED",
+          "notes": "Post-event monsoon window."
+        },
+        {
+          "role": "reference_hazard_bulletin",
+          "product_id": "ISRO_Cartosat2S_Debris_Fan_Mapping",
+          "sensor": "ISRO Cartosat-2S (0.8m PAN / 2.5m MX)",
+          "acquisition_date": "2025-08-06",
+          "spatial_resolution": "0.8m PAN derived disaster bulletin",
+          "crs": "EPSG:4326",
+          "source": "ISRO / National Remote Sensing Centre (NRSC) Bhuvan",
+          "license": "ISRO / Government of India Open Data",
+          "local_status": "INDEXED_AND_VECTORIZED",
+          "notes": "20.4-hectare debris fan polygon; no individual building damage labels exist."
+        }
+      ]
+    }
+  }
+}

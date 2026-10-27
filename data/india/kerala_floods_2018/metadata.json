@@ -1,0 +1,29 @@
+{
+  "event_id": "kerala_floods_2018",
+  "event_name": "Kerala Floods & Inundation 2018",
+  "hazard_type": "Monsoon Flood & Dam Release",
+  "country": "India",
+  "state": "Kerala",
+  "district": "Ernakulam, Thrissur & Alappuzha",
+  "latitude_range": [
+    9.9,
+    10.35
+  ],
+  "longitude_range": [
+    76.2,
+    76.55
+  ],
+  "event_date": "2018-08-16",
+  "pre_image_date": "2018-07-20",
+  "post_image_date": "2018-08-22",
+  "sensor": "Sentinel-1 C-band SAR / Sentinel-2 MSI",
+  "resolution": "10m",
+  "data_source": "Copernicus EMSR303 / NRSC Bhuvan Flood Inundation Portal",
+  "licence": "Copernicus Open Access / Open Government Data India",
+  "label_quality": "WEAK",
+  "annotation_method": "SAR water surface thresholding + Microsoft Building Footprint overlay",
+  "number_of_buildings": 8420,
+  "number_of_damage_labels": 0,
+  "number_of_weak_labels": 8420,
+  "notes": "Extensive low-lying water inundation; SAR backscatter attenuation captures submerged urban sectors."
+}

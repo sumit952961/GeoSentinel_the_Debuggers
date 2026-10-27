@@ -1,0 +1,120 @@
+{
+  "config": {
+    "model": {
+      "architecture": "unet",
+      "encoder": "resnet34",
+      "encoder_weights": "imagenet",
+      "mode": "pre_post",
+      "num_classes": 5,
+      "pretrained_weights": "ai-service/models/unet_resnet34_pre_post.pth"
+    },
+    "training": {
+      "epochs": 3,
+      "batch_size": 4,
+      "learning_rate": 5e-05,
+      "weight_decay": 0.0001,
+      "optimizer": "adamw",
+      "scheduler": "cosine",
+      "loss": "ce_dice",
+      "image_size": [
+        512,
+        512
+      ],
+      "augmentation": [
+        "horizontal_flip",
+        "vertical_flip",
+        "rotate_90"
+      ]
+    },
+    "data": {
+      "root_dir": "data/india",
+      "manifest": "data/india/india_manifest.csv",
+      "train_events": [
+        "chamoli_2021",
+        "fani_2019"
+      ],
+      "test_events": [
+        "dharali_2025"
+      ],
+      "val_fraction": 0.15,
+      "min_confidence": 0.3,
+      "experiments": {
+        "exp_chamoli_only": {
+          "train": [
+            "chamoli_2021"
+          ],
+          "test": [
+            "fani_2019",
+            "dharali_2025"
+          ],
+          "description": "Train on verified Chamoli avalanche flood labels only"
+        },
+        "exp_fani_only": {
+          "train": [
+            "fani_2019"
+          ],
+          "test": [
+            "chamoli_2021",
+            "dharali_2025"
+          ],
+          "description": "Train on Cyclone Fani Copernicus labels only"
+        },
+        "exp_cross_event": {
+          "train": [
+            "chamoli_2021",
+            "fani_2019"
+          ],
+          "test": [
+            "dharali_2025"
+          ],
+          "description": "Primary cross-event generalisation experiment"
+        }
+      }
+    },
+    "evaluation": {
+      "metrics": [
+        "iou",
+        "dice",
+        "precision",
+        "recall",
+        "macro_f1",
+        "weighted_f1",
+        "confusion_matrix"
+      ],
+      "comparison": {
+        "baseline_model": "ai-service/models/unet_resnet34_pre_post.pth",
+        "india_model": "models/india_v1/best_model.pth"
+      },
+      "per_class": true,
+      "cross_event": true
+    },
+    "output": {
+      "checkpoint_dir": "models/india_v1",
+      "results_dir": "outputs/india_evaluation",
+      "training_log": "outputs/india_evaluation/training_log.json",
+      "comparison_report": "outputs/india_evaluation/baseline_vs_india.json"
+    }
+  },
+  "train_loss": [
+    1.322649747133255,
+    1.2906384468078613,
+    1.259331852197647
+  ],
+  "val_loss": [
+    1.1300759315490723,
+    1.1209547519683838,
+    1.1006484031677246
+  ],
+  "val_miou": [
+    0.1009324250929395,
+    0.05752098227368184,
+    0.04352382630858724
+  ],
+  "val_building_miou": [
+    0.07559627539405224,
+    0.025943079051819022,
+    0.01324658431556163
+  ],
+  "best_epoch": 1,
+  "best_val_miou": 0.1009324250929395
+}

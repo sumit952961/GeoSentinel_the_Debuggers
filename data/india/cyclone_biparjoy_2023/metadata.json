@@ -1,0 +1,29 @@
+{
+  "event_id": "cyclone_biparjoy_2023",
+  "event_name": "Cyclone Biparjoy 2023",
+  "hazard_type": "Tropical Cyclone",
+  "country": "India",
+  "state": "Gujarat",
+  "district": "Kutch & Devbhumi Dwarka",
+  "latitude_range": [
+    22.8,
+    23.4
+  ],
+  "longitude_range": [
+    68.4,
+    69.5
+  ],
+  "event_date": "2023-06-15",
+  "pre_image_date": "2023-06-08",
+  "post_image_date": "2023-06-18",
+  "sensor": "Sentinel-2 MSI (10m) / Sentinel-1 SAR",
+  "resolution": "10m",
+  "data_source": "IMD / GSDMA / Copernicus Data Space",
+  "licence": "Open Government Data India / Copernicus Open Access",
+  "label_quality": "WEAK",
+  "annotation_method": "Coastal landfall wind corridor + OSM building intersection",
+  "number_of_buildings": 3100,
+  "number_of_damage_labels": 420,
+  "number_of_weak_labels": 2680,
+  "notes": "Jakhau port landfall; strong gale winds damaged rural sheet-roof structures and uprooted trees."
+}

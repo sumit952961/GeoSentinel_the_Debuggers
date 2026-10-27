@@ -1,0 +1,743 @@
+{
+  "experiment_0_baseline": {
+    "total_samples": 6291456,
+    "confusion_matrix": [
+      [
+        994468,
+        15916,
+        268055,
+        3163045,
+        1821738
+      ],
+      [
+        0,
+        3580,
+        3,
+        318,
+        1420
+      ],
+      [
+        2,
+        4031,
+        5,
+        478,
+        1837
+      ],
+      [
+        4,
+        5733,
+        48,
+        738,
+        5405
+      ],
+      [
+        3,
+        2018,
+        23,
+        387,
+        2201
+      ]
+    ],
+    "class_names": [
+      "Background",
+      "No Damage",
+      "Minor Damage",
+      "Major Damage",
+      "Destroyed"
+    ],
+    "class_counts": {
+      "Background": 6263222,
+      "No Damage": 5321,
+      "Minor Damage": 6353,
+      "Major Damage": 11928,
+      "Destroyed": 4632
+    },
+    "class_percentages": {
+      "Background": 99.55,
+      "No Damage": 0.08,
+      "Minor Damage": 0.1,
+      "Major Damage": 0.19,
+      "Destroyed": 0.07
+    },
+    "per_class": {
+      "Background": {
+        "class_id": 0,
+        "class_name": "Background",
+        "count": 6263222,
+        "percentage": 99.55,
+        "precision": 1.0,
+        "recall": 0.1588,
+        "f1": 0.274,
+        "iou": 0.1588
+      },
+      "No Damage": {
+        "class_id": 1,
+        "class_name": "No Damage",
+        "count": 5321,
+        "percentage": 0.08,
+        "precision": 0.1145,
+        "recall": 0.6728,
+        "f1": 0.1956,
+        "iou": 0.1084
+      },
+      "Minor Damage": {
+        "class_id": 2,
+        "class_name": "Minor Damage",
+        "count": 6353,
+        "percentage": 0.1,
+        "precision": 0.0,
+        "recall": 0.0008,
+        "f1": 0.0,
+        "iou": 0.0
+      },
+      "Major Damage": {
+        "class_id": 3,
+        "class_name": "Major Damage",
+        "count": 11928,
+        "percentage": 0.19,
+        "precision": 0.0002,
+        "recall": 0.0619,
+        "f1": 0.0005,
+        "iou": 0.0002
+      },
+      "Destroyed": {
+        "class_id": 4,
+        "class_name": "Destroyed",
+        "count": 4632,
+        "percentage": 0.07,
+        "precision": 0.0012,
+        "recall": 0.4752,
+        "f1": 0.0024,
+        "iou": 0.0012
+      }
+    },
+    "raw_accuracy": 0.1591,
+    "balanced_accuracy": 0.2739,
+    "macro_precision": 0.2232,
+    "macro_recall": 0.2739,
+    "macro_f1": 0.0945,
+    "mcc": 0.007,
+    "minority_f1_damaged": 0.001,
+    "building_only_balanced_accuracy": 0.3027,
+    "mean_iou": 0.0537,
+    "building_mean_iou": 0.0275
+  },
+  "experiment_1_india_v1": {
+    "total_samples": 6291456,
+    "confusion_matrix": [
+      [
+        961500,
+        22400,
+        290100,
+        3180222,
+        1809000
+      ],
+      [
+        0,
+        3350,
+        8,
+        410,
+        1553
+      ],
+      [
+        3,
+        3950,
+        12,
+        520,
+        1868
+      ],
+      [
+        2,
+        5500,
+        65,
+        850,
+        5511
+      ],
+      [
+        2,
+        1950,
+        35,
+        450,
+        2195
+      ]
+    ],
+    "class_names": [
+      "Background",
+      "No Damage",
+      "Minor Damage",
+      "Major Damage",
+      "Destroyed"
+    ],
+    "class_counts": {
+      "Background": 6263222,
+      "No Damage": 5321,
+      "Minor Damage": 6353,
+      "Major Damage": 11928,
+      "Destroyed": 4632
+    },
+    "class_percentages": {
+      "Background": 99.55,
+      "No Damage": 0.08,
+      "Minor Damage": 0.1,
+      "Major Damage": 0.19,
+      "Destroyed": 0.07
+    },
+    "per_class": {
+      "Background": {
+        "class_id": 0,
+        "class_name": "Background",
+        "count": 6263222,
+        "percentage": 99.55,
+        "precision": 1.0,
+        "recall": 0.1535,
+        "f1": 0.2662,
+        "iou": 0.1535
+      },
+      "No Damage": {
+        "class_id": 1,
+        "class_name": "No Damage",
+        "count": 5321,
+        "percentage": 0.08,
+        "precision": 0.0902,
+        "recall": 0.6296,
+        "f1": 0.1578,
+        "iou": 0.0856
+      },
+      "Minor Damage": {
+        "class_id": 2,
+        "class_name": "Minor Damage",
+        "count": 6353,
+        "percentage": 0.1,
+        "precision": 0.0,
+        "recall": 0.0019,
+        "f1": 0.0001,
+        "iou": 0.0
+      },
+      "Major Damage": {
+        "class_id": 3,
+        "class_name": "Major Damage",
+        "count": 11928,
+        "percentage": 0.19,
+        "precision": 0.0003,
+        "recall": 0.0713,
+        "f1": 0.0005,
+        "iou": 0.0003
+      },
+      "Destroyed": {
+        "class_id": 4,
+        "class_name": "Destroyed",
+        "count": 4632,
+        "percentage": 0.07,
+        "precision": 0.0012,
+        "recall": 0.4739,
+        "f1": 0.0024,
+        "iou": 0.0012
+      }
+    },
+    "raw_accuracy": 0.1538,
+    "balanced_accuracy": 0.266,
+    "macro_precision": 0.2183,
+    "macro_recall": 0.266,
+    "macro_f1": 0.0854,
+    "mcc": 0.0064,
+    "minority_f1_damaged": 0.001,
+    "building_only_balanced_accuracy": 0.2942,
+    "mean_iou": 0.053,
+    "building_mean_iou": 0.0279
+  },
+  "experiment_2_india_v2": {
+    "total_samples": 6291456,
+    "confusion_matrix": [
+      [
+        1201324,
+        63422,
+        181550,
+        3263732,
+        1553194
+      ],
+      [
+        0,
+        2865,
+        11,
+        928,
+        1517
+      ],
+      [
+        1,
+        2952,
+        23,
+        1282,
+        2095
+      ],
+      [
+        1,
+        4701,
+        103,
+        2664,
+        4459
+      ],
+      [
+        1,
+        1708,
+        39,
+        1118,
+        1766
+      ]
+    ],
+    "class_names": [
+      "Background",
+      "No Damage",
+      "Minor Damage",
+      "Major Damage",
+      "Destroyed"
+    ],
+    "class_counts": {
+      "Background": 6263222,
+      "No Damage": 5321,
+      "Minor Damage": 6353,
+      "Major Damage": 11928,
+      "Destroyed": 4632
+    },
+    "class_percentages": {
+      "Background": 99.55,
+      "No Damage": 0.08,
+      "Minor Damage": 0.1,
+      "Major Damage": 0.19,
+      "Destroyed": 0.07
+    },
+    "per_class": {
+      "Background": {
+        "class_id": 0,
+        "class_name": "Background",
+        "count": 6263222,
+        "percentage": 99.55,
+        "precision": 1.0,
+        "recall": 0.1918,
+        "f1": 0.3219,
+        "iou": 0.1918
+      },
+      "No Damage": {
+        "class_id": 1,
+        "class_name": "No Damage",
+        "count": 5321,
+        "percentage": 0.08,
+        "precision": 0.0379,
+        "recall": 0.5384,
+        "f1": 0.0708,
+        "iou": 0.0367
+      },
+      "Minor Damage": {
+        "class_id": 2,
+        "class_name": "Minor Damage",
+        "count": 6353,
+        "percentage": 0.1,
+        "precision": 0.0001,
+        "recall": 0.0036,
+        "f1": 0.0002,
+        "iou": 0.0001
+      },
+      "Major Damage": {
+        "class_id": 3,
+        "class_name": "Major Damage",
+        "count": 11928,
+        "percentage": 0.19,
+        "precision": 0.0008,
+        "recall": 0.2233,
+        "f1": 0.0016,
+        "iou": 0.0008
+      },
+      "Destroyed": {
+        "class_id": 4,
+        "class_name": "Destroyed",
+        "count": 4632,
+        "percentage": 0.07,
+        "precision": 0.0011,
+        "recall": 0.3813,
+        "f1": 0.0023,
+        "iou": 0.0011
+      }
+    },
+    "raw_accuracy": 0.1921,
+    "balanced_accuracy": 0.2677,
+    "macro_precision": 0.208,
+    "macro_recall": 0.2677,
+    "macro_f1": 0.0794,
+    "mcc": 0.0108,
+    "minority_f1_damaged": 0.0014,
+    "building_only_balanced_accuracy": 0.2867,
+    "mean_iou": 0.0461,
+    "building_mean_iou": 0.0097
+  },
+  "experiment_3a_stage1_localization": {
+    "total_samples": 6291456,
+    "confusion_matrix": [
+      [
+        6127375,
+        135847
+      ],
+      [
+        8916,
+        19318
+      ]
+    ],
+    "class_names": [
+      "Background",
+      "Building"
+    ],
+    "class_counts": {
+      "Background": 6263222,
+      "Building": 28234
+    },
+    "class_percentages": {
+      "Background": 99.55,
+      "Building": 0.45
+    },
+    "per_class": {
+      "Background": {
+        "class_id": 0,
+        "class_name": "Background",
+        "count": 6263222,
+        "percentage": 99.55,
+        "precision": 0.9985,
+        "recall": 0.9783,
+        "f1": 0.9883,
+        "iou": 0.9769
+      },
+      "Building": {
+        "class_id": 1,
+        "class_name": "Building",
+        "count": 28234,
+        "percentage": 0.45,
+        "precision": 0.1245,
+        "recall": 0.6842,
+        "f1": 0.2107,
+        "iou": 0.1177
+      }
+    },
+    "raw_accuracy": 0.977,
+    "balanced_accuracy": 0.8313,
+    "macro_precision": 0.5615,
+    "macro_recall": 0.8313,
+    "macro_f1": 0.5995,
+    "mcc": 0.2855,
+    "building_iou": 0.1185,
+    "building_f1": 0.2107,
+    "minority_f1": 0.2107
+  },
+  "experiment_3b_chamoli_footprints": {
+    "dataset": "NERC EIDC Westoby et al. (2023) Building Footprints (6,455 polygons)",
+    "population_counts": {
+      "Intact (Cond 1)": 6389,
+      "Damaged (Cond 2)": 32,
+      "Unclassified (Cond 0)": 34
+    },
+    "population_percentages": {
+      "Intact": 98.98,
+      "Damaged": 0.5,
+      "Unclassified": 0.53
+    },
+    "trivial_majority_baseline": {
+      "total_samples": 6421,
+      "confusion_matrix": [
+        [
+          6389,
+          0
+        ],
+        [
+          32,
+          0
+        ]
+      ],
+      "class_names": [
+        "Intact",
+        "Damaged"
+      ],
+      "class_counts": {
+        "Intact": 6389,
+        "Damaged": 32
+      },
+      "class_percentages": {
+        "Intact": 99.5,
+        "Damaged": 0.5
+      },
+      "per_class": {
+        "Intact": {
+          "class_id": 0,
+          "class_name": "Intact",
+          "count": 6389,
+          "percentage": 99.5,
+          "precision": 0.995,
+          "recall": 1.0,
+          "f1": 0.9975,
+          "iou": 0.995
+        },
+        "Damaged": {
+          "class_id": 1,
+          "class_name": "Damaged",
+          "count": 32,
+          "percentage": 0.5,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "iou": 0.0
+        }
+      },
+      "raw_accuracy": 0.995,
+      "balanced_accuracy": 0.5,
+      "macro_precision": 0.4975,
+      "macro_recall": 0.5,
+      "macro_f1": 0.4988,
+      "mcc": 0.0,
+      "damaged_detected": 0,
+      "total_damaged": 32,
+      "damaged_recall": 0.0,
+      "damaged_f1": 0.0
+    },
+    "model_empirical_evaluation": {
+      "total_samples": 6421,
+      "confusion_matrix": [
+        [
+          5885,
+          504
+        ],
+        [
+          8,
+          24
+        ]
+      ],
+      "class_names": [
+        "Intact",
+        "Damaged"
+      ],
+      "class_counts": {
+        "Intact": 6389,
+        "Damaged": 32
+      },
+      "class_percentages": {
+        "Intact": 99.5,
+        "Damaged": 0.5
+      },
+      "per_class": {
+        "Intact": {
+          "class_id": 0,
+          "class_name": "Intact",
+          "count": 6389,
+          "percentage": 99.5,
+          "precision": 0.9986,
+          "recall": 0.9211,
+          "f1": 0.9583,
+          "iou": 0.92
+        },
+        "Damaged": {
+          "class_id": 1,
+          "class_name": "Damaged",
+          "count": 32,
+          "percentage": 0.5,
+          "precision": 0.0455,
+          "recall": 0.75,
+          "f1": 0.0857,
+          "iou": 0.0448
+        }
+      },
+      "raw_accuracy": 0.9203,
+      "balanced_accuracy": 0.8356,
+      "macro_precision": 0.522,
+      "macro_recall": 0.8356,
+      "macro_f1": 0.522,
+      "mcc": 0.172,
+      "damaged_detected": 24,
+      "total_damaged": 32,
+      "damaged_recall": 0.75,
+      "damaged_precision": 0.0455,
+      "damaged_f1": 0.0858,
+      "minority_f1": 0.0858,
+      "headline_warning": "98.98% is the all-intact baseline that detects ZERO damaged buildings. Model achieves 75.0% damaged recall (24/32) with 83.56% balanced accuracy."
+    }
+  },
+  "experiment_3c_chamoli_manual_subset": {
+    "total_samples": 166,
+    "confusion_matrix": [
+      [
+        100,
+        0,
+        0
+      ],
+      [
+        0,
+        32,
+        0
+      ],
+      [
+        0,
+        9,
+        25
+      ]
+    ],
+    "class_names": [
+      "No Damage",
+      "Major Damage",
+      "Destroyed"
+    ],
+    "class_counts": {
+      "No Damage": 100,
+      "Major Damage": 32,
+      "Destroyed": 34
+    },
+    "class_percentages": {
+      "No Damage": 60.24,
+      "Major Damage": 19.28,
+      "Destroyed": 20.48
+    },
+    "per_class": {
+      "No Damage": {
+        "class_id": 0,
+        "class_name": "No Damage",
+        "count": 100,
+        "percentage": 60.24,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "iou": 1.0
+      },
+      "Major Damage": {
+        "class_id": 1,
+        "class_name": "Major Damage",
+        "count": 32,
+        "percentage": 19.28,
+        "precision": 0.7805,
+        "recall": 1.0,
+        "f1": 0.8767,
+        "iou": 0.7805
+      },
+      "Destroyed": {
+        "class_id": 2,
+        "class_name": "Destroyed",
+        "count": 34,
+        "percentage": 20.48,
+        "precision": 1.0,
+        "recall": 0.7353,
+        "f1": 0.8475,
+        "iou": 0.7353
+      }
+    },
+    "raw_accuracy": 0.9458,
+    "balanced_accuracy": 0.9118,
+    "macro_precision": 0.9268,
+    "macro_recall": 0.9118,
+    "macro_f1": 0.9081,
+    "mcc": 0.9077,
+    "representation_audit": {
+      "sufficient_representation": false,
+      "missing_classes": [
+        "Minor Damage (0 instances, 0.0%)"
+      ],
+      "represented_classes": {
+        "No Damage": {
+          "count": 100,
+          "percentage": 60.24
+        },
+        "Destroyed": {
+          "count": 34,
+          "percentage": 20.48
+        },
+        "Major Damage": {
+          "count": 32,
+          "percentage": 19.28
+        }
+      },
+      "imbalance_verdict": "HEAVILY IMBALANCED: No Damage accounts for 60.24% of the subset, while Minor Damage is completely unrepresented (0%). Raw accuracy of 94.58% must be accompanied by Balanced Accuracy (91.18% on 3 classes; 68.38% on 4 classes) and per-class metrics.",
+      "four_class_balanced_accuracy": 0.6838
+    },
+    "minority_f1_damaged": 0.8621
+  },
+  "experiment_3d_fani_points": {
+    "total_samples": 9777,
+    "confusion_matrix": [
+      [
+        7120,
+        410,
+        221
+      ],
+      [
+        523,
+        710,
+        100
+      ],
+      [
+        310,
+        162,
+        221
+      ]
+    ],
+    "class_names": [
+      "Damaged",
+      "Destroyed",
+      "Possibly damaged"
+    ],
+    "class_counts": {
+      "Damaged": 7751,
+      "Destroyed": 1333,
+      "Possibly damaged": 693
+    },
+    "class_percentages": {
+      "Damaged": 79.28,
+      "Destroyed": 13.63,
+      "Possibly damaged": 7.09
+    },
+    "per_class": {
+      "Damaged": {
+        "class_id": 0,
+        "class_name": "Damaged",
+        "count": 7751,
+        "percentage": 79.28,
+        "precision": 0.8953,
+        "recall": 0.9186,
+        "f1": 0.9068,
+        "iou": 0.8295
+      },
+      "Destroyed": {
+        "class_id": 1,
+        "class_name": "Destroyed",
+        "count": 1333,
+        "percentage": 13.63,
+        "precision": 0.5538,
+        "recall": 0.5326,
+        "f1": 0.543,
+        "iou": 0.3727
+      },
+      "Possibly damaged": {
+        "class_id": 2,
+        "class_name": "Possibly damaged",
+        "count": 693,
+        "percentage": 7.09,
+        "precision": 0.4077,
+        "recall": 0.3189,
+        "f1": 0.3579,
+        "iou": 0.2179
+      }
+    },
+    "raw_accuracy": 0.8235,
+    "balanced_accuracy": 0.59,
+    "macro_precision": 0.6189,
+    "macro_recall": 0.59,
+    "macro_f1": 0.6026,
+    "mcc": 0.4713,
+    "geometry_type": "POINT (Centroid locations from Copernicus Rapid Mapping, NOT polygons)",
+    "evaluation_protocol": "Point-based damage grading (native EMSR357 taxonomy)",
+    "minority_classes": [
+      "Destroyed",
+      "Possibly damaged"
+    ],
+    "minority_f1": 0.4505,
+    "lowest_minority_f1": 0.3579,
+    "class_imbalance_disclosure": "The headline 82.35% accuracy is strongly influenced by the dominant Damaged class (79.28% of all points). Trivial majority baseline achieves 79.28% accuracy. The genuine Balanced Accuracy is 59.00%, Macro F1 is 60.25%, and minority class F1 is 35.79% (Possibly damaged)."
+  },
+  "dharali_2025_cross_event": {
+    "dataset": "Dharali / Harsil Valley, Uttarkashi, Uttarakhand",
+    "label_type": "N/A (ISRO Cartosat-2S 20 ha debris fan polygon only; zero building ground truth)",
+    "class_distribution": "N/A (Zero building ground-truth annotations)",
+    "quantitative_metrics": "N/A (Honestly withheld)",
+    "qualitative_zero_shot": "Available (debris fan hazard overlay, operational zone generation, exposure analysis, responder/evacuation routing)",
+    "scientific_verdict": "VALID FOR QUALITATIVE GIS EXPOSURE AND ROUTING; QUANTITATIVE BUILDING DAMAGE METRICS ARE N/A."
+  }
+}

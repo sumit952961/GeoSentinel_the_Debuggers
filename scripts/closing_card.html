@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AIDRS - Final Callout</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: radial-gradient(circle at 50% 30%, #0f172a 0%, #020617 100%);
+      color: #f8fafc;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .grid-bg {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: 
+        linear-gradient(rgba(56, 189, 248, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(56, 189, 248, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      animation: grid-shift 12s linear infinite;
+    }
+    @keyframes grid-shift {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(60px); }
+    }
+    .badge-sih {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(2, 132, 199, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      padding: 8px 18px;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: #38bdf8;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.25);
+      animation: pulse-badge 2s ease-in-out infinite alternate;
+    }
+    @keyframes pulse-badge {
+      0% { box-shadow: 0 0 10px rgba(56, 189, 248, 0.2); border-color: rgba(56, 189, 248, 0.4); }
+      100% { box-shadow: 0 0 25px rgba(56, 189, 248, 0.6); border-color: rgba(56, 189, 248, 0.8); }
+    }
+    .badge-sih span {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #38bdf8;
+      box-shadow: 0 0 10px #38bdf8;
+    }
+    h1 {
+      font-size: 58px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      text-align: center;
+      background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 16px;
+      max-width: 1200px;
+    }
+    .subtitle {
+      font-size: 22px;
+      font-weight: 400;
+      color: #94a3b8;
+      text-align: center;
+      margin-bottom: 36px;
+      max-width: 900px;
+      line-height: 1.5;
+    }
+    .workflow-pill {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      padding: 12px 32px;
+      border-radius: 12px;
+      margin-bottom: 48px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+    .step {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+    .step-1 { color: #38bdf8; }
+    .step-2 { color: #f59e0b; }
+    .step-3 { color: #10b981; }
+    .arrow { color: #64748b; font-size: 14px; }
+
+    .tech-grid {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 44px;
+    }
+    .tech-card {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 14px 22px;
+      border-radius: 8px;
+      text-align: center;
+      min-width: 170px;
+    }
+    .tech-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
+    }
+    .tech-val {
+      font-size: 15px;
+      font-weight: 600;
+      color: #f1f5f9;
+    }
+
+    .footer {
+      font-size: 13px;
+      color: #64748b;
+      text-align: center;
+      letter-spacing: 0.02em;
+    }
+  </style>
+</head>
+<body>
+  <div class="grid-bg"></div>
+  
+  <div class="badge-sih">
+    <span></span> SMART INDIA HACKATHON 2026
+  </div>
+
+  <h1>AI-Driven Disaster Response Intelligence System</h1>
+  
+  <div class="subtitle">
+    Autonomous satellite damage assessment, explainable triage prioritization, and hazard-aware emergency routing for humanitarian relief.
+  </div>
+
+  <div class="workflow-pill">
+    <div class="step step-1">01 ASSESS</div>
+    <div class="arrow">➔</div>
+    <div class="step step-2">02 PRIORITISE</div>
+    <div class="arrow">➔</div>
+    <div class="step step-3">03 RESPOND</div>
+  </div>
+
+  <div class="tech-grid">
+    <div class="tech-card">
+      <div class="tech-title">COMPUTER VISION</div>
+      <div class="tech-val">PyTorch U-Net & Siamese</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-title">SPATIAL DATABASE</div>
+      <div class="tech-val">PostgreSQL & PostGIS</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-title">ROUTING ENGINE</div>
+      <div class="tech-val">Dijkstra Hazard-Aware</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-title">ENTERPRISE CORE</div>
+      <div class="tech-val">Spring Boot 3.4 & FastAPI</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-title">GEOSPATIAL UI</div>
+      <div class="tech-val">React 19 & Leaflet / Cesium</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    AIDRS v2.0 • Decision-Support Prototype • Verified on Multi-Hazard Real-World Datasets
+  </div>
+</body>
+</html>

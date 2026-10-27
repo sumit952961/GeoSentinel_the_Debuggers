@@ -1,0 +1,22 @@
+{
+  "experiment_type": "Qualitative Zero-Shot Cross-Event Transfer",
+  "training_scenarios": [
+    "Chamoli Flash Flood 2021",
+    "Cyclone Fani 2019"
+  ],
+  "held_out_target": "Dharali Flash Flood 2025",
+  "scientific_disclosure": "Dharali 2025 has zero verified building-by-building ground-truth damage labels. Quantitative building damage metrics are N/A. Available evidence consists strictly of an ISRO Cartosat-2S 20-hectare debris fan polygon and Sentinel-2 optical scenes. The scenario is evaluated as qualitative zero-shot inference on an unseen disaster scenario.",
+  "quantitative_damage_metrics": "N/A",
+  "qualitative_zero_shot": "Available (debris fan hazard overlay, operational zone generation, exposure analysis, emergency routing)",
+  "metrics": {
+    "role": "Zero-Shot Cross-Event Test",
+    "ground_truth_status": "weak_inference_no_building_ground_truth",
+    "quantitative_damage_metrics": "N/A (Zero building-level ground truth)",
+    "qualitative_zero_shot": "Available (20 ha ISRO debris fan overlay & operational zone generation)",
+    "baseline_miou": 0.06271892934388171,
+    "india_miou": 0.05004656424406034,
+    "delta_miou": -0.012672365099821364,
+    "delta_statement": "qualitative zero-shot inference on an unseen disaster scenario."
+  },
+  "assessment": "VALID FOR QUALITATIVE GIS EXPOSURE, ZONE GENERATION, AND ROUTING \u2014 QUANTITATIVE DAMAGE METRICS ARE N/A."
+}

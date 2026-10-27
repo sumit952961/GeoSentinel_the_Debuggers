@@ -1,0 +1,29 @@
+{
+  "event_id": "fani_2019",
+  "event_name": "Cyclone Fani 2019",
+  "hazard_type": "Tropical Cyclone",
+  "country": "India",
+  "state": "Odisha",
+  "district": "Puri & Khordha",
+  "latitude_range": [
+    19.75,
+    19.92
+  ],
+  "longitude_range": [
+    85.78,
+    85.95
+  ],
+  "event_date": "2019-05-03",
+  "pre_image_date": "2019-04-28",
+  "post_image_date": "2019-05-08",
+  "sensor": "Sentinel-2 MSI (10m) / Pleiades VHR",
+  "resolution": "10m optical / point observations",
+  "data_source": "Copernicus EMS Rapid Mapping Activation EMSR357 / OSDMA",
+  "licence": "Copernicus Open Access / European Union Open Data",
+  "label_quality": "EXACT",
+  "annotation_method": "Expert rapid mapping photo-interpretation (Point Observations)",
+  "number_of_buildings": 9777,
+  "number_of_damage_labels": 9777,
+  "number_of_weak_labels": 0,
+  "notes": "Point-based damage grading: Destroyed (1,333), Damaged (7,751), Possibly damaged (693). Preserved as points."
+}

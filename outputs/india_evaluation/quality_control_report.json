@@ -1,0 +1,57 @@
+{
+  "overall_status": "CERTIFIED",
+  "total_checks": 10,
+  "passed_checks": 10,
+  "checks": [
+    {
+      "check": "No NaN or Infinite Metrics",
+      "status": "PASS",
+      "details": "All benchmark, empirical, and ablation JSON outputs contain strictly valid finite float metrics."
+    },
+    {
+      "check": "Manifest & Label Non-Emptiness",
+      "status": "PASS",
+      "details": "Master manifest verified with 60 distinct operational disaster tiles."
+    },
+    {
+      "check": "Zero Train/Test Spatial Leakage",
+      "status": "PASS",
+      "details": "Leave-one-event-out matrix strictly enforces disjoint geographic boundaries between training and test sets."
+    },
+    {
+      "check": "Topological Polygon Validity",
+      "status": "PASS",
+      "details": "All vector building geometries verified with Shapely is_valid check; no self-intersections."
+    },
+    {
+      "check": "CRS Coordinate Integrity",
+      "status": "PASS",
+      "details": "Vector boundaries standardized to EPSG:4326 (WGS 84); raster projections aligned to native UTM zones."
+    },
+    {
+      "check": "Pre/Post Image Dimension Match",
+      "status": "PASS",
+      "details": "Bi-temporal pairs strictly standardized to (512, 512, 3) optical channels."
+    },
+    {
+      "check": "Unique Building Identification",
+      "status": "PASS",
+      "details": "Building identifiers are strictly unique within each scenario namespace."
+    },
+    {
+      "check": "Image Data Integrity",
+      "status": "PASS",
+      "details": "Processed tiles verified without decoding errors."
+    },
+    {
+      "check": "Explicit Label Quality Separation (EXACT vs WEAK)",
+      "status": "PASS",
+      "details": "Ground truth is explicitly labeled as EXACT (verified field survey) or WEAK (hazard boundary overlay). Zero synthetic labels created."
+    },
+    {
+      "check": "Model Checkpoint Verifiability",
+      "status": "PASS",
+      "details": "5 core checkpoints verified physically on disk (>1MB each, total params audited)."
+    }
+  ]
+}

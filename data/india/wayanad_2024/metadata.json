@@ -1,0 +1,29 @@
+{
+  "event_id": "wayanad_2024",
+  "event_name": "Wayanad Landslide 2024",
+  "hazard_type": "Landslide / Debris Flow",
+  "country": "India",
+  "state": "Kerala",
+  "district": "Wayanad",
+  "latitude_range": [
+    11.48,
+    11.55
+  ],
+  "longitude_range": [
+    76.12,
+    76.22
+  ],
+  "event_date": "2024-07-30",
+  "pre_image_date": "2024-07-15",
+  "post_image_date": "2024-08-01",
+  "sensor": "Sentinel-1 SAR (C-band) / Sentinel-2 / Cartosat",
+  "resolution": "10m SAR / volunteer vector",
+  "data_source": "OSM HOT Project #17242 / Sentinel-1 SAR Geocoded Coherence",
+  "licence": "ODbL 1.0 / Copernicus Open Access",
+  "label_quality": "WEAK",
+  "annotation_method": "SAR coherence loss + volunteer crowd-sourced building verification",
+  "number_of_buildings": 1018,
+  "number_of_damage_labels": 427,
+  "number_of_weak_labels": 591,
+  "notes": "Severe monsoon optical cloud cover; pre/post SAR radar coherence change used for debris flow boundary detection."
+}

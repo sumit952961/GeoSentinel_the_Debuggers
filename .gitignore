@@ -1,0 +1,147 @@
+# ============================================================
+# Disaster Management System - Comprehensive .gitignore
+# ============================================================
+
+# === IDE & Editors ===
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+.project
+.classpath
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# === Operating System ===
+.DS_Store
+Thumbs.db
+desktop.ini
+ehthumbs.db
+$RECYCLE.BIN/
+
+# === Secrets & Environment Files ===
+.env
+.env.local
+.env.*.local
+*.env
+*.pem
+*.key
+*.cert
+*.pfx
+
+# === Python & Virtual Environments ===
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+dist/
+build/
+*.egg
+.venv/
+venv/
+env/
+ai_env/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# === PyTorch Models & Binary Weights (>50MB) ===
+*.pth
+*.pt
+*.bin
+*.onnx
+*.weights
+ai-service/models/*.pth
+ai-service/models/*.pt
+ai-service/outputs/stage1_visuals/
+ai-service/outputs/stage1_extracted_crops/
+ai-service/outputs/eval_visuals/
+ai-service/outputs/diagnostics/
+ai-service/outputs/stage2_visuals/
+
+# === Raw & Processed Satellite Datasets ===
+data/raw/
+data/processed/
+data/cache/
+data/xbd_subset/
+data/xbd_subset_v1/
+data/xbd_subset_v2/
+data/xbd_subset*/
+data/osm/
+data/models/
+data/test_results/
+*.tar.gz
+*.zip
+*.tar
+*.7z
+
+# === Java & Maven ===
+backend/target/
+target/
+*.class
+*.jar
+*.war
+*.ear
+.flattened-pom.xml
+
+# === Node.js & React Frontend ===
+frontend/node_modules/
+frontend/dist/
+frontend/.cache/
+node_modules/
+.npm
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# === Logs & Diagnostics ===
+*.log
+logs/
+.system_generated/
+.gemini/
+
+# === Docker Overrides ===
+docker-compose.override.yml
+
+# === India-Specific Data (large satellite imagery, DEMs, building footprints) ===
+data/india/*/raw/
+data/india/*/processed/
+data/india/*/sentinel2/
+data/india/*/sentinel1/
+data/india/*/dem/
+data/india/common/dem/
+data/india/common/boundaries/*.shp
+data/india/common/boundaries/*.dbf
+data/india/common/boundaries/*.shx
+data/india/common/boundaries/*.prj
+*.tif
+*.tiff
+*.jp2
+*.hgt
+*.geotiff
+
+# === India Model Checkpoints ===
+models/india_v*/
+models/baseline/*.pth
+
+# === Training Outputs ===
+outputs/india_*/
+!outputs/india_evaluation/
+outputs/india_evaluation/*
+!outputs/india_evaluation/*.json
+outputs/training_logs/
+outputs/evaluation_results_india*.json
+
+# === Executables, Large Tunnels & Temporary Media ===
+*.exe
+cloudflared*
+outputs/*.jpg
+outputs/videos/
+outputs/voiceover*/
+outputs/*.mp3
+outputs/temp_*
+data/global/
+

@@ -1,0 +1,77 @@
+{
+  "experiment_id": "exp_a_transfer_learning",
+  "description": "Global pretraining followed by Indian domain fine-tuning",
+  "seed": 42,
+  "manifest_hash": "3fb162ba0f9271ce",
+  "training_time_sec": 34.61,
+  "class_weights": [
+    0.777,
+    0.976,
+    0.938,
+    1.605
+  ],
+  "stage1_metrics": {
+    "pixel_accuracy": 0.9984,
+    "balanced_accuracy": 0.9763,
+    "building_iou": 0.6895,
+    "building_dice": 0.8162,
+    "building_precision": 0.7131,
+    "building_recall": 0.9541,
+    "building_f1": 0.8162,
+    "mean_latency_ms": 994.07
+  },
+  "stage2_metrics": {
+    "overall_accuracy": 0.3462,
+    "balanced_accuracy": 0.45,
+    "macro_f1": 0.2583,
+    "weighted_f1": 0.1987,
+    "per_class": {
+      "no-damage": {
+        "f1": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "minor-damage": {
+        "f1": 0.5333,
+        "precision": 0.4,
+        "recall": 0.8
+      },
+      "major-damage": {
+        "f1": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "destroyed": {
+        "f1": 0.5,
+        "precision": 0.3333,
+        "recall": 1.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        0,
+        6,
+        0,
+        0
+      ],
+      [
+        0,
+        4,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        10
+      ],
+      [
+        0,
+        0,
+        0,
+        5
+      ]
+    ]
+  }
+}

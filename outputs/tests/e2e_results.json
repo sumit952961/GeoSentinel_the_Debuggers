@@ -1,0 +1,281 @@
+{
+  "passed": 68,
+  "failed": 0,
+  "warnings": 0,
+  "total": 68,
+  "results": [
+    {
+      "test": "Backend health",
+      "status": "PASS"
+    },
+    {
+      "test": "AI service health",
+      "status": "PASS"
+    },
+    {
+      "test": "AI model info",
+      "status": "PASS"
+    },
+    {
+      "test": "List all scenarios (expect 4)",
+      "status": "PASS"
+    },
+    {
+      "test": "[1] Scenario detail",
+      "status": "PASS"
+    },
+    {
+      "test": "[1] Damage predictions GeoJSON",
+      "status": "PASS"
+    },
+    {
+      "test": "[1] Buildings GeoJSON",
+      "status": "PASS"
+    },
+    {
+      "test": "[1] Roads GeoJSON",
+      "status": "PASS"
+    },
+    {
+      "test": "[1] Hospitals GeoJSON",
+      "status": "PASS"
+    },
+    {
+      "test": "[1] Shelters GeoJSON",
+      "status": "PASS"
+    },
+    {
+      "test": "[1] Operational Zones GeoJSON (Backend)",
+      "status": "PASS"
+    },
+    {
+      "test": "[1] Operational Zones GeoJSON (AI Service)",
+      "status": "PASS"
+    },
+    {
+      "test": "[1] Boundary/Scenario data",
+      "status": "PASS"
+    },
+    {
+      "test": "[1] Priority analysis",
+      "status": "PASS"
+    },
+    {
+      "test": "[1] Report generation",
+      "status": "PASS"
+    },
+    {
+      "test": "[2] Scenario detail",
+      "status": "PASS"
+    },
+    {
+      "test": "[2] Damage predictions GeoJSON",
+      "status": "PASS"
+    },
+    {
+      "test": "[2] Buildings GeoJSON",
+      "status": "PASS"
+    },
+    {
+      "test": "[2] Roads GeoJSON",
+      "status": "PASS"
+    },
+    {
+      "test": "[2] Hospitals GeoJSON",
+      "status": "PASS"
+    },
+    {
+      "test": "[2] Shelters GeoJSON",
+      "status": "PASS"
+    },
+    {
+      "test": "[2] Operational Zones GeoJSON (Backend)",
+      "status": "PASS"
+    },
+    {
+      "test": "[2] Operational Zones GeoJSON (AI Service)",
+      "status": "PASS"
+    },
+    {
+      "test": "[2] Boundary/Scenario data",
+      "status": "PASS"
+    },
+    {
+      "test": "[2] Priority analysis",
+      "status": "PASS"
+    },
+    {
+      "test": "[2] Report generation",
+      "status": "PASS"
+    },
+    {
+      "test": "[3] Scenario detail",
+      "status": "PASS"
+    },
+    {
+      "test": "[3] Damage predictions GeoJSON",
+      "status": "PASS"
+    },
+    {
+      "test": "[3] Buildings GeoJSON",
+      "status": "PASS"
+    },
+    {
+      "test": "[3] Roads GeoJSON",
+      "status": "PASS"
+    },
+    {
+      "test": "[3] Hospitals GeoJSON",
+      "status": "PASS"
+    },
+    {
+      "test": "[3] Shelters GeoJSON",
+      "status": "PASS"
+    },
+    {
+      "test": "[3] Operational Zones GeoJSON (Backend)",
+      "status": "PASS"
+    },
+    {
+      "test": "[3] Operational Zones GeoJSON (AI Service)",
+      "status": "PASS"
+    },
+    {
+      "test": "[3] Boundary/Scenario data",
+      "status": "PASS"
+    },
+    {
+      "test": "[3] Priority analysis",
+      "status": "PASS"
+    },
+    {
+      "test": "[3] Report generation",
+      "status": "PASS"
+    },
+    {
+      "test": "[4] Scenario detail",
+      "status": "PASS"
+    },
+    {
+      "test": "[4] Damage predictions GeoJSON",
+      "status": "PASS"
+    },
+    {
+      "test": "[4] Buildings GeoJSON",
+      "status": "PASS"
+    },
+    {
+      "test": "[4] Roads GeoJSON",
+      "status": "PASS"
+    },
+    {
+      "test": "[4] Hospitals GeoJSON",
+      "status": "PASS"
+    },
+    {
+      "test": "[4] Shelters GeoJSON",
+      "status": "PASS"
+    },
+    {
+      "test": "[4] Operational Zones GeoJSON (Backend)",
+      "status": "PASS"
+    },
+    {
+      "test": "[4] Operational Zones GeoJSON (AI Service)",
+      "status": "PASS"
+    },
+    {
+      "test": "[4] Boundary/Scenario data",
+      "status": "PASS"
+    },
+    {
+      "test": "[4] Priority analysis",
+      "status": "PASS"
+    },
+    {
+      "test": "[4] Report generation",
+      "status": "PASS"
+    },
+    {
+      "test": "Responder route (Woolsey)",
+      "status": "PASS"
+    },
+    {
+      "test": "Evacuation route (Woolsey)",
+      "status": "PASS"
+    },
+    {
+      "test": "Responder route (Chamoli)",
+      "status": "PASS"
+    },
+    {
+      "test": "Evacuation route (Chamoli)",
+      "status": "PASS"
+    },
+    {
+      "test": "Responder route (Cyclone Fani)",
+      "status": "PASS"
+    },
+    {
+      "test": "Evacuation route (Cyclone Fani)",
+      "status": "PASS"
+    },
+    {
+      "test": "Responder route (Dharali)",
+      "status": "PASS"
+    },
+    {
+      "test": "Evacuation route (Dharali)",
+      "status": "PASS"
+    },
+    {
+      "test": "Baseline metrics endpoint",
+      "status": "PASS"
+    },
+    {
+      "test": "Comparison endpoint",
+      "status": "PASS"
+    },
+    {
+      "test": "Cross-event evaluation endpoint",
+      "status": "PASS"
+    },
+    {
+      "test": "Models registry",
+      "status": "PASS"
+    },
+    {
+      "test": "Baseline metrics contain real data",
+      "status": "PASS"
+    },
+    {
+      "test": "Model registry includes verified india_tuned_v2 checkpoint",
+      "status": "PASS"
+    },
+    {
+      "test": "Cross-event evaluation returns Dharali 2025 generalisation transfer metrics",
+      "status": "PASS"
+    },
+    {
+      "test": "Data audit artifact (outputs/india_data_audit.json) verified",
+      "status": "PASS"
+    },
+    {
+      "test": "Imagery registry artifact (data/india/imagery_registry.json) verified",
+      "status": "PASS"
+    },
+    {
+      "test": "Model diagnosis report (outputs/model_diagnosis.md) verified",
+      "status": "PASS"
+    },
+    {
+      "test": "Non-existent scenario returns 404",
+      "status": "PASS"
+    },
+    {
+      "test": "Report for non-existent scenario",
+      "status": "PASS"
+    }
+  ],
+  "timestamp": "2026-09-18T00:59:50"
+}

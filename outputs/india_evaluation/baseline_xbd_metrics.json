@@ -1,0 +1,116 @@
+{
+  "model": "unet_resnet34_pre_post (xBD baseline)",
+  "model_path": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\ai-service\\models\\unet_resnet34_pre_post.pth",
+  "test_tiles": 10,
+  "total_manifest_pairs": 68,
+  "disasters_in_dataset": {
+    "midwest-flooding": 15,
+    "santa-rosa-wildfire": 10,
+    "hurricane-michael": 17,
+    "hurricane-matthew": 14,
+    "hurricane-harvey": 12
+  },
+  "split": {
+    "train": 48,
+    "val": 10,
+    "test": 10
+  },
+  "metrics": {
+    "overall_accuracy": 0.15916061401367188,
+    "mean_iou": 0.068092123621112,
+    "macro_f1": 0.11666788925554197,
+    "building_mean_iou": 0.04862713058843902,
+    "building_macro_f1": 0.08215327475054224,
+    "per_class": {
+      "0": {
+        "class_id": 0,
+        "class_name": "Background",
+        "precision": 0.9876194461881844,
+        "recall": 0.1462196220202892,
+        "f1": 0.2547263472755409,
+        "iou": 0.14595209575180396,
+        "support": 2324093
+      },
+      "1": {
+        "class_id": 1,
+        "class_name": "No Damage",
+        "precision": 0.3826717883055911,
+        "recall": 0.2729053420134786,
+        "f1": 0.3185992019447632,
+        "iou": 0.18948438844162882,
+        "support": 279258
+      },
+      "2": {
+        "class_id": 2,
+        "class_name": "Minor Damage",
+        "precision": 0.0053336719791732806,
+        "recall": 0.01745877788554801,
+        "f1": 0.008171073750425575,
+        "iou": 0.004102296960718879,
+        "support": 14434
+      },
+      "3": {
+        "class_id": 3,
+        "class_name": "Major Damage",
+        "precision": 0.0004444306636486724,
+        "recall": 0.1841541755888651,
+        "f1": 0.0008867213478164487,
+        "iou": 0.00044355732978487467,
+        "support": 2335
+      },
+      "4": {
+        "class_id": 4,
+        "class_name": "Destroyed",
+        "precision": 0.0004786443738127927,
+        "recall": 0.3856060606060606,
+        "f1": 0.0009561019591637395,
+        "iou": 0.0004782796216235009,
+        "support": 1320
+      }
+    },
+    "confusion_matrix": [
+      [
+        339828,
+        117681,
+        43436,
+        908436,
+        914712
+      ],
+      [
+        3859,
+        76211,
+        3479,
+        54931,
+        140778
+      ],
+      [
+        195,
+        4451,
+        252,
+        3240,
+        6296
+      ],
+      [
+        8,
+        738,
+        34,
+        430,
+        1125
+      ],
+      [
+        198,
+        74,
+        46,
+        493,
+        509
+      ]
+    ]
+  },
+  "latency_ms": {
+    "mean": 328.95469999930356,
+    "std": 30.417316323000694,
+    "min": 295.19139998592436,
+    "max": 395.15679999021813
+  },
+  "timestamp": "2026-09-17T09:21:01"
+}

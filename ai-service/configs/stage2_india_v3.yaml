@@ -1,0 +1,30 @@
+# ============================================================
+# DRAS Model V3 — Stage 2 Damage Assessment Configuration
+# ============================================================
+model:
+  architecture: "Siamese Cross-Attention Transformer / ResNet50"
+  backbone: "resnet50"
+  num_classes: 4
+  pretrained: true
+
+dataset:
+  name: "DRAS India Multi-Hazard Crop Dataset V3"
+  crop_size: [64, 64]
+  damage_classes:
+    - "no-damage"
+    - "minor-damage"
+    - "major-damage"
+    - "destroyed"
+
+training:
+  epochs: 60
+  batch_size: 32
+  learning_rate: 0.0001
+  optimizer: "AdamW"
+  lr_scheduler: "CosineAnnealingWarmRestarts"
+  t_0: 15
+  loss: "FocalLoss"
+  focal_gamma: 2.0
+  class_weights: [0.15, 1.20, 3.50, 4.00]
+  mixed_precision: true
+  checkpoint_dir: "models/india_v3/stage2"

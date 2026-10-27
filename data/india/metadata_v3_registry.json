@@ -1,0 +1,415 @@
+{
+  "dataset_version": "india-disaster-v3.1",
+  "framework": "DRAS India Disaster Research Benchmark V3",
+  "total_indian_events": 12,
+  "total_buildings_catalogued": 54478,
+  "label_breakdown": {
+    "exact_events": 2,
+    "weak_events": 10,
+    "unlabelled_events": 0
+  },
+  "global_pretraining_sources": [
+    {
+      "source_id": "xbd_benchmark",
+      "name": "xBD Dataset (xView2 Challenge)",
+      "organization": "Defense Innovation Unit (DIU) / Maxar",
+      "url": "https://xview2.org/",
+      "license": "Creative Commons Attribution-NonCommercial 4.0 (CC BY-NC 4.0)",
+      "coverage": "Global (19 disaster events worldwide)",
+      "total_pairs": 4500,
+      "total_buildings": 850000,
+      "sensor": "WorldView-2 / WorldView-3 (0.5m VHR Optical)",
+      "label_type": "EXACT (4-class building damage grading)",
+      "dras_role": "Stage 1 Localization & Stage 2 Initial Representation Pretraining"
+    },
+    {
+      "source_id": "bright_benchmark",
+      "name": "BRIGHT: Multimodal Satellite Dataset for Disaster Assessment",
+      "organization": "TU Munich / Zenodo (Record 20072020)",
+      "url": "https://zenodo.org/records/20072020",
+      "license": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+      "coverage": "Global multimodal disaster scenes",
+      "total_pairs": 4200,
+      "total_buildings": 380000,
+      "sensor": "Paired Optical (VHR) + SAR (Sentinel-1 / TerraSAR-X)",
+      "label_type": "EXACT (Structural collapse and damage state)",
+      "dras_role": "Optical + SAR Multimodal Pretraining & Change Representation Learning"
+    },
+    {
+      "source_id": "microsoft_globalml",
+      "name": "Microsoft GlobalML Building Footprints (India Coverage)",
+      "organization": "Microsoft Maps",
+      "url": "https://github.com/microsoft/GlobalMLBuildingFootprints",
+      "license": "Open Data Commons Open Database License (ODbL) / CDLA-Permissive",
+      "coverage": "India-wide building polygons",
+      "total_pairs": null,
+      "total_buildings": 44000000,
+      "sensor": "Bing Maps aerial and high-res satellite imagery",
+      "label_type": "UNLABELLED (Building localization footprints only; NO damage labels)",
+      "dras_role": "Stage 1 Building Localisation Pretraining & Large-Scale India Prior"
+    },
+    {
+      "source_id": "google_open_buildings",
+      "name": "Google Open Buildings v3 (South Asia / India)",
+      "organization": "Google Research",
+      "url": "https://sites.research.google/gr/open-buildings/",
+      "license": "Creative Commons Attribution 4.0 (CC BY 4.0)",
+      "coverage": "Continental building detections with confidence scores and area",
+      "total_pairs": null,
+      "total_buildings": 82000000,
+      "sensor": "High-resolution satellite imagery",
+      "label_type": "UNLABELLED (Building localization footprints only; NO damage labels)",
+      "dras_role": "Building segmentation refinement & zero-shot exposure mapping"
+    }
+  ],
+  "indian_disaster_events": [
+    {
+      "event_id": "chamoli_2021",
+      "event_name": "Chamoli Flash Flood / Ice-Debris Flow 2021",
+      "hazard_type": "Flash Flood / Avalanche",
+      "country": "India",
+      "state": "Uttarakhand",
+      "district": "Chamoli",
+      "latitude_range": [
+        30.45,
+        30.6
+      ],
+      "longitude_range": [
+        79.65,
+        79.8
+      ],
+      "event_date": "2021-02-07",
+      "pre_image_date": "2021-01-28",
+      "post_image_date": "2021-02-10",
+      "sensor": "Sentinel-2 L2A (10m) / Pleiades (0.5m)",
+      "resolution": "0.5m vector / 10m optical",
+      "data_source": "NERC EIDC Westoby et al. (2023) / ESA Copernicus",
+      "licence": "Open Government Licence v3.0 / Copernicus Open Access",
+      "label_quality": "EXACT",
+      "annotation_method": "Field survey & high-resolution photo-interpretation",
+      "number_of_buildings": 6455,
+      "number_of_damage_labels": 6421,
+      "number_of_weak_labels": 34,
+      "notes": "Verified native binary grading (Condition 1: Intact, Condition 2: Obstructed/Damaged, Condition 0: Washed Out)."
+    },
+    {
+      "event_id": "fani_2019",
+      "event_name": "Cyclone Fani 2019",
+      "hazard_type": "Tropical Cyclone",
+      "country": "India",
+      "state": "Odisha",
+      "district": "Puri & Khordha",
+      "latitude_range": [
+        19.75,
+        19.92
+      ],
+      "longitude_range": [
+        85.78,
+        85.95
+      ],
+      "event_date": "2019-05-03",
+      "pre_image_date": "2019-04-28",
+      "post_image_date": "2019-05-08",
+      "sensor": "Sentinel-2 MSI (10m) / Pleiades VHR",
+      "resolution": "10m optical / point observations",
+      "data_source": "Copernicus EMS Rapid Mapping Activation EMSR357 / OSDMA",
+      "licence": "Copernicus Open Access / European Union Open Data",
+      "label_quality": "EXACT",
+      "annotation_method": "Expert rapid mapping photo-interpretation (Point Observations)",
+      "number_of_buildings": 9777,
+      "number_of_damage_labels": 9777,
+      "number_of_weak_labels": 0,
+      "notes": "Point-based damage grading: Destroyed (1,333), Damaged (7,751), Possibly damaged (693). Preserved as points."
+    },
+    {
+      "event_id": "dharali_2025",
+      "event_name": "Dharali Flash Flood 2025",
+      "hazard_type": "Flash Flood / Cloudburst",
+      "country": "India",
+      "state": "Uttarakhand",
+      "district": "Uttarkashi",
+      "latitude_range": [
+        31.02,
+        31.06
+      ],
+      "longitude_range": [
+        78.75,
+        78.8
+      ],
+      "event_date": "2025-08-05",
+      "pre_image_date": "2025-07-04",
+      "post_image_date": "2025-08-06",
+      "sensor": "ISRO Cartosat-2S / Resourcesat-2 AWiFS / Sentinel-2",
+      "resolution": "10m - 23m",
+      "data_source": "ISRO NRSC Disaster Management Support / Bhuvan",
+      "licence": "ISRO Open Data Policy",
+      "label_quality": "WEAK",
+      "annotation_method": "Debris extent intersection & qualitative zero-shot footprint overlay",
+      "number_of_buildings": 48,
+      "number_of_damage_labels": 0,
+      "number_of_weak_labels": 48,
+      "notes": "Qualitative zero-shot generalisation domain. Debris fan overlay (20.4 ha) at Kheer Ganga-Bhagirathi confluence."
+    },
+    {
+      "event_id": "wayanad_2024",
+      "event_name": "Wayanad Landslide 2024",
+      "hazard_type": "Landslide / Debris Flow",
+      "country": "India",
+      "state": "Kerala",
+      "district": "Wayanad",
+      "latitude_range": [
+        11.48,
+        11.55
+      ],
+      "longitude_range": [
+        76.12,
+        76.22
+      ],
+      "event_date": "2024-07-30",
+      "pre_image_date": "2024-07-15",
+      "post_image_date": "2024-08-01",
+      "sensor": "Sentinel-1 SAR (C-band) / Sentinel-2 / Cartosat",
+      "resolution": "10m SAR / volunteer vector",
+      "data_source": "OSM HOT Project #17242 / Sentinel-1 SAR Geocoded Coherence",
+      "licence": "ODbL 1.0 / Copernicus Open Access",
+      "label_quality": "WEAK",
+      "annotation_method": "SAR coherence loss + volunteer crowd-sourced building verification",
+      "number_of_buildings": 1018,
+      "number_of_damage_labels": 427,
+      "number_of_weak_labels": 591,
+      "notes": "Severe monsoon optical cloud cover; pre/post SAR radar coherence change used for debris flow boundary detection."
+    },
+    {
+      "event_id": "kerala_floods_2018",
+      "event_name": "Kerala Floods & Inundation 2018",
+      "hazard_type": "Monsoon Flood & Dam Release",
+      "country": "India",
+      "state": "Kerala",
+      "district": "Ernakulam, Thrissur & Alappuzha",
+      "latitude_range": [
+        9.9,
+        10.35
+      ],
+      "longitude_range": [
+        76.2,
+        76.55
+      ],
+      "event_date": "2018-08-16",
+      "pre_image_date": "2018-07-20",
+      "post_image_date": "2018-08-22",
+      "sensor": "Sentinel-1 C-band SAR / Sentinel-2 MSI",
+      "resolution": "10m",
+      "data_source": "Copernicus EMSR303 / NRSC Bhuvan Flood Inundation Portal",
+      "licence": "Copernicus Open Access / Open Government Data India",
+      "label_quality": "WEAK",
+      "annotation_method": "SAR water surface thresholding + Microsoft Building Footprint overlay",
+      "number_of_buildings": 8420,
+      "number_of_damage_labels": 0,
+      "number_of_weak_labels": 8420,
+      "notes": "Extensive low-lying water inundation; SAR backscatter attenuation captures submerged urban sectors."
+    },
+    {
+      "event_id": "cyclone_amphan_2020",
+      "event_name": "Super Cyclone Amphan 2020",
+      "hazard_type": "Tropical Cyclone / Storm Surge",
+      "country": "India",
+      "state": "West Bengal",
+      "district": "South 24 Parganas & Kolkata",
+      "latitude_range": [
+        21.8,
+        22.6
+      ],
+      "longitude_range": [
+        88.2,
+        88.9
+      ],
+      "event_date": "2020-05-20",
+      "pre_image_date": "2020-05-14",
+      "post_image_date": "2020-05-24",
+      "sensor": "Sentinel-2 MSI (10m) / Landsat-8",
+      "resolution": "10m - 15m",
+      "data_source": "Copernicus EMSR439 / WB Disaster Management Authority",
+      "licence": "Copernicus Open Access",
+      "label_quality": "WEAK",
+      "annotation_method": "Rapid mapping storm surge swath + post-event optical damage grading",
+      "number_of_buildings": 5120,
+      "number_of_damage_labels": 1840,
+      "number_of_weak_labels": 3280,
+      "notes": "Sundarbans coastal embankment breaches and severe structural roof scouring in South 24 Parganas."
+    },
+    {
+      "event_id": "assam_floods_2022",
+      "event_name": "Assam Brahmaputra Floods 2022",
+      "hazard_type": "Riverine Flood",
+      "country": "India",
+      "state": "Assam",
+      "district": "Cachar (Silchar)",
+      "latitude_range": [
+        24.78,
+        24.86
+      ],
+      "longitude_range": [
+        92.75,
+        92.85
+      ],
+      "event_date": "2022-06-20",
+      "pre_image_date": "2022-05-30",
+      "post_image_date": "2022-06-25",
+      "sensor": "Sentinel-1 SAR / Sentinel-2 MSI",
+      "resolution": "10m",
+      "data_source": "ASDMA / NRSC Bhuvan Flood Archive / Copernicus",
+      "licence": "Open Government Data India / Copernicus Open Access",
+      "label_quality": "WEAK",
+      "annotation_method": "Urban inundation perimeter mapped via SAR amplitude difference",
+      "number_of_buildings": 4200,
+      "number_of_damage_labels": 0,
+      "number_of_weak_labels": 4200,
+      "notes": "Silchar urban area was completely inundated for over 10 days due to the Bethukandi dyke breach."
+    },
+    {
+      "event_id": "sikkim_glacial_flood_2023",
+      "event_name": "South Lhonak Glacial Lake Outburst Flood (GLOF) 2023",
+      "hazard_type": "Glacial Lake Outburst Flood (GLOF)",
+      "country": "India",
+      "state": "Sikkim",
+      "district": "North Sikkim & Pakyong",
+      "latitude_range": [
+        27.5,
+        27.8
+      ],
+      "longitude_range": [
+        88.5,
+        88.75
+      ],
+      "event_date": "2023-10-04",
+      "pre_image_date": "2023-09-28",
+      "post_image_date": "2023-10-06",
+      "sensor": "Sentinel-1 SAR / Sentinel-2 MSI / Cartosat-2",
+      "resolution": "10m - 20m",
+      "data_source": "ISRO NRSC GLOF Assessment / Copernicus Data Space",
+      "licence": "ISRO Open Data / Copernicus Open Access",
+      "label_quality": "WEAK",
+      "annotation_method": "Chungthang dam failure corridor and Teesta river valley scour extent",
+      "number_of_buildings": 890,
+      "number_of_damage_labels": 140,
+      "number_of_weak_labels": 750,
+      "notes": "Chungthang hydro dam collapse, scouring of riverbank settlements and highway NH-10 washouts."
+    },
+    {
+      "event_id": "cyclone_biparjoy_2023",
+      "event_name": "Cyclone Biparjoy 2023",
+      "hazard_type": "Tropical Cyclone",
+      "country": "India",
+      "state": "Gujarat",
+      "district": "Kutch & Devbhumi Dwarka",
+      "latitude_range": [
+        22.8,
+        23.4
+      ],
+      "longitude_range": [
+        68.4,
+        69.5
+      ],
+      "event_date": "2023-06-15",
+      "pre_image_date": "2023-06-08",
+      "post_image_date": "2023-06-18",
+      "sensor": "Sentinel-2 MSI (10m) / Sentinel-1 SAR",
+      "resolution": "10m",
+      "data_source": "IMD / GSDMA / Copernicus Data Space",
+      "licence": "Open Government Data India / Copernicus Open Access",
+      "label_quality": "WEAK",
+      "annotation_method": "Coastal landfall wind corridor + OSM building intersection",
+      "number_of_buildings": 3100,
+      "number_of_damage_labels": 420,
+      "number_of_weak_labels": 2680,
+      "notes": "Jakhau port landfall; strong gale winds damaged rural sheet-roof structures and uprooted trees."
+    },
+    {
+      "event_id": "cyclone_michaung_2023",
+      "event_name": "Cyclone Michaung Urban Deluge 2023",
+      "hazard_type": "Tropical Cyclone & Urban Inundation",
+      "country": "India",
+      "state": "Tamil Nadu",
+      "district": "Chennai, Tiruvallur & Kanchipuram",
+      "latitude_range": [
+        12.95,
+        13.2
+      ],
+      "longitude_range": [
+        80.1,
+        80.3
+      ],
+      "event_date": "2023-12-04",
+      "pre_image_date": "2023-11-25",
+      "post_image_date": "2023-12-07",
+      "sensor": "Sentinel-1 SAR / Sentinel-2 MSI",
+      "resolution": "10m",
+      "data_source": "TNDMA / GCC / Copernicus Data Space",
+      "licence": "Open Access",
+      "label_quality": "WEAK",
+      "annotation_method": "Waterlogging extent extraction from SAR backscatter drop",
+      "number_of_buildings": 7200,
+      "number_of_damage_labels": 0,
+      "number_of_weak_labels": 7200,
+      "notes": "Severe urban water stagnation across Velachery, Tambaram and Pallikaranai wetland catchments."
+    },
+    {
+      "event_id": "himachal_cloudbursts_2023",
+      "event_name": "Himachal Pradesh Monsoon Flash Floods 2023",
+      "hazard_type": "Cloudburst / Flash Flood / Landslide",
+      "country": "India",
+      "state": "Himachal Pradesh",
+      "district": "Mandi, Kullu & Shimla",
+      "latitude_range": [
+        31.5,
+        32.1
+      ],
+      "longitude_range": [
+        76.9,
+        77.4
+      ],
+      "event_date": "2023-07-10",
+      "pre_image_date": "2023-06-25",
+      "post_image_date": "2023-07-16",
+      "sensor": "Sentinel-2 MSI (10m) / Sentinel-1 SAR",
+      "resolution": "10m",
+      "data_source": "HPSDMA / NRSC / Copernicus Data Space",
+      "licence": "Open Access",
+      "label_quality": "WEAK",
+      "annotation_method": "Beas riverbed swelling extent and active landslide scar delineation",
+      "number_of_buildings": 1450,
+      "number_of_damage_labels": 310,
+      "number_of_weak_labels": 1140,
+      "notes": "Beas river surge washing away riverside hotels, bridges (Aut tunnel vicinity) and road embankments."
+    },
+    {
+      "event_id": "chennai_floods_2015",
+      "event_name": "Historic Chennai Floods 2015",
+      "hazard_type": "Urban Inundation / Dam Release",
+      "country": "India",
+      "state": "Tamil Nadu",
+      "district": "Chennai",
+      "latitude_range": [
+        12.9,
+        13.15
+      ],
+      "longitude_range": [
+        80.12,
+        80.28
+      ],
+      "event_date": "2015-12-01",
+      "pre_image_date": "2015-11-10",
+      "post_image_date": "2015-12-04",
+      "sensor": "Landsat-8 OLI / Sentinel-1A SAR",
+      "resolution": "15m - 30m",
+      "data_source": "USGS / ESA / OSM",
+      "licence": "Public Domain / ODbL",
+      "label_quality": "WEAK",
+      "annotation_method": "Historic flood surface classification + open building boundaries",
+      "number_of_buildings": 6800,
+      "number_of_damage_labels": 0,
+      "number_of_weak_labels": 6800,
+      "notes": "Historic calibration benchmark for urban flatland dam surge (Chembarambakkam release)."
+    }
+  ]
+}

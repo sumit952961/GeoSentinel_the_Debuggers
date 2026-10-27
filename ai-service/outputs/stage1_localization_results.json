@@ -1,0 +1,202 @@
+{
+  "best_variant": "pre_post",
+  "variants": {
+    "pre_only": {
+      "iou": 0.42834656139323185,
+      "f1": 0.5997795954721462,
+      "precision": 0.4791088422385465,
+      "recall": 0.8016996976596367,
+      "pixel_accuracy": 0.8786407470703125,
+      "tp": 238383,
+      "fp": 259172,
+      "fn": 58964,
+      "tn": 2064921,
+      "building_pixel_support": 297347,
+      "mean_latency_ms": 462.0339600020088,
+      "std_latency_ms": 23.87625273805291,
+      "throughput_fps": 2.164343071222843,
+      "train_duration_s": 683.86,
+      "train_history": [
+        0.8122765868902206,
+        0.711702694495519,
+        0.6569024374087652,
+        0.6059886415799459,
+        0.5910752365986506,
+        0.5650858258207639,
+        0.5347245807449023,
+        0.5265864506363869
+      ],
+      "val_history": [
+        0.8122973322868348,
+        0.7465616106987,
+        0.7232811689376831,
+        0.572320556640625,
+        0.5736743927001953,
+        0.5485592722892761,
+        0.5383438110351563,
+        0.5384366512298584
+      ],
+      "total_parameters": 24436369
+    },
+    "post_only": {
+      "iou": 0.36595102616131947,
+      "f1": 0.5358186628253252,
+      "precision": 0.40790872680429585,
+      "recall": 0.7805930444901075,
+      "pixel_accuracy": 0.8465919494628906,
+      "tp": 232107,
+      "fp": 336910,
+      "fn": 65240,
+      "tn": 1987183,
+      "building_pixel_support": 297347,
+      "mean_latency_ms": 525.6304499984253,
+      "std_latency_ms": 31.427405275721092,
+      "throughput_fps": 1.902477301311208,
+      "train_duration_s": 745.7,
+      "train_history": [
+        0.8192159434159597,
+        0.721311608950297,
+        0.6488888412714005,
+        0.6178548683722814,
+        0.6031527121861776,
+        0.5641486545403799,
+        0.5619803071022034,
+        0.5507584313551585
+      ],
+      "val_history": [
+        0.8459206342697143,
+        0.9858081579208374,
+        0.7470160245895385,
+        0.6243775844573974,
+        0.6073148012161255,
+        0.6011888027191162,
+        0.5736892819404602,
+        0.5726467609405518
+      ],
+      "total_parameters": 24436369
+    },
+    "pre_post": {
+      "iou": 0.4308164110761199,
+      "f1": 0.6021966308760772,
+      "precision": 0.48638071902187857,
+      "recall": 0.7904064947687383,
+      "pixel_accuracy": 0.8815502166748047,
+      "tp": 235025,
+      "fp": 248187,
+      "fn": 62322,
+      "tn": 2075906,
+      "building_pixel_support": 297347,
+      "mean_latency_ms": 660.4113900015363,
+      "std_latency_ms": 18.792694233681644,
+      "throughput_fps": 1.5142076819687704,
+      "train_duration_s": 782.66,
+      "train_history": [
+        0.7857886751492819,
+        0.6813931067784628,
+        0.6262076497077942,
+        0.5644817252953848,
+        0.5536925743023554,
+        0.5372968266407648,
+        0.5409395769238472,
+        0.5170547813177109
+      ],
+      "val_history": [
+        1.2910430431365967,
+        0.8854135513305664,
+        0.7344553232192993,
+        0.6337051630020142,
+        0.5481913328170777,
+        0.5427300691604614,
+        0.5402153611183167,
+        0.5335371017456054
+      ],
+      "total_parameters": 24445777
+    }
+  },
+  "sample_extracted_rois": [
+    {
+      "roi_id": 7,
+      "bbox": [
+        148,
+        493,
+        183,
+        512
+      ],
+      "area_pixels": 106.0,
+      "gt_damage_label": 1,
+      "damage_class_name": "no-damage",
+      "pre_crop_file": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\ai-service\\outputs\\stage1_extracted_crops\\roi_7_pre.png",
+      "post_crop_file": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\ai-service\\outputs\\stage1_extracted_crops\\roi_7_post.png"
+    },
+    {
+      "roi_id": 8,
+      "bbox": [
+        308,
+        491,
+        344,
+        512
+      ],
+      "area_pixels": 136.0,
+      "gt_damage_label": 1,
+      "damage_class_name": "no-damage",
+      "pre_crop_file": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\ai-service\\outputs\\stage1_extracted_crops\\roi_8_pre.png",
+      "post_crop_file": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\ai-service\\outputs\\stage1_extracted_crops\\roi_8_post.png"
+    },
+    {
+      "roi_id": 11,
+      "bbox": [
+        447,
+        487,
+        476,
+        512
+      ],
+      "area_pixels": 103.5,
+      "gt_damage_label": 1,
+      "damage_class_name": "no-damage",
+      "pre_crop_file": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\ai-service\\outputs\\stage1_extracted_crops\\roi_11_pre.png",
+      "post_crop_file": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\ai-service\\outputs\\stage1_extracted_crops\\roi_11_post.png"
+    },
+    {
+      "roi_id": 19,
+      "bbox": [
+        259,
+        464,
+        283,
+        491
+      ],
+      "area_pixels": 37.0,
+      "gt_damage_label": 1,
+      "damage_class_name": "no-damage",
+      "pre_crop_file": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\ai-service\\outputs\\stage1_extracted_crops\\roi_19_pre.png",
+      "post_crop_file": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\ai-service\\outputs\\stage1_extracted_crops\\roi_19_post.png"
+    },
+    {
+      "roi_id": 20,
+      "bbox": [
+        267,
+        463,
+        312,
+        512
+      ],
+      "area_pixels": 569.0,
+      "gt_damage_label": 1,
+      "damage_class_name": "no-damage",
+      "pre_crop_file": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\ai-service\\outputs\\stage1_extracted_crops\\roi_20_pre.png",
+      "post_crop_file": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\ai-service\\outputs\\stage1_extracted_crops\\roi_20_post.png"
+    },
+    {
+      "roi_id": 28,
+      "bbox": [
+        371,
+        429,
+        447,
+        512
+      ],
+      "area_pixels": 2036.0,
+      "gt_damage_label": 1,
+      "damage_class_name": "no-damage",
+      "pre_crop_file": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\ai-service\\outputs\\stage1_extracted_crops\\roi_28_pre.png",
+      "post_crop_file": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\ai-service\\outputs\\stage1_extracted_crops\\roi_28_post.png"
+    }
+  ]
+}

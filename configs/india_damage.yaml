@@ -1,0 +1,95 @@
+# ============================================================
+# India-Specific Damage Assessment Model — Training Configuration
+# ============================================================
+#
+# Strategy:
+#   Phase 1: Use xBD-pretrained U-Net ResNet34 as baseline
+#   Phase 2: Fine-tune on Indian disaster imagery (Chamoli + Cyclone Fani)
+#   Phase 3: Evaluate on held-out Indian data (Dharali cross-event test)
+#
+# IMPORTANT:
+#   - Chamoli 2021 has VERIFIED ground-truth labels (NERC EIDC Westoby et al.)
+#   - Cyclone Fani 2019 has EXPERT VERIFIED labels (Copernicus EMSR357)
+#   - Dharali 2025 has WEAK labels only — used for cross-event testing
+#   - Wayanad 2024 archived as reference
+
+model:
+  architecture: unet
+  encoder: resnet34
+  encoder_weights: imagenet
+  mode: pre_post          # 6-channel input (pre + post disaster)
+  num_classes: 5           # 0=Background, 1=NoDamage, 2=Minor, 3=Major, 4=Destroyed
+  pretrained_weights: ai-service/models/unet_resnet34_pre_post.pth
+
+training:
+  epochs: 5
+  batch_size: 4
+  learning_rate: 5.0e-5    # Lower LR for fine-tuning (vs 1e-4 for from-scratch)
+  weight_decay: 1.0e-4
+  optimizer: adamw
+  scheduler: cosine        # Cosine annealing for smooth convergence
+  loss: ce_dice            # Combined Cross-Entropy + Dice Loss
+  image_size: [512, 512]
+  augmentation:
+    - horizontal_flip
+    - vertical_flip
+    - rotate_90
+
+data:
+  root_dir: data/india
+  manifest: data/india/india_manifest.csv
+  
+  # Primary experiment: Train on verified Chamoli + Cyclone Fani labels
+  train_events:
+    - chamoli_2021        # VERIFIED_GROUND_TRUTH (EIDC shapefiles)
+    - fani_2019           # EXPERT_VERIFIED_GROUND_TRUTH (Copernicus EMSR357)
+  
+  # Cross-event generalisation test
+  test_events:
+    - dharali_2025        # WEAK_INFERENCE_ONLY — evaluates geographic & hazard transfer
+  
+  val_fraction: 0.15       # Hold out 15% of train events for validation
+  min_confidence: 0.3      # Filter tiles with very low-confidence labels
+  
+  # Alternate experiment configurations for cross-event study
+  experiments:
+    exp_chamoli_only:
+      train: [chamoli_2021]
+      test: [fani_2019, dharali_2025]
+      description: "Train on verified Chamoli avalanche flood labels only"
+    
+    exp_fani_only:
+      train: [fani_2019]
+      test: [chamoli_2021, dharali_2025]
+      description: "Train on Cyclone Fani Copernicus labels only"
+    
+    exp_cross_event:
+      train: [chamoli_2021, fani_2019]
+      test: [dharali_2025]
+      description: "Primary cross-event generalisation experiment"
+
+evaluation:
+  metrics:
+    - iou
+    - dice
+    - precision
+    - recall
+    - macro_f1
+    - weighted_f1
+    - confusion_matrix
+  
+  comparison:
+    baseline_model: ai-service/models/unet_resnet34_pre_post.pth
+    india_model: models/india_v1/best_model.pth
+  
+  # Per-class evaluation is mandatory (damage classes are imbalanced)
+  per_class: true
+  
+  # Cross-event generalisation matrix
+  cross_event: true
+
+output:
+  checkpoint_dir: models/india_v1
+  results_dir: outputs/india_evaluation
+  training_log: outputs/india_evaluation/training_log.json
+  comparison_report: outputs/india_evaluation/baseline_vs_india.json

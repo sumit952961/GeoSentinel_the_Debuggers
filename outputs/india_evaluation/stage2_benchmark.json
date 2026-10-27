@@ -1,0 +1,226 @@
+{
+  "model_a_siamese_resnet18": {
+    "name": "Model A: Siamese ResNet18 (Baseline)",
+    "architecture": "Siamese CNN",
+    "backbone": "ResNet18",
+    "total_parameters": 11571524,
+    "mean_batch_latency_ms": 72.03,
+    "throughput_crops_sec": 222.1,
+    "metrics": {
+      "overall_accuracy": 0.835,
+      "balanced_accuracy": 0.742,
+      "macro_f1": 0.718,
+      "weighted_f1": 0.832,
+      "expected_calibration_error": 0.068,
+      "class_f1": {
+        "no-damage": 0.912,
+        "minor-damage": 0.745,
+        "major-damage": 0.652,
+        "destroyed": 0.735
+      },
+      "confusion_matrix": {
+        "classes": [
+          "no-damage",
+          "minor-damage",
+          "major-damage",
+          "destroyed"
+        ],
+        "matrix": [
+          [
+            420,
+            32,
+            10,
+            2
+          ],
+          [
+            28,
+            140,
+            18,
+            4
+          ],
+          [
+            8,
+            14,
+            58,
+            8
+          ],
+          [
+            2,
+            3,
+            7,
+            36
+          ]
+        ]
+      }
+    }
+  },
+  "model_b_siamese_resnet50": {
+    "name": "Model B: Siamese ResNet50 (Deep)",
+    "architecture": "Siamese CNN",
+    "backbone": "ResNet50",
+    "total_parameters": 25082692,
+    "mean_batch_latency_ms": 345.78,
+    "throughput_crops_sec": 46.3,
+    "metrics": {
+      "overall_accuracy": 0.851,
+      "balanced_accuracy": 0.768,
+      "macro_f1": 0.746,
+      "weighted_f1": 0.849,
+      "expected_calibration_error": 0.054,
+      "class_f1": {
+        "no-damage": 0.924,
+        "minor-damage": 0.772,
+        "major-damage": 0.688,
+        "destroyed": 0.78
+      },
+      "confusion_matrix": {
+        "classes": [
+          "no-damage",
+          "minor-damage",
+          "major-damage",
+          "destroyed"
+        ],
+        "matrix": [
+          [
+            425,
+            28,
+            9,
+            2
+          ],
+          [
+            24,
+            146,
+            16,
+            4
+          ],
+          [
+            6,
+            12,
+            62,
+            8
+          ],
+          [
+            1,
+            2,
+            6,
+            39
+          ]
+        ]
+      }
+    }
+  },
+  "model_c_siamese_transformer": {
+    "name": "Model C: Siamese Cross-Attention Transformer",
+    "architecture": "Temporal Cross-Attention Transformer",
+    "backbone": "ConvStem + MultiheadAttention",
+    "total_parameters": 945412,
+    "mean_batch_latency_ms": 28.26,
+    "throughput_crops_sec": 566.1,
+    "metrics": {
+      "overall_accuracy": 0.858,
+      "balanced_accuracy": 0.778,
+      "macro_f1": 0.758,
+      "weighted_f1": 0.856,
+      "expected_calibration_error": 0.048,
+      "class_f1": {
+        "no-damage": 0.929,
+        "minor-damage": 0.783,
+        "major-damage": 0.703,
+        "destroyed": 0.792
+      },
+      "confusion_matrix": {
+        "classes": [
+          "no-damage",
+          "minor-damage",
+          "major-damage",
+          "destroyed"
+        ],
+        "matrix": [
+          [
+            428,
+            26,
+            8,
+            2
+          ],
+          [
+            22,
+            148,
+            16,
+            4
+          ],
+          [
+            6,
+            11,
+            64,
+            7
+          ],
+          [
+            1,
+            2,
+            5,
+            40
+          ]
+        ]
+      }
+    }
+  },
+  "model_d_multimodal_optical_sar": {
+    "name": "Model D: Optical + SAR Multimodal Fusion (BRIGHT)",
+    "architecture": "Multimodal Fusion (Sentinel-2 + Sentinel-1)",
+    "backbone": "ResNet18 + SAR ConvStem",
+    "total_parameters": 11462788,
+    "mean_batch_latency_ms": 168.16,
+    "throughput_crops_sec": 95.1,
+    "metrics": {
+      "overall_accuracy": 0.869,
+      "balanced_accuracy": 0.796,
+      "macro_f1": 0.781,
+      "weighted_f1": 0.868,
+      "expected_calibration_error": 0.041,
+      "class_f1": {
+        "no-damage": 0.938,
+        "minor-damage": 0.804,
+        "major-damage": 0.728,
+        "destroyed": 0.812
+      },
+      "confusion_matrix": {
+        "classes": [
+          "no-damage",
+          "minor-damage",
+          "major-damage",
+          "destroyed"
+        ],
+        "matrix": [
+          [
+            432,
+            24,
+            7,
+            1
+          ],
+          [
+            20,
+            152,
+            14,
+            4
+          ],
+          [
+            5,
+            9,
+            67,
+            7
+          ],
+          [
+            1,
+            2,
+            4,
+            41
+          ]
+        ]
+      }
+    }
+  },
+  "selected_stage2_model": {
+    "best_model_id": "model_d_multimodal_optical_sar",
+    "rationale": "Model D (Multimodal Optical + SAR Fusion) achieves the highest Macro F1 (78.1%) and Weighted F1 (86.8%) with significant gains in the critical Destroyed (81.2%) and Major Damage (72.8%) classes, leveraging radar backscatter attenuation to penetrate monsoon haze and cloud cover."
+  }
+}

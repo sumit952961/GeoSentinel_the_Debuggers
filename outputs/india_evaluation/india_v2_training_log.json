@@ -1,0 +1,89 @@
+{
+  "experiment_id": "india_v2_balanced_finetune",
+  "date": "2026-09-17T11:45:30Z",
+  "config": {
+    "model": {
+      "architecture": "unet",
+      "encoder": "resnet34",
+      "mode": "pre_post",
+      "num_classes": 5,
+      "pretrained_weights": "ai-service/models/unet_resnet34_pre_post.pth",
+      "in_channels": 6,
+      "freeze_encoder": false
+    },
+    "training": {
+      "epochs": 5,
+      "batch_size": 4,
+      "learning_rate": 0.0001,
+      "weight_decay": 0.0001,
+      "loss_type": "ce_dice",
+      "use_class_weights": true,
+      "class_weights": [
+        0.15,
+        1.0,
+        3.5,
+        3.0,
+        5.0
+      ],
+      "image_size": [
+        512,
+        512
+      ],
+      "optimizer": "adam",
+      "focal_gamma": 2.0,
+      "lr_scheduler": "cosine",
+      "val_fraction": 0.2,
+      "random_seed": 42
+    },
+    "data": {
+      "manifest": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\data\\india\\india_manifest.csv",
+      "root_dir": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\data\\india",
+      "train_events": [
+        "chamoli_2021",
+        "fani_2019"
+      ],
+      "test_events": [
+        "dharali_2025"
+      ],
+      "val_fraction": 0.2,
+      "min_confidence": 0.0
+    },
+    "output": {
+      "checkpoint_dir": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\models/india_v2",
+      "training_log": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\outputs/india_evaluation/india_v2_training_log.json",
+      "curves_plot": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\outputs\\india_evaluation\\training_curves.png",
+      "best_model_name": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\best_model.pth",
+      "final_model_name": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\final_model.pth"
+    }
+  },
+  "train_loss": [
+    1.3094191948572795,
+    1.269063703219096,
+    1.2415852626164754,
+    1.231764276822408,
+    1.2235321998596191
+  ],
+  "val_loss": [
+    1.1466740369796753,
+    1.132228136062622,
+    1.0930708646774292,
+    1.0691536664962769,
+    1.0606400966644287
+  ],
+  "val_miou": [
+    0.04792931132889393,
+    0.05938099259066265,
+    0.06882832646129924,
+    0.06827650016103623,
+    0.06722783032412924
+  ],
+  "val_building_miou": [
+    0.008703297334782313,
+    0.00837415910359532,
+    0.006643464538099791,
+    0.005686050624788751,
+    0.004905814289979098
+  ],
+  "best_epoch": 1,
+  "best_building_miou": 0.008703297334782313
+}

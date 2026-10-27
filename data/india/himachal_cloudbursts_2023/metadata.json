@@ -1,0 +1,29 @@
+{
+  "event_id": "himachal_cloudbursts_2023",
+  "event_name": "Himachal Pradesh Monsoon Flash Floods 2023",
+  "hazard_type": "Cloudburst / Flash Flood / Landslide",
+  "country": "India",
+  "state": "Himachal Pradesh",
+  "district": "Mandi, Kullu & Shimla",
+  "latitude_range": [
+    31.5,
+    32.1
+  ],
+  "longitude_range": [
+    76.9,
+    77.4
+  ],
+  "event_date": "2023-07-10",
+  "pre_image_date": "2023-06-25",
+  "post_image_date": "2023-07-16",
+  "sensor": "Sentinel-2 MSI (10m) / Sentinel-1 SAR",
+  "resolution": "10m",
+  "data_source": "HPSDMA / NRSC / Copernicus Data Space",
+  "licence": "Open Access",
+  "label_quality": "WEAK",
+  "annotation_method": "Beas riverbed swelling extent and active landslide scar delineation",
+  "number_of_buildings": 1450,
+  "number_of_damage_labels": 310,
+  "number_of_weak_labels": 1140,
+  "notes": "Beas river surge washing away riverside hotels, bridges (Aut tunnel vicinity) and road embankments."
+}

@@ -1,0 +1,72 @@
+{
+  "chamoli_2021": {
+    "pre_images": [
+      {
+        "id": "84cd1721-4e5e-480d-ab2b-2099f26f5806",
+        "name": "S2A_MSIL2A_20210205T052011_N0500_R062_T44RLU_20230604T212539.SAFE",
+        "date": "2021-02-05T05:20:11.024000Z",
+        "cloud_cover": 22.974211,
+        "size_mb": 1240.1,
+        "download_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(84cd1721-4e5e-480d-ab2b-2099f26f5806)/$value"
+      }
+    ],
+    "post_images": [
+      {
+        "id": "478d53a4-1f55-4a77-ad6d-4138594d927b",
+        "name": "S2B_MSIL2A_20210210T051939_N0500_R062_T44RLU_20230606T070210.SAFE",
+        "date": "2021-02-10T05:19:39.024000Z",
+        "cloud_cover": 8.167754,
+        "size_mb": 1246.0,
+        "download_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(478d53a4-1f55-4a77-ad6d-4138594d927b)/$value"
+      },
+      {
+        "id": "7b2e74be-04b9-490a-b081-7766013df66f",
+        "name": "S2A_MSIL2A_20210215T051911_N0500_R062_T44RLU_20230623T144303.SAFE",
+        "date": "2021-02-15T05:19:11.024000Z",
+        "cloud_cover": 16.34692,
+        "size_mb": 1231.8,
+        "download_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(7b2e74be-04b9-490a-b081-7766013df66f)/$value"
+      }
+    ],
+    "pre_count": 1,
+    "post_count": 2
+  },
+  "wayanad_2024": {
+    "pre_images": [],
+    "post_images": [],
+    "pre_count": 0,
+    "post_count": 0
+  },
+  "dharali_2025": {
+    "pre_images": [
+      {
+        "id": "efbe8981-3011-40b8-93d1-ae60e43c0938",
+        "name": "S2C_MSIL2A_20250704T051711_N0511_R062_T44RKV_20250704T101900.SAFE",
+        "date": "2025-07-04T05:17:11.025000Z",
+        "cloud_cover": 21.303779,
+        "size_mb": 541.4,
+        "download_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(efbe8981-3011-40b8-93d1-ae60e43c0938)/$value"
+      },
+      {
+        "id": "4b48ebd0-5b82-41f2-a71f-1f75dc6c49c8",
+        "name": "S2A_MSIL2A_20250706T052241_N0511_R062_T44RKV_20250706T075215.SAFE",
+        "date": "2025-07-06T05:22:41.024000Z",
+        "cloud_cover": 26.264378,
+        "size_mb": 522.9,
+        "download_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(4b48ebd0-5b82-41f2-a71f-1f75dc6c49c8)/$value"
+      }
+    ],
+    "post_images": [
+      {
+        "id": "f65dce4e-ef7e-45bb-a8ad-2421d73d9645",
+        "name": "S2B_MSIL2A_20250719T051659_N0511_R062_T44RKV_20250719T073015.SAFE",
+        "date": "2025-07-19T05:16:59.024000Z",
+        "cloud_cover": 28.426415,
+        "size_mb": 521.3,
+        "download_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(f65dce4e-ef7e-45bb-a8ad-2421d73d9645)/$value"
+      }
+    ],
+    "pre_count": 2,
+    "post_count": 1
+  }
+}

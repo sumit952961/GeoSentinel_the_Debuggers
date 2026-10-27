@@ -1,0 +1,71 @@
+{
+  "experiment_id": "exp_b_heldout_dharali",
+  "description": "Global baseline evaluated directly on Dharali held-out event without Indian fine-tuning",
+  "seed": 42,
+  "manifest_hash": "3fb162ba0f9271ce",
+  "heldout_event": "dharali_2025",
+  "stage1_metrics": {
+    "pixel_accuracy": 0.9979,
+    "balanced_accuracy": 0.8885,
+    "building_iou": 0.5795,
+    "building_dice": 0.7338,
+    "building_precision": 0.694,
+    "building_recall": 0.7784,
+    "building_f1": 0.7338,
+    "mean_latency_ms": 782.85
+  },
+  "stage2_metrics": {
+    "overall_accuracy": 0.1923,
+    "balanced_accuracy": 0.25,
+    "macro_f1": 0.0806,
+    "weighted_f1": 0.062,
+    "per_class": {
+      "no-damage": {
+        "f1": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "minor-damage": {
+        "f1": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "major-damage": {
+        "f1": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "destroyed": {
+        "f1": 0.3226,
+        "precision": 0.1923,
+        "recall": 1.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        0,
+        0,
+        0,
+        6
+      ],
+      [
+        0,
+        0,
+        0,
+        5
+      ],
+      [
+        0,
+        0,
+        0,
+        10
+      ],
+      [
+        0,
+        0,
+        0,
+        5
+      ]
+    ]
+  }
+}

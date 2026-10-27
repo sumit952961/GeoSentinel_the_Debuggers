@@ -1,0 +1,87 @@
+{
+  "timestamp": "2026-09-20 23:57:08",
+  "event_id": "smoke_test",
+  "total_queued": 3,
+  "priority_threshold": 0.55,
+  "high_priority_count": 2,
+  "review_queue": [
+    {
+      "building_id": 2,
+      "current_pred_class": "sample",
+      "confidence": 0.6,
+      "probabilities": {
+        "no-damage": 0.35,
+        "minor-damage": 0.25,
+        "major-damage": 0.2,
+        "destroyed": 0.2
+      },
+      "uncertainty": {
+        "entropy": 0.9794,
+        "margin_uncertainty": 0.9,
+        "least_confidence": 0.65,
+        "priority_score": 1.1958
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.7,
+          30.5
+        ]
+      },
+      "review_status": "PENDING",
+      "suggested_action": "CONFIRM_INTACT"
+    },
+    {
+      "building_id": 3,
+      "current_pred_class": "sample",
+      "confidence": 0.6,
+      "probabilities": {
+        "no-damage": 0.1,
+        "minor-damage": 0.15,
+        "major-damage": 0.4,
+        "destroyed": 0.35
+      },
+      "uncertainty": {
+        "entropy": 0.9008,
+        "margin_uncertainty": 0.95,
+        "least_confidence": 0.6,
+        "priority_score": 1.1581
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.7,
+          30.5
+        ]
+      },
+      "review_status": "PENDING",
+      "suggested_action": "CONFIRM_INTACT"
+    },
+    {
+      "building_id": 1,
+      "current_pred_class": "sample",
+      "confidence": 0.6,
+      "probabilities": {
+        "no-damage": 0.85,
+        "minor-damage": 0.1,
+        "major-damage": 0.03,
+        "destroyed": 0.02
+      },
+      "uncertainty": {
+        "entropy": 0.3981,
+        "margin_uncertainty": 0.25,
+        "least_confidence": 0.15,
+        "priority_score": 0.2966
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.7,
+          30.5
+        ]
+      },
+      "review_status": "PENDING",
+      "suggested_action": "CONFIRM_INTACT"
+    }
+  ]
+}

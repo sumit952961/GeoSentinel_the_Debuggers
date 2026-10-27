@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!--
+        PARENT: Spring Boot Starter Parent
+        This gives us default configurations, dependency versions,
+        and plugin management so we don't have to specify versions for
+        every Spring dependency manually.
+    -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.3.2</version>
+        <relativePath/>
+    </parent>
+
+    <!-- Our project coordinates -->
+    <groupId>com.disastermgmt</groupId>
+    <artifactId>disaster-management-backend</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>Disaster Management Backend</name>
+    <description>
+        Backend service for the Computer Vision and GIS Based
+        Disaster Management System. Handles REST APIs, database access,
+        priority calculations, and coordination with the AI service.
+    </description>
+
+    <properties>
+        <!-- Use Java 21 source level for compatibility -->
+        <java.version>21</java.version>
+        <jts.version>1.19.0</jts.version>
+    </properties>
+
+    <dependencies>
+        <!--
+            1. SPRING WEB
+            Provides: REST controllers, HTTP handling, JSON serialization
+            Why: We need this to create our REST API endpoints like
+                 GET /api/scenarios, POST /api/analysis/start, etc.
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!--
+            2. SPRING DATA JPA
+            Provides: Database ORM (Object-Relational Mapping)
+            Why: Lets us interact with PostgreSQL using Java objects
+                 instead of writing raw SQL for every operation.
+                 For example, we can do repository.findAll() instead
+                 of "SELECT * FROM disaster_scenarios".
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <!--
+            3. POSTGRESQL JDBC DRIVER
+            Provides: The low-level connection to PostgreSQL
+            Why: Java needs this driver to actually talk to PostgreSQL.
+                 Spring Boot auto-configures it using our application.yml settings.
+        -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!--
+            4. HIBERNATE SPATIAL
+            Provides: Support for PostGIS geometry types (Point, Polygon, LineString)
+            Why: Standard JPA doesn't understand geographic data. Hibernate Spatial
+                 adds the ability to store and query spatial data like building
+                 polygons and hospital locations.
+        -->
+        <dependency>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-spatial</artifactId>
+        </dependency>
+
+        <!--
+            5. JTS CORE (Java Topology Suite)
+            Provides: Geometry classes (Point, Polygon, LineString, etc.)
+            Why: These are the Java objects that represent geographic shapes.
+                 When we store a building polygon or hospital point in the database,
+                 we use JTS geometry objects.
+        -->
+        <dependency>
+            <groupId>org.locationtech.jts</groupId>
+            <artifactId>jts-core</artifactId>
+            <version>${jts.version}</version>
+        </dependency>
+
+        <!--
+            6. JTS IO (GeoJSON reader/writer)
+            Provides: Convert between JTS geometry objects and GeoJSON strings
+            Why: The frontend map (Leaflet) expects GeoJSON format.
+                 This library converts our Java geometry objects into GeoJSON
+                 that the map can display.
+        -->
+        <dependency>
+            <groupId>org.locationtech.jts.io</groupId>
+            <artifactId>jts-io-common</artifactId>
+            <version>${jts.version}</version>
+        </dependency>
+
+        <!--
+            7. SPRING VALIDATION
+            Provides: Request validation annotations (@NotBlank, @Valid, etc.)
+            Why: Automatically validates incoming API requests so we don't
+                 have to write manual checks for every field.
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+
+        <!--
+            8. SPRING ACTUATOR
+            Provides: Health check endpoint, metrics, system info
+            Why: Gives us /actuator/health so we can verify the backend is running.
+                 Also useful for monitoring in production.
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <!--
+            9. SPRING WEBFLUX (for WebClient only)
+            Provides: WebClient — a modern HTTP client
+            Why: We use WebClient to call the Python FastAPI service.
+                 It's non-blocking, meaning the backend won't freeze
+                 while waiting for the AI service to respond.
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
+
+        <!--
+            10. LOMBOK
+            Provides: Auto-generates boilerplate code (getters, setters, constructors)
+            Why: Instead of writing 50 lines of getters/setters for each entity,
+                 we add @Getter @Setter and Lombok generates them at compile time.
+        -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!--
+            11. SPRING BOOT TEST
+            Provides: Testing utilities
+            Why: Lets us write unit tests for our controllers and services.
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

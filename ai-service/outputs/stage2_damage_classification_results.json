@@ -1,0 +1,189 @@
+{
+  "dataset": {
+    "train_buildings": 2179,
+    "val_buildings": 622,
+    "test_buildings": 694,
+    "train_counts": {
+      "no-damage": 1096,
+      "minor-damage": 351,
+      "major-damage": 339,
+      "destroyed": 393
+    },
+    "class_weights": {
+      "no-damage": 0.4970346689224243,
+      "minor-damage": 1.5519943237304688,
+      "major-damage": 1.6069321632385254,
+      "destroyed": 1.3861323595046997
+    }
+  },
+  "model": {
+    "name": "SiameseResNet18DamageClassifier",
+    "total_parameters": 12030916,
+    "trainable_parameters": 12030916,
+    "crop_size": [
+      64,
+      64
+    ],
+    "training_duration_s": 0.0
+  },
+  "oracle_evaluation": {
+    "accuracy": 0.5057636887608069,
+    "macro_f1": 0.3198808904820833,
+    "weighted_f1": 0.6076574053171956,
+    "macro_precision": 0.3541442228823945,
+    "macro_recall": 0.4453589806419995,
+    "per_class": {
+      "no-damage": {
+        "class_id": 0,
+        "precision": 0.9314641744548287,
+        "recall": 0.5128644939965694,
+        "f1": 0.6615044247787609,
+        "support": 583
+      },
+      "minor-damage": {
+        "class_id": 1,
+        "precision": 0.38,
+        "recall": 0.5066666666666667,
+        "f1": 0.43428571428571433,
+        "support": 75
+      },
+      "major-damage": {
+        "class_id": 2,
+        "precision": 0.03424657534246575,
+        "recall": 0.3333333333333333,
+        "f1": 0.06211180124223603,
+        "support": 15
+      },
+      "destroyed": {
+        "class_id": 3,
+        "precision": 0.07086614173228346,
+        "recall": 0.42857142857142855,
+        "f1": 0.12162162162162163,
+        "support": 21
+      }
+    },
+    "confusion_matrix": [
+      [
+        299,
+        48,
+        128,
+        108
+      ],
+      [
+        17,
+        38,
+        12,
+        8
+      ],
+      [
+        2,
+        6,
+        5,
+        2
+      ],
+      [
+        3,
+        8,
+        1,
+        9
+      ]
+    ],
+    "total_samples": 694,
+    "mean_latency_ms_per_building": 6.651562824233043,
+    "throughput_buildings_per_sec": 150.34060812848216
+  },
+  "end_to_end_evaluation": {
+    "total_gt_buildings": 681,
+    "total_detected_buildings": 909,
+    "matched_detections": 101,
+    "matched_correct_damage": 42,
+    "damage_accuracy_on_matched_buildings": 0.4158415841584158,
+    "mean_stage1_latency_ms": 1972.28983999521,
+    "mean_stage2_latency_ms": 609.9059299973305,
+    "mean_total_tile_latency_ms": 2835.8892399963224,
+    "mean_per_building_ms": 7.405801781426522,
+    "tile_benchmarks": [
+      {
+        "pair_id": "hurricane-harvey_00000193",
+        "buildings_detected": 138,
+        "stage1_loc_ms": 2005.773799988674,
+        "stage2_clf_ms": 877.4898999836296,
+        "total_tile_ms": 3128.9486000023317,
+        "per_building_ms": 6.35862246364949
+      },
+      {
+        "pair_id": "hurricane-harvey_00000013",
+        "buildings_detected": 126,
+        "stage1_loc_ms": 1803.5647999786306,
+        "stage2_clf_ms": 841.2899000104517,
+        "total_tile_ms": 2822.396600007778,
+        "per_building_ms": 6.6769039683369185
+      },
+      {
+        "pair_id": "hurricane-matthew_00000374",
+        "buildings_detected": 32,
+        "stage1_loc_ms": 1852.3960000020452,
+        "stage2_clf_ms": 288.7355000129901,
+        "total_tile_ms": 2288.344299973687,
+        "per_building_ms": 9.02298437540594
+      },
+      {
+        "pair_id": "hurricane-matthew_00000012",
+        "buildings_detected": 107,
+        "stage1_loc_ms": 1864.111500006402,
+        "stage2_clf_ms": 748.2852999819443,
+        "total_tile_ms": 2847.373600001447,
+        "per_building_ms": 6.993320560578918
+      },
+      {
+        "pair_id": "hurricane-michael_00000062",
+        "buildings_detected": 13,
+        "stage1_loc_ms": 2072.1514000033494,
+        "stage2_clf_ms": 135.80740001634695,
+        "total_tile_ms": 2342.772700008936,
+        "per_building_ms": 10.446723078180534
+      },
+      {
+        "pair_id": "hurricane-michael_00000084",
+        "buildings_detected": 63,
+        "stage1_loc_ms": 2052.1593999874312,
+        "stage2_clf_ms": 395.28060000156984,
+        "total_tile_ms": 2847.5189000018872,
+        "per_building_ms": 6.274295238120156
+      },
+      {
+        "pair_id": "midwest-flooding_00000257",
+        "buildings_detected": 24,
+        "stage1_loc_ms": 2046.2937999982387,
+        "stage2_clf_ms": 189.2292999837082,
+        "total_tile_ms": 2388.034699979471,
+        "per_building_ms": 7.884554165987841
+      },
+      {
+        "pair_id": "midwest-flooding_00000296",
+        "buildings_detected": 0,
+        "stage1_loc_ms": 1965.2445999963675,
+        "stage2_clf_ms": 0.0,
+        "total_tile_ms": 2197.0424999890383,
+        "per_building_ms": 0.0
+      },
+      {
+        "pair_id": "santa-rosa-wildfire_00000167",
+        "buildings_detected": 177,
+        "stage1_loc_ms": 1944.2580999748316,
+        "stage2_clf_ms": 1201.1171999911312,
+        "total_tile_ms": 3610.439900017809,
+        "per_building_ms": 6.785972881305826
+      },
+      {
+        "pair_id": "santa-rosa-wildfire_00000316",
+        "buildings_detected": 229,
+        "stage1_loc_ms": 2116.9450000161305,
+        "stage2_clf_ms": 1421.8241999915335,
+        "total_tile_ms": 3886.0205999808386,
+        "per_building_ms": 6.2088393012730725
+      }
+    ],
+    "geojson_file": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\ai-service\\outputs\\stage2_end_to_end_predictions.geojson"
+  }
+}

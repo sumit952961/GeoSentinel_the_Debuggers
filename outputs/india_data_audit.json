@@ -1,0 +1,237 @@
+{
+  "title": "DRAS v2.0 India Geospatial Data & Label Provenance Audit",
+  "version": "2.0.0",
+  "audit_date": "2026-09-17",
+  "provenance_standards": {
+    "ground_truth": "Published, peer-reviewed spatial datasets with verified physical or manual photo-interpretation attributes.",
+    "expert_verified": "Official emergency mapping agency assessments (e.g. Copernicus EMS Rapid Mapping).",
+    "manual": "Researcher or operator digitized and validated annotations.",
+    "weak_supervision": "Geospatial heuristic overlays (e.g. hazard polygon intersections).",
+    "synthetic": "Programmatically rendered masks or generated approximations.",
+    "unknown": "Unverified or missing lineage."
+  },
+  "scenarios": {
+    "chamoli_2021": [
+      {
+        "scenario": "Chamoli Flash Flood 2021",
+        "source_name": "NERC EIDC (Westoby et al., 2023) Building Footprint Shapefile",
+        "source_url": "https://doi.org/10.5285/a763e254-c249-4934-b0fb-c3b808b37db6",
+        "filename": "data/india/chamoli_2021/raw/extracted/data/Infrastructure_Mapping/Buildings/10feb2021_build.shp",
+        "format": "ESRI Shapefile",
+        "geometry_type": "POLYGON",
+        "crs": "EPSG:32644 (WGS 84 / UTM Zone 44N)",
+        "spatial_extent": {
+          "bbox_utm44n": [
+            353380.6182000004,
+            3371848.6809,
+            380373.95270000026,
+            3382690.9213999994
+          ],
+          "geographic_center_approx": [
+            79.62,
+            30.45
+          ]
+        },
+        "acquisition_date": "2021-02-10",
+        "sensor": "Pleiades & WorldView High-Resolution Optical Stereo Pairs",
+        "resolution": "0.5m derived vector footprints",
+        "license": "Open Government Licence v3.0 / UKRI Data Licence",
+        "number_of_records": 6455,
+        "relevant_attribute_fields": [
+          "Id",
+          "Type",
+          "Condition"
+        ],
+        "damage_condition_fields": [
+          "Condition"
+        ],
+        "condition_distribution": {
+          "2": 32,
+          "1": 6389,
+          "0": 34
+        },
+        "label_categories": {
+          "1": "Intact (Standing structure) \u2014 6389 buildings",
+          "2": "Obstructed / Damaged by debris/flood \u2014 32 buildings",
+          "0": "Unclassified / Washed out in riverbed \u2014 34 buildings"
+        },
+        "building_type_distribution": {
+          "3": 375,
+          "2": 1365,
+          "1": 4606,
+          "4": 109
+        },
+        "type_categories": {
+          "1": "Residential (permanent)",
+          "2": "Residential (informal/temporary)",
+          "3": "Industrial (hydropower)",
+          "4": "Municipal"
+        },
+        "label_provenance": "ground_truth",
+        "scientific_assessment": "CRITICAL LABEL SEMANTICS NOTE: NERC EIDC provides native binary/3-state condition attributes: 6,389 Intact (98.98%), 32 Obstructed/Damaged (0.50%), and 34 Unclassified (0.53%). This is an extreme class imbalance (99% intact). In Westoby et al. (2021), 'Condition = 2' indicates buildings physically inundated, obstructed, or sheared by the hyperconcentrated ice-rock flow down the Rishiganga and Dhauliganga valleys. 'Condition = 1' indicates standing, structurally intact buildings outside the flood/debris wave. The source dataset does NOT contain native 4-class xBD grading (No Damage/Minor/Major/Destroyed). DRAS preserves native binary condition on verified footprints rather than artificially manufacturing a 4-class callset."
+      },
+      {
+        "scenario": "Chamoli Flash Flood 2021",
+        "source_name": "NERC EIDC (Westoby et al., 2023) Bridges & Washed-out Bridges",
+        "source_url": "https://doi.org/10.5285/a763e254-c249-4934-b0fb-c3b808b37db6",
+        "filename": "data/india/chamoli_2021/raw/extracted/data/Infrastructure_Mapping/Bridges/10feb2021_bridge.shp & former_bridges.shp",
+        "format": "ESRI Shapefile",
+        "geometry_type": "POLYLINE",
+        "crs": "EPSG:32644 (WGS 84 / UTM Zone 44N)",
+        "acquisition_date": "2021-02-10",
+        "sensor": "Satellite photo-interpretation",
+        "resolution": "0.5m derived vector",
+        "license": "Open Government Licence v3.0",
+        "number_of_records": 27,
+        "relevant_attribute_fields": [
+          "Id",
+          "Type",
+          "Condition"
+        ],
+        "condition_distribution": {
+          "standing_intact": 21,
+          "washed_out_destroyed": 6
+        },
+        "label_provenance": "ground_truth",
+        "scientific_assessment": "Verified ground-truth bridge destruction evidence, including the critical Joshimath-Tapovan RCC bridge washout."
+      },
+      {
+        "scenario": "Chamoli Flash Flood 2021",
+        "source_name": "NERC EIDC (Westoby et al., 2023) Roads & Washed-out Road Corridors",
+        "source_url": "https://doi.org/10.5285/a763e254-c249-4934-b0fb-c3b808b37db6",
+        "filename": "data/india/chamoli_2021/raw/extracted/data/Infrastructure_Mapping/Roads/10feb2021_road.shp & former_roads.shp",
+        "format": "ESRI Shapefile",
+        "geometry_type": "POLYLINE",
+        "crs": "EPSG:32644 (WGS 84 / UTM Zone 44N)",
+        "acquisition_date": "2021-02-10",
+        "sensor": "Satellite photo-interpretation",
+        "resolution": "0.5m derived vector",
+        "license": "Open Government Licence v3.0",
+        "number_of_records": 540,
+        "condition_distribution": {
+          "standing_intact_or_obstructed": 521,
+          "completely_washed_out": 19
+        },
+        "label_provenance": "ground_truth",
+        "scientific_assessment": "Ground-truth road network with 19 washed-out segments along the Dhauliganga riverbed."
+      }
+    ],
+    "fani_2019": [
+      {
+        "scenario": "Cyclone Fani 2019",
+        "source_name": "Copernicus EMS Rapid Mapping Activation EMSR357 (AOI08 Puri Grading)",
+        "source_url": "https://rapidmapping.emergency.copernicus.eu/EMSR357",
+        "filename": "data/india/fani_2019/raw/extracted/EMSR357_AOI08_GRA_PRODUCT_builtUpP_r1_v2.shp",
+        "format": "ESRI Shapefile",
+        "geometry_type": "POINT",
+        "crs": "EPSG:4326 (WGS 84 Geographic)",
+        "spatial_extent": {
+          "bbox": [
+            85.77800908900008,
+            19.783598131000076,
+            85.87910789800009,
+            19.856492545000037
+          ],
+          "geographic_center_approx": [
+            85.83,
+            19.81
+          ]
+        },
+        "acquisition_date": "2019-05-04",
+        "sensor": "WorldView-2 / GeoEye-1 Very High Resolution Optical (0.5m)",
+        "resolution": "0.5m optical photo-interpretation",
+        "license": "Copernicus Free and Open Access Policy / European Commission",
+        "number_of_records": 9777,
+        "relevant_attribute_fields": [
+          "obj_type",
+          "name",
+          "info",
+          "damage_gra",
+          "det_method",
+          "notation",
+          "or_src_id",
+          "dmg_src_id",
+          "cd_value"
+        ],
+        "damage_condition_fields": [
+          "damage_gra"
+        ],
+        "condition_distribution": {
+          "Damaged": 7751,
+          "Destroyed": 1333,
+          "Possibly damaged": 693
+        },
+        "label_categories": {
+          "Damaged": "Structural roof / wall damage \u2014 7751 structures",
+          "Destroyed": "Complete structural collapse \u2014 1333 structures",
+          "Possibly damaged": "Superficial or partial damage \u2014 693 structures"
+        },
+        "object_type_distribution": {
+          "12-Non-residential Buildings": 10,
+          "11-Residential Buildings": 9767
+        },
+        "label_provenance": "expert_verified",
+        "scientific_assessment": "CRITICAL GEOMETRY & EVIDENCE NOTE: Geometry type is POINT (Code 1), NOT Polygon. The 9,777 features are rapid mapping damage-assessment points for individual structures (notation: 'Building point'). They represent point-based damage evidence from Copernicus EMS photo-interpretation, NOT ground-truth building polygon footprints. DRAS preserves them as point evidence and does not synthesize polygon footprints or claim polygon ground truth."
+      },
+      {
+        "scenario": "Cyclone Fani 2019",
+        "source_name": "Copernicus EMSR357 Transportation Lines (Roads/Railways)",
+        "source_url": "https://rapidmapping.emergency.copernicus.eu/EMSR357",
+        "filename": "data/india/fani_2019/raw/extracted/EMSR357_AOI08_GRA_PRODUCT_transportationL_r1_v2.shp",
+        "format": "ESRI Shapefile",
+        "geometry_type": "POLYLINE",
+        "crs": "EPSG:4326 (WGS 84 Geographic)",
+        "acquisition_date": "2019-05-04",
+        "sensor": "VHR Optical photo-interpretation",
+        "license": "Copernicus Open Access",
+        "number_of_records": 202,
+        "condition_distribution": {
+          "No visible damage": 183,
+          "Damaged": 11,
+          "Possibly damaged": 8
+        },
+        "label_provenance": "expert_verified",
+        "scientific_assessment": "Graded transportation lines confirming road blockages along Puri Marine Drive."
+      }
+    ],
+    "dharali_2025": [
+      {
+        "scenario": "Dharali Flash Flood 2025",
+        "source_name": "ISRO/NRSC Cartosat-2S & Bhuvan Disaster Services Debris Fan",
+        "source_url": "https://bhuvan-app1.nrsc.gov.in/bhuvandisaster/",
+        "filename": "data/india/dharali_2025/metadata.json (Derived GeoJSON & Sentinel-2 scenes)",
+        "format": "GeoJSON / Sentinel-2 COG",
+        "geometry_type": "POLYGON (Hazard Extent)",
+        "crs": "EPSG:4326 (WGS 84)",
+        "spatial_extent": {
+          "bbox": [
+            78.6,
+            30.9,
+            78.9,
+            31.15
+          ],
+          "geographic_center": [
+            78.75,
+            31.03
+          ]
+        },
+        "acquisition_date": "2025-08-06",
+        "sensor": "ISRO Cartosat-2S & Copernicus Sentinel-2 L2A",
+        "resolution": "10m Sentinel-2 / 0.8m Cartosat-2S overview",
+        "license": "ISRO / Government of India Open Data",
+        "number_of_records": 1,
+        "relevant_attribute_fields": [
+          "event_type",
+          "debris_area_ha"
+        ],
+        "damage_condition_fields": [],
+        "condition_distribution": {
+          "debris_fan_hectares": 20.4
+        },
+        "label_categories": {},
+        "label_provenance": "weak_supervision",
+        "scientific_assessment": "CRITICAL SCIENTIFIC ASSESSMENT: Dharali has zero verified building-level ground-truth damage labels. The debris fan polygon indicates physical hazard impact, but spatial intersection does not constitute verified structural damage. Used strictly for qualitative zero-shot inference, exposure analysis, operational zones, and emergency routing. Quantitative building damage metrics are N/A."
+      }
+    ]
+  }
+}

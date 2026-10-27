@@ -1,0 +1,1343 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.74278043273692,
+              31.034316771366846
+            ],
+            [
+              78.74310382475993,
+              31.034316771366846
+            ],
+            [
+              78.74310382475993,
+              31.034640163389845
+            ],
+            [
+              78.74278043273692,
+              31.034640163389845
+            ],
+            [
+              78.74278043273692,
+              31.034316771366846
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 784,
+        "building_id": 285,
+        "priority_score": 0.8135,
+        "priority_level": "CRITICAL",
+        "severity_score": 0.96,
+        "population_score": 1.0,
+        "infrastructure_score": 0.85,
+        "accessibility_score": 0.25,
+        "damage_class": "destroyed",
+        "confidence": 0.92,
+        "explanation": "CRITICAL PRIORITY (Score: 0.81) \u2014 Severity: DESTROYED (96%), Exposure: 15+ occupants (commercial / multi-family complex) (100%), Infrastructure: Within 0.5km of emergency hospital and 1.6km of shelter, Accessibility: Passable access: 0.5km to open highway, Hazard: Near DEBRIS_FAN_EXTENT zone (1.2km).",
+        "population_disclaimer": "Controlled Demonstration Data based on footprint area"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.74880672822383,
+              31.031937095517158
+            ],
+            [
+              78.74916605269382,
+              31.031937095517158
+            ],
+            [
+              78.74916605269382,
+              31.032296419987155
+            ],
+            [
+              78.74880672822383,
+              31.032296419987155
+            ],
+            [
+              78.74880672822383,
+              31.031937095517158
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 785,
+        "building_id": 287,
+        "priority_score": 0.8135,
+        "priority_level": "CRITICAL",
+        "severity_score": 0.96,
+        "population_score": 1.0,
+        "infrastructure_score": 0.85,
+        "accessibility_score": 0.25,
+        "damage_class": "destroyed",
+        "confidence": 0.92,
+        "explanation": "CRITICAL PRIORITY (Score: 0.81) \u2014 Severity: DESTROYED (96%), Exposure: 15+ occupants (commercial / multi-family complex) (100%), Infrastructure: Within 1.1km of emergency hospital and 1.0km of shelter, Accessibility: Passable access: 0.4km to open highway, Hazard: Near DEBRIS_FAN_EXTENT zone (0.6km).",
+        "population_disclaimer": "Controlled Demonstration Data based on footprint area"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.74806709746832,
+              31.029451886977206
+            ],
+            [
+              78.7482467597033,
+              31.029451886977206
+            ],
+            [
+              78.7482467597033,
+              31.029631549212205
+            ],
+            [
+              78.74806709746832,
+              31.029631549212205
+            ],
+            [
+              78.74806709746832,
+              31.029451886977206
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 786,
+        "building_id": 289,
+        "priority_score": 0.8135,
+        "priority_level": "CRITICAL",
+        "severity_score": 0.96,
+        "population_score": 0.85,
+        "infrastructure_score": 0.85,
+        "accessibility_score": 0.25,
+        "damage_class": "destroyed",
+        "confidence": 0.92,
+        "explanation": "CRITICAL PRIORITY (Score: 0.81) \u2014 Severity: DESTROYED (96%), Exposure: 6-12 occupants (multi-unit / large structure) (85%), Infrastructure: Within 1.0km of emergency hospital and 1.0km of shelter, Accessibility: Passable access: 0.3km to open highway, Hazard: Inside/adjacent to DEBRIS_FAN_EXTENT zone (0.42km).",
+        "population_disclaimer": "Controlled Demonstration Data based on footprint area"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.74769108349552,
+              31.03684614086421
+            ],
+            [
+              78.74805040796552,
+              31.03684614086421
+            ],
+            [
+              78.74805040796552,
+              31.037205465334207
+            ],
+            [
+              78.74769108349552,
+              31.037205465334207
+            ],
+            [
+              78.74769108349552,
+              31.03684614086421
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 787,
+        "building_id": 291,
+        "priority_score": 0.8135,
+        "priority_level": "CRITICAL",
+        "severity_score": 0.96,
+        "population_score": 1.0,
+        "infrastructure_score": 0.85,
+        "accessibility_score": 0.25,
+        "damage_class": "destroyed",
+        "confidence": 0.92,
+        "explanation": "CRITICAL PRIORITY (Score: 0.81) \u2014 Severity: DESTROYED (96%), Exposure: 15+ occupants (commercial / multi-family complex) (100%), Infrastructure: Within 1.0km of emergency hospital and 1.4km of shelter, Accessibility: Passable access: 0.8km to open highway, Hazard: Near DEBRIS_FAN_EXTENT zone (1.2km).",
+        "population_disclaimer": "Controlled Demonstration Data based on footprint area"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.75209356138186,
+              31.033263663438376
+            ],
+            [
+              78.75254271696934,
+              31.033263663438376
+            ],
+            [
+              78.75254271696934,
+              31.033712819025872
+            ],
+            [
+              78.75209356138186,
+              31.033712819025872
+            ],
+            [
+              78.75209356138186,
+              31.033263663438376
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 788,
+        "building_id": 292,
+        "priority_score": 0.8135,
+        "priority_level": "CRITICAL",
+        "severity_score": 0.96,
+        "population_score": 1.0,
+        "infrastructure_score": 0.85,
+        "accessibility_score": 0.25,
+        "damage_class": "destroyed",
+        "confidence": 0.92,
+        "explanation": "CRITICAL PRIORITY (Score: 0.81) \u2014 Severity: DESTROYED (96%), Exposure: 15+ occupants (commercial / multi-family complex) (100%), Infrastructure: Within 1.4km of emergency hospital and 0.8km of shelter, Accessibility: Passable access: 0.8km to open highway, Hazard: Near DEBRIS_FAN_EXTENT zone (0.8km).",
+        "population_disclaimer": "Controlled Demonstration Data based on footprint area"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.74288276407711,
+              31.03459511129098
+            ],
+            [
+              78.74320615610011,
+              31.03459511129098
+            ],
+            [
+              78.74320615610011,
+              31.03491850331398
+            ],
+            [
+              78.74288276407711,
+              31.03491850331398
+            ],
+            [
+              78.74288276407711,
+              31.03459511129098
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 789,
+        "building_id": 293,
+        "priority_score": 0.8135,
+        "priority_level": "CRITICAL",
+        "severity_score": 0.96,
+        "population_score": 1.0,
+        "infrastructure_score": 0.85,
+        "accessibility_score": 0.25,
+        "damage_class": "destroyed",
+        "confidence": 0.92,
+        "explanation": "CRITICAL PRIORITY (Score: 0.81) \u2014 Severity: DESTROYED (96%), Exposure: 15+ occupants (commercial / multi-family complex) (100%), Infrastructure: Within 0.5km of emergency hospital and 1.6km of shelter, Accessibility: Passable access: 0.6km to open highway, Hazard: Near DEBRIS_FAN_EXTENT zone (1.2km).",
+        "population_disclaimer": "Controlled Demonstration Data based on footprint area"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.74225193206188,
+              31.03816017926269
+            ],
+            [
+              78.74243159429686,
+              31.03816017926269
+            ],
+            [
+              78.74243159429686,
+              31.038339841497688
+            ],
+            [
+              78.74225193206188,
+              31.038339841497688
+            ],
+            [
+              78.74225193206188,
+              31.03816017926269
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 790,
+        "building_id": 296,
+        "priority_score": 0.7835,
+        "priority_level": "CRITICAL",
+        "severity_score": 0.96,
+        "population_score": 0.85,
+        "infrastructure_score": 0.85,
+        "accessibility_score": 0.25,
+        "damage_class": "destroyed",
+        "confidence": 0.92,
+        "explanation": "CRITICAL PRIORITY (Score: 0.78) \u2014 Severity: DESTROYED (96%), Exposure: 6-12 occupants (multi-unit / large structure) (85%), Infrastructure: Within 0.7km of emergency hospital and 1.9km of shelter, Accessibility: Passable access: 1.0km to open highway, Hazard: Near DEBRIS_FAN_EXTENT zone (1.5km).",
+        "population_disclaimer": "Controlled Demonstration Data based on footprint area"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.7646204446593,
+              31.03029056801057
+            ],
+            [
+              78.7648899380118,
+              31.03029056801057
+            ],
+            [
+              78.7648899380118,
+              31.03056006136307
+            ],
+            [
+              78.7646204446593,
+              31.03056006136307
+            ],
+            [
+              78.7646204446593,
+              31.03029056801057
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 791,
+        "building_id": 297,
+        "priority_score": 0.8135,
+        "priority_level": "CRITICAL",
+        "severity_score": 0.96,
+        "population_score": 1.0,
+        "infrastructure_score": 0.85,
+        "accessibility_score": 0.25,
+        "damage_class": "destroyed",
+        "confidence": 0.92,
+        "explanation": "CRITICAL PRIORITY (Score: 0.81) \u2014 Severity: DESTROYED (96%), Exposure: 15+ occupants (commercial / multi-family complex) (100%), Infrastructure: Within 2.6km of emergency hospital and 0.7km of shelter, Accessibility: Passable access: 1.9km to open highway, Hazard: Near DEBRIS_FAN_EXTENT zone (1.4km).",
+        "population_disclaimer": "Controlled Demonstration Data based on footprint area"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.75803675664352,
+              31.038429670909423
+            ],
+            [
+              78.7582164188785,
+              31.038429670909423
+            ],
+            [
+              78.7582164188785,
+              31.03860933314442
+            ],
+            [
+              78.75803675664352,
+              31.03860933314442
+            ],
+            [
+              78.75803675664352,
+              31.038429670909423
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 792,
+        "building_id": 298,
+        "priority_score": 0.7835,
+        "priority_level": "CRITICAL",
+        "severity_score": 0.96,
+        "population_score": 0.85,
+        "infrastructure_score": 0.85,
+        "accessibility_score": 0.25,
+        "damage_class": "destroyed",
+        "confidence": 0.92,
+        "explanation": "CRITICAL PRIORITY (Score: 0.78) \u2014 Severity: DESTROYED (96%), Exposure: 6-12 occupants (multi-unit / large structure) (85%), Infrastructure: Within 2.0km of emergency hospital and 1.2km of shelter, Accessibility: Passable access: 1.6km to open highway, Hazard: Near DEBRIS_FAN_EXTENT zone (1.5km).",
+        "population_disclaimer": "Controlled Demonstration Data based on footprint area"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.74689876434388,
+              31.02821368991251
+            ],
+            [
+              78.74725808881388,
+              31.02821368991251
+            ],
+            [
+              78.74725808881388,
+              31.028573014382506
+            ],
+            [
+              78.74689876434388,
+              31.028573014382506
+            ],
+            [
+              78.74689876434388,
+              31.02821368991251
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 793,
+        "building_id": 299,
+        "priority_score": 0.8435,
+        "priority_level": "CRITICAL",
+        "severity_score": 0.96,
+        "population_score": 1.0,
+        "infrastructure_score": 0.85,
+        "accessibility_score": 0.25,
+        "damage_class": "destroyed",
+        "confidence": 0.92,
+        "explanation": "CRITICAL PRIORITY (Score: 0.84) \u2014 Severity: DESTROYED (96%), Exposure: 15+ occupants (commercial / multi-family complex) (100%), Infrastructure: Within 1.0km of emergency hospital and 1.0km of shelter, Accessibility: Passable access: 0.3km to open highway, Hazard: Inside/adjacent to DEBRIS_FAN_EXTENT zone (0.42km).",
+        "population_disclaimer": "Controlled Demonstration Data based on footprint area"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.75015624903284,
+              31.034099474718236
+            ],
+            [
+              78.75060540462033,
+              31.034099474718236
+            ],
+            [
+              78.75060540462033,
+              31.034548630305732
+            ],
+            [
+              78.75015624903284,
+              31.034548630305732
+            ],
+            [
+              78.75015624903284,
+              31.034099474718236
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 794,
+        "building_id": 300,
+        "priority_score": 0.8135,
+        "priority_level": "CRITICAL",
+        "severity_score": 0.96,
+        "population_score": 1.0,
+        "infrastructure_score": 0.85,
+        "accessibility_score": 0.25,
+        "damage_class": "destroyed",
+        "confidence": 0.92,
+        "explanation": "CRITICAL PRIORITY (Score: 0.81) \u2014 Severity: DESTROYED (96%), Exposure: 15+ occupants (commercial / multi-family complex) (100%), Infrastructure: Within 1.2km of emergency hospital and 1.0km of shelter, Accessibility: Passable access: 0.7km to open highway, Hazard: Near DEBRIS_FAN_EXTENT zone (0.9km).",
+        "population_disclaimer": "Controlled Demonstration Data based on footprint area"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.7494359385555,
+              31.03073481292042
+            ],
+            [
+              78.74988509414298,
+              31.03073481292042
+            ],
+            [
+              78.74988509414298,
+              31.031183968507918
+            ],
+            [
+              78.7494359385555,
+              31.031183968507918
+            ],
+            [
+              78.7494359385555,
+              31.03073481292042
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 795,
+        "building_id": 304,
+        "priority_score": 0.8435,
+        "priority_level": "CRITICAL",
+        "severity_score": 0.96,
+        "population_score": 1.0,
+        "infrastructure_score": 0.85,
+        "accessibility_score": 0.25,
+        "damage_class": "destroyed",
+        "confidence": 0.92,
+        "explanation": "CRITICAL PRIORITY (Score: 0.84) \u2014 Severity: DESTROYED (96%), Exposure: 15+ occupants (commercial / multi-family complex) (100%), Infrastructure: Within 1.1km of emergency hospital and 0.9km of shelter, Accessibility: Passable access: 0.5km to open highway, Hazard: Inside/adjacent to DEBRIS_FAN_EXTENT zone (0.49km).",
+        "population_disclaimer": "Controlled Demonstration Data based on footprint area"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.74447451299376,
+              31.028664714398182
+            ],
+            [
+              78.74469010767577,
+              31.028664714398182
+            ],
+            [
+              78.74469010767577,
+              31.02888030908018
+            ],
+            [
+              78.74447451299376,
+              31.02888030908018
+            ],
+            [
+              78.74447451299376,
+              31.028664714398182
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 796,
+        "building_id": 306,
+        "priority_score": 0.8135,
+        "priority_level": "CRITICAL",
+        "severity_score": 0.96,
+        "population_score": 1.0,
+        "infrastructure_score": 0.85,
+        "accessibility_score": 0.25,
+        "damage_class": "destroyed",
+        "confidence": 0.92,
+        "explanation": "CRITICAL PRIORITY (Score: 0.81) \u2014 Severity: DESTROYED (96%), Exposure: 15+ occupants (commercial / multi-family complex) (100%), Infrastructure: Within 0.8km of emergency hospital and 1.3km of shelter, Accessibility: Passable access: 0.1km to open highway, Hazard: Near DEBRIS_FAN_EXTENT zone (0.7km).",
+        "population_disclaimer": "Controlled Demonstration Data based on footprint area"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.75791057469361,
+              31.02791697714179
+            ],
+            [
+              78.7580902369286,
+              31.02791697714179
+            ],
+            [
+              78.7580902369286,
+              31.028096639376788
+            ],
+            [
+              78.75791057469361,
+              31.028096639376788
+            ],
+            [
+              78.75791057469361,
+              31.02791697714179
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 797,
+        "building_id": 309,
+        "priority_score": 0.7835,
+        "priority_level": "CRITICAL",
+        "severity_score": 0.96,
+        "population_score": 0.85,
+        "infrastructure_score": 0.85,
+        "accessibility_score": 0.25,
+        "damage_class": "destroyed",
+        "confidence": 0.92,
+        "explanation": "CRITICAL PRIORITY (Score: 0.78) \u2014 Severity: DESTROYED (96%), Exposure: 6-12 occupants (multi-unit / large structure) (85%), Infrastructure: Within 2.0km of emergency hospital and 0.0km of shelter, Accessibility: Passable access: 1.3km to open highway, Hazard: Near DEBRIS_FAN_EXTENT zone (0.7km).",
+        "population_disclaimer": "Controlled Demonstration Data based on footprint area"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.76575074499412,
+              31.03313682175473
+            ],
+            [
+              78.76611006946412,
+              31.03313682175473
+            ],
+            [
+              78.76611006946412,
+              31.033496146224728
+            ],
+            [
+              78.76575074499412,
+              31.033496146224728
+            ],
+            [
+              78.76575074499412,
+              31.03313682175473
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 798,
+        "building_id": 310,
+        "priority_score": 0.8135,
+        "priority_level": "CRITICAL",
+        "severity_score": 0.96,
+        "population_score": 1.0,
+        "infrastructure_score": 0.85,
+        "accessibility_score": 0.25,
+        "damage_class": "destroyed",
+        "confidence": 0.92,
+        "explanation": "CRITICAL PRIORITY (Score: 0.81) \u2014 Severity: DESTROYED (96%), Exposure: 15+ occupants (commercial / multi-family complex) (100%), Infrastructure: Within 2.7km of emergency hospital and 1.0km of shelter, Accessibility: Passable access: 2.0km to open highway, Hazard: Near DEBRIS_FAN_EXTENT zone (1.6km).",
+        "population_disclaimer": "Controlled Demonstration Data based on footprint area"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.75255982461206,
+              31.028974853020856
+            ],
+            [
+              78.75291914908206,
+              31.028974853020856
+            ],
+            [
+              78.75291914908206,
+              31.029334177490853
+            ],
+            [
+              78.75255982461206,
+              31.029334177490853
+            ],
+            [
+              78.75255982461206,
+              31.028974853020856
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 799,
+        "building_id": 311,
+        "priority_score": 0.8435,
+        "priority_level": "CRITICAL",
+        "severity_score": 0.96,
+        "population_score": 1.0,
+        "infrastructure_score": 0.85,
+        "accessibility_score": 0.25,
+        "damage_class": "destroyed",
+        "confidence": 0.92,
+        "explanation": "CRITICAL PRIORITY (Score: 0.84) \u2014 Severity: DESTROYED (96%), Exposure: 15+ occupants (commercial / multi-family complex) (100%), Infrastructure: Within 1.5km of emergency hospital and 0.5km of shelter, Accessibility: Passable access: 0.7km to open highway, Hazard: Inside/adjacent to DEBRIS_FAN_EXTENT zone (0.32km).",
+        "population_disclaimer": "Controlled Demonstration Data based on footprint area"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.75312560857408,
+              31.036644247249214
+            ],
+            [
+              78.75334120325608,
+              31.036644247249214
+            ],
+            [
+              78.75334120325608,
+              31.03685984193121
+            ],
+            [
+              78.75312560857408,
+              31.03685984193121
+            ],
+            [
+              78.75312560857408,
+              31.036644247249214
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 800,
+        "building_id": 312,
+        "priority_score": 0.8135,
+        "priority_level": "CRITICAL",
+        "severity_score": 0.96,
+        "population_score": 1.0,
+        "infrastructure_score": 0.85,
+        "accessibility_score": 0.25,
+        "damage_class": "destroyed",
+        "confidence": 0.92,
+        "explanation": "CRITICAL PRIORITY (Score: 0.81) \u2014 Severity: DESTROYED (96%), Exposure: 15+ occupants (commercial / multi-family complex) (100%), Infrastructure: Within 1.5km of emergency hospital and 1.1km of shelter, Accessibility: Passable access: 1.1km to open highway, Hazard: Near DEBRIS_FAN_EXTENT zone (1.1km).",
+        "population_disclaimer": "Controlled Demonstration Data based on footprint area"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.74631808464649,
+              31.02449360362856
+            ],
+            [
+              78.74676724023398,
+              31.02449360362856
+            ],
+            [
+              78.74676724023398,
+              31.024942759216056
+            ],
+            [
+              78.74631808464649,
+              31.024942759216056
+            ],
+            [
+              78.74631808464649,
+              31.02449360362856
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 801,
+        "building_id": 286,
+        "priority_score": 0.7595,
+        "priority_level": "CRITICAL",
+        "severity_score": 0.72,
+        "population_score": 1.0,
+        "infrastructure_score": 0.85,
+        "accessibility_score": 0.25,
+        "damage_class": "major-damage",
+        "confidence": 0.92,
+        "explanation": "CRITICAL PRIORITY (Score: 0.76) \u2014 Severity: MAJOR-DAMAGE (72%), Exposure: 15+ occupants (commercial / multi-family complex) (100%), Infrastructure: Within 1.2km of emergency hospital and 1.2km of shelter, Accessibility: Passable access: 0.6km to open highway, Hazard: Inside/adjacent to DEBRIS_FAN_EXTENT zone (0.48km).",
+        "population_disclaimer": "Controlled Demonstration Data based on footprint area"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.75307912086085,
+              31.027201152837797
+            ],
+            [
+              78.75340251288385,
+              31.027201152837797
+            ],
+            [
+              78.75340251288385,
+              31.027524544860796
+            ],
+            [
+              78.75307912086085,
+              31.027524544860796
+            ],
+            [
+              78.75307912086085,
+              31.027201152837797
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 802,
+        "building_id": 288,
+        "priority_score": 0.7595,
+        "priority_level": "CRITICAL",
+        "severity_score": 0.72,
+        "population_score": 1.0,
+        "infrastructure_score": 0.85,
+        "accessibility_score": 0.25,
+        "damage_class": "major-damage",
+        "confidence": 0.92,
+        "explanation": "CRITICAL PRIORITY (Score: 0.76) \u2014 Severity: MAJOR-DAMAGE (72%), Exposure: 15+ occupants (commercial / multi-family complex) (100%), Infrastructure: Within 1.6km of emergency hospital and 0.5km of shelter, Accessibility: Passable access: 0.8km to open highway, Hazard: Inside/adjacent to DEBRIS_FAN_EXTENT zone (0.22km).",
+        "population_disclaimer": "Controlled Demonstration Data based on footprint area"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.74843381976265,
+              31.027556577491733
+            ],
+            [
+              78.74864941444466,
+              31.027556577491733
+            ],
+            [
+              78.74864941444466,
+              31.02777217217373
+            ],
+            [
+              78.74843381976265,
+              31.02777217217373
+            ],
+            [
+              78.74843381976265,
+              31.027556577491733
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 803,
+        "building_id": 290,
+        "priority_score": 0.7595,
+        "priority_level": "CRITICAL",
+        "severity_score": 0.72,
+        "population_score": 1.0,
+        "infrastructure_score": 0.85,
+        "accessibility_score": 0.25,
+        "damage_class": "major-damage",
+        "confidence": 0.92,
+        "explanation": "CRITICAL PRIORITY (Score: 0.76) \u2014 Severity: MAJOR-DAMAGE (72%), Exposure: 15+ occupants (commercial / multi-family complex) (100%), Infrastructure: Within 1.2km of emergency hospital and 0.9km of shelter, Accessibility: Passable access: 0.4km to open highway, Hazard: Inside/adjacent to DEBRIS_FAN_EXTENT zone (0.26km).",
+        "population_disclaimer": "Controlled Demonstration Data based on footprint area"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.73930226494915,
+              31.02543543028625
+            ],
+            [
+              78.73948192718413,
+              31.02543543028625
+            ],
+            [
+              78.73948192718413,
+              31.02561509252125
+            ],
+            [
+              78.73930226494915,
+              31.02561509252125
+            ],
+            [
+              78.73930226494915,
+              31.02543543028625
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 804,
+        "building_id": 295,
+        "priority_score": 0.6995,
+        "priority_level": "HIGH",
+        "severity_score": 0.72,
+        "population_score": 0.85,
+        "infrastructure_score": 0.85,
+        "accessibility_score": 0.25,
+        "damage_class": "major-damage",
+        "confidence": 0.92,
+        "explanation": "HIGH PRIORITY (Score: 0.70) \u2014 Severity: MAJOR-DAMAGE (72%), Exposure: 6-12 occupants (multi-unit / large structure) (85%), Infrastructure: Within 0.8km of emergency hospital and 1.8km of shelter, Accessibility: Passable access: 0.7km to open highway, Hazard: Near DEBRIS_FAN_EXTENT zone (1.1km).",
+        "population_disclaimer": "Controlled Demonstration Data based on footprint area"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.73486381125028,
+              31.025862939397246
+            ],
+            [
+              78.73531296683777,
+              31.025862939397246
+            ],
+            [
+              78.73531296683777,
+              31.026312094984743
+            ],
+            [
+              78.73486381125028,
+              31.026312094984743
+            ],
+            [
+              78.73486381125028,
+              31.025862939397246
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 805,
+        "building_id": 301,
+        "priority_score": 0.7295,
+        "priority_level": "CRITICAL",
+        "severity_score": 0.72,
+        "population_score": 1.0,
+        "infrastructure_score": 0.85,
+        "accessibility_score": 0.25,
+        "damage_class": "major-damage",
+        "confidence": 0.92,
+        "explanation": "CRITICAL PRIORITY (Score: 0.73) \u2014 Severity: MAJOR-DAMAGE (72%), Exposure: 15+ occupants (commercial / multi-family complex) (100%), Infrastructure: Within 0.8km of emergency hospital and 2.2km of shelter, Accessibility: Passable access: 1.0km to open highway, Hazard: Near DEBRIS_FAN_EXTENT zone (1.5km).",
+        "population_disclaimer": "Controlled Demonstration Data based on footprint area"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.74372458740196,
+              31.027330862475672
+            ],
+            [
+              78.74399408075446,
+              31.027330862475672
+            ],
+            [
+              78.74399408075446,
+              31.02760035582817
+            ],
+            [
+              78.74372458740196,
+              31.02760035582817
+            ],
+            [
+              78.74372458740196,
+              31.027330862475672
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 806,
+        "building_id": 302,
+        "priority_score": 0.7295,
+        "priority_level": "CRITICAL",
+        "severity_score": 0.72,
+        "population_score": 1.0,
+        "infrastructure_score": 0.85,
+        "accessibility_score": 0.25,
+        "damage_class": "major-damage",
+        "confidence": 0.92,
+        "explanation": "CRITICAL PRIORITY (Score: 0.73) \u2014 Severity: MAJOR-DAMAGE (72%), Exposure: 15+ occupants (commercial / multi-family complex) (100%), Infrastructure: Within 0.8km of emergency hospital and 1.3km of shelter, Accessibility: Passable access: 0.3km to open highway, Hazard: Near DEBRIS_FAN_EXTENT zone (0.7km).",
+        "population_disclaimer": "Controlled Demonstration Data based on footprint area"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.75053632423699,
+              31.026256238513152
+            ],
+            [
+              78.75085971626,
+              31.026256238513152
+            ],
+            [
+              78.75085971626,
+              31.02657963053615
+            ],
+            [
+              78.75053632423699,
+              31.02657963053615
+            ],
+            [
+              78.75053632423699,
+              31.026256238513152
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 807,
+        "building_id": 305,
+        "priority_score": 0.7595,
+        "priority_level": "CRITICAL",
+        "severity_score": 0.72,
+        "population_score": 1.0,
+        "infrastructure_score": 0.85,
+        "accessibility_score": 0.25,
+        "damage_class": "major-damage",
+        "confidence": 0.92,
+        "explanation": "CRITICAL PRIORITY (Score: 0.76) \u2014 Severity: MAJOR-DAMAGE (72%), Exposure: 15+ occupants (commercial / multi-family complex) (100%), Infrastructure: Within 1.4km of emergency hospital and 0.7km of shelter, Accessibility: Passable access: 0.7km to open highway, Hazard: Inside/adjacent to DEBRIS_FAN_EXTENT zone (0.05km).",
+        "population_disclaimer": "Controlled Demonstration Data based on footprint area"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.7650214850537,
+              31.024671455040234
+            ],
+            [
+              78.76520114728868,
+              31.024671455040234
+            ],
+            [
+              78.76520114728868,
+              31.024851117275233
+            ],
+            [
+              78.7650214850537,
+              31.024851117275233
+            ],
+            [
+              78.7650214850537,
+              31.024671455040234
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 808,
+        "building_id": 307,
+        "priority_score": 0.6995,
+        "priority_level": "HIGH",
+        "severity_score": 0.72,
+        "population_score": 0.85,
+        "infrastructure_score": 0.85,
+        "accessibility_score": 0.25,
+        "damage_class": "major-damage",
+        "confidence": 0.92,
+        "explanation": "HIGH PRIORITY (Score: 0.70) \u2014 Severity: MAJOR-DAMAGE (72%), Exposure: 6-12 occupants (multi-unit / large structure) (85%), Infrastructure: Within 2.7km of emergency hospital and 0.8km of shelter, Accessibility: Passable access: 2.0km to open highway, Hazard: Near DEBRIS_FAN_EXTENT zone (1.4km).",
+        "population_disclaimer": "Controlled Demonstration Data based on footprint area"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.73148774907966,
+              31.02518079105361
+            ],
+            [
+              78.73175724243217,
+              31.02518079105361
+            ],
+            [
+              78.73175724243217,
+              31.02545028440611
+            ],
+            [
+              78.73148774907966,
+              31.02545028440611
+            ],
+            [
+              78.73148774907966,
+              31.02518079105361
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 809,
+        "building_id": 313,
+        "priority_score": 0.7295,
+        "priority_level": "CRITICAL",
+        "severity_score": 0.72,
+        "population_score": 1.0,
+        "infrastructure_score": 0.85,
+        "accessibility_score": 0.25,
+        "damage_class": "major-damage",
+        "confidence": 0.92,
+        "explanation": "CRITICAL PRIORITY (Score: 0.73) \u2014 Severity: MAJOR-DAMAGE (72%), Exposure: 15+ occupants (commercial / multi-family complex) (100%), Infrastructure: Within 1.0km of emergency hospital and 2.5km of shelter, Accessibility: Passable access: 1.4km to open highway, Hazard: Near DEBRIS_FAN_EXTENT zone (1.9km).",
+        "population_disclaimer": "Controlled Demonstration Data based on footprint area"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.74516990242223,
+              31.02774630693234
+            ],
+            [
+              78.74538549710424,
+              31.02774630693234
+            ],
+            [
+              78.74538549710424,
+              31.027961901614336
+            ],
+            [
+              78.74516990242223,
+              31.027961901614336
+            ],
+            [
+              78.74516990242223,
+              31.02774630693234
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 810,
+        "building_id": 314,
+        "priority_score": 0.7295,
+        "priority_level": "CRITICAL",
+        "severity_score": 0.72,
+        "population_score": 1.0,
+        "infrastructure_score": 0.85,
+        "accessibility_score": 0.25,
+        "damage_class": "major-damage",
+        "confidence": 0.92,
+        "explanation": "CRITICAL PRIORITY (Score: 0.73) \u2014 Severity: MAJOR-DAMAGE (72%), Exposure: 15+ occupants (commercial / multi-family complex) (100%), Infrastructure: Within 0.9km of emergency hospital and 1.2km of shelter, Accessibility: Passable access: 0.2km to open highway, Hazard: Near DEBRIS_FAN_EXTENT zone (0.6km).",
+        "population_disclaimer": "Controlled Demonstration Data based on footprint area"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.74806687476797,
+              31.017224572912074
+            ],
+            [
+              78.74833636812048,
+              31.017224572912074
+            ],
+            [
+              78.74833636812048,
+              31.01749406626457
+            ],
+            [
+              78.74806687476797,
+              31.01749406626457
+            ],
+            [
+              78.74806687476797,
+              31.017224572912074
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 811,
+        "building_id": 303,
+        "priority_score": 0.6119,
+        "priority_level": "HIGH",
+        "severity_score": 0.384,
+        "population_score": 1.0,
+        "infrastructure_score": 0.85,
+        "accessibility_score": 0.25,
+        "damage_class": "minor-damage",
+        "confidence": 0.92,
+        "explanation": "HIGH PRIORITY (Score: 0.61) \u2014 Severity: MINOR-DAMAGE (38%), Exposure: 15+ occupants (commercial / multi-family complex) (100%), Infrastructure: Within 2.0km of emergency hospital and 1.5km of shelter, Accessibility: Passable access: 1.4km to open highway, Hazard: Near DEBRIS_FAN_EXTENT zone (1.1km).",
+        "population_disclaimer": "Controlled Demonstration Data based on footprint area"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.74034569900594,
+              31.020027147260468
+            ],
+            [
+              78.74066909102895,
+              31.020027147260468
+            ],
+            [
+              78.74066909102895,
+              31.020350539283466
+            ],
+            [
+              78.74034569900594,
+              31.020350539283466
+            ],
+            [
+              78.74034569900594,
+              31.020027147260468
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 812,
+        "building_id": 308,
+        "priority_score": 0.6119,
+        "priority_level": "HIGH",
+        "severity_score": 0.384,
+        "population_score": 1.0,
+        "infrastructure_score": 0.85,
+        "accessibility_score": 0.25,
+        "damage_class": "minor-damage",
+        "confidence": 0.92,
+        "explanation": "HIGH PRIORITY (Score: 0.61) \u2014 Severity: MINOR-DAMAGE (38%), Exposure: 15+ occupants (commercial / multi-family complex) (100%), Infrastructure: Within 1.4km of emergency hospital and 1.9km of shelter, Accessibility: Passable access: 1.2km to open highway, Hazard: Near DEBRIS_FAN_EXTENT zone (1.2km).",
+        "population_disclaimer": "Controlled Demonstration Data based on footprint area"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.75411791830962,
+              31.01335683717778
+            ],
+            [
+              78.75444131033262,
+              31.01335683717778
+            ],
+            [
+              78.75444131033262,
+              31.01368022920078
+            ],
+            [
+              78.75411791830962,
+              31.01368022920078
+            ],
+            [
+              78.75411791830962,
+              31.01335683717778
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 813,
+        "building_id": 294,
+        "priority_score": 0.4343,
+        "priority_level": "MEDIUM",
+        "severity_score": 0.048,
+        "population_score": 1.0,
+        "infrastructure_score": 0.55,
+        "accessibility_score": 0.25,
+        "damage_class": "no-damage",
+        "confidence": 0.92,
+        "explanation": "MEDIUM PRIORITY (Score: 0.43) \u2014 Severity: NO-DAMAGE (5%), Exposure: 15+ occupants (commercial / multi-family complex) (100%), Infrastructure: Moderate distance (2.7km to hospital, 1.6km to shelter), Accessibility: Passable access: 2.0km to open highway, Hazard: Near DEBRIS_FAN_EXTENT zone (1.5km).",
+        "population_disclaimer": "Controlled Demonstration Data based on footprint area"
+      }
+    }
+  ],
+  "metadata": {
+    "scenario_id": 4,
+    "total_assessed": 30,
+    "counts_by_level": {
+      "CRITICAL": 25,
+      "HIGH": 4,
+      "MEDIUM": 1,
+      "LOW": 0
+    },
+    "weights_used": {
+      "severity": 0.35,
+      "population": 0.2,
+      "infrastructure": 0.2,
+      "accessibility": 0.15,
+      "hazard_proximity": 0.1
+    },
+    "formula": "Priority = w1*Severity + w2*Population + w3*Infrastructure + w4*Accessibility"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "registry_name": "DRAS India Disaster Research Portfolio",
+  "version": "2.0",
+  "scenarios": [
+    {
+      "id": "chamoli_2021",
+      "name": "Chamoli Flash Flood / Avalanche 2021",
+      "path": "chamoli_2021/metadata.json",
+      "status": "core_training_and_validation",
+      "labels": "VERIFIED_GROUND_TRUTH"
+    },
+    {
+      "id": "fani_2019",
+      "name": "Cyclone Fani 2019 (Puri)",
+      "path": "fani_2019/metadata.json",
+      "status": "core_training_and_validation",
+      "labels": "EXPERT_VERIFIED_GROUND_TRUTH"
+    },
+    {
+      "id": "dharali_2025",
+      "name": "Dharali Flash Flood 2025",
+      "path": "dharali_2025/metadata.json",
+      "status": "cross_event_generalisation_test",
+      "labels": "WEAK_INFERENCE_ONLY"
+    },
+    {
+      "id": "wayanad_2024",
+      "name": "Wayanad Landslide 2024 (Archived Reference)",
+      "path": "wayanad_2024/metadata.json",
+      "status": "archived_reference_only",
+      "labels": "PARTIAL_OSM_TAGS"
+    }
+  ]
+}

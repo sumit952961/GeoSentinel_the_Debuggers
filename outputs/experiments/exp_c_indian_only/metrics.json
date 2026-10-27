@@ -1,0 +1,70 @@
+{
+  "experiment_id": "exp_c_indian_only",
+  "description": "Indian-only baseline trained without global pretraining",
+  "seed": 42,
+  "manifest_hash": "3fb162ba0f9271ce",
+  "stage1_metrics": {
+    "pixel_accuracy": 0.9885,
+    "balanced_accuracy": 0.7142,
+    "building_iou": 0.125,
+    "building_dice": 0.2222,
+    "building_precision": 0.1489,
+    "building_recall": 0.4378,
+    "building_f1": 0.2222,
+    "mean_latency_ms": 937.37
+  },
+  "stage2_metrics": {
+    "overall_accuracy": 0.6154,
+    "balanced_accuracy": 0.55,
+    "macro_f1": 0.4621,
+    "weighted_f1": 0.5478,
+    "per_class": {
+      "no-damage": {
+        "f1": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "minor-damage": {
+        "f1": 0.1818,
+        "precision": 0.1667,
+        "recall": 0.2
+      },
+      "major-damage": {
+        "f1": 1.0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "destroyed": {
+        "f1": 0.6667,
+        "precision": 0.5,
+        "recall": 1.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        0,
+        5,
+        0,
+        1
+      ],
+      [
+        0,
+        1,
+        0,
+        4
+      ],
+      [
+        0,
+        0,
+        10,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        5
+      ]
+    ]
+  }
+}

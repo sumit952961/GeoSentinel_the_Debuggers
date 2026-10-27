@@ -1,0 +1,29 @@
+{
+  "event_id": "cyclone_amphan_2020",
+  "event_name": "Super Cyclone Amphan 2020",
+  "hazard_type": "Tropical Cyclone / Storm Surge",
+  "country": "India",
+  "state": "West Bengal",
+  "district": "South 24 Parganas & Kolkata",
+  "latitude_range": [
+    21.8,
+    22.6
+  ],
+  "longitude_range": [
+    88.2,
+    88.9
+  ],
+  "event_date": "2020-05-20",
+  "pre_image_date": "2020-05-14",
+  "post_image_date": "2020-05-24",
+  "sensor": "Sentinel-2 MSI (10m) / Landsat-8",
+  "resolution": "10m - 15m",
+  "data_source": "Copernicus EMSR439 / WB Disaster Management Authority",
+  "licence": "Copernicus Open Access",
+  "label_quality": "WEAK",
+  "annotation_method": "Rapid mapping storm surge swath + post-event optical damage grading",
+  "number_of_buildings": 5120,
+  "number_of_damage_labels": 1840,
+  "number_of_weak_labels": 3280,
+  "notes": "Sundarbans coastal embankment breaches and severe structural roof scouring in South 24 Parganas."
+}

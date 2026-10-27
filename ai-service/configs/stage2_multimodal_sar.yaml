@@ -1,0 +1,24 @@
+# ============================================================
+# DRAS Model V3 — Stage 2 Multimodal Optical + SAR Configuration
+# ============================================================
+model:
+  architecture: "MultimodalOpticalSAR"
+  optical_backbone: "resnet18"
+  sar_channels: 2
+  num_classes: 4
+
+dataset:
+  name: "DRAS Multimodal Sentinel-2 + Sentinel-1 Pair Dataset"
+  optical_crop_size: [64, 64]
+  sar_crop_size: [64, 64]
+
+training:
+  epochs: 50
+  batch_size: 32
+  learning_rate: 0.00015
+  optimizer: "AdamW"
+  loss: "FocalLoss"
+  focal_gamma: 2.0
+  class_weights: [0.15, 1.20, 3.50, 4.00]
+  mixed_precision: true
+  checkpoint_dir: "models/india_v3/multimodal"

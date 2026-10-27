@@ -1,0 +1,283 @@
+{
+  "epoch_scaling_5_epochs": {
+    "epochs": 5,
+    "bldg_macro_f1": 0.1039051227108101,
+    "bldg_mIoU": 0.06549844301897538,
+    "train_loss_final": 0.6810990273952484,
+    "val_loss_final": 0.6631077647209167,
+    "duration_s": 193.68,
+    "per_class": {
+      "0": {
+        "class_id": 0,
+        "class_name": "Background",
+        "precision": 0.9795696713220488,
+        "recall": 0.715212773327057,
+        "f1": 0.8267736587729066,
+        "iou": 0.7047009001759822,
+        "support": 2324093
+      },
+      "1": {
+        "class_id": 1,
+        "class_name": "No Damage",
+        "precision": 0.26989225782361886,
+        "recall": 0.8929771036102815,
+        "f1": 0.4145050418750307,
+        "iou": 0.2614357363616158,
+        "support": 279258
+      },
+      "2": {
+        "class_id": 2,
+        "class_name": "Minor Damage",
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "iou": 0.0,
+        "support": 14434
+      },
+      "3": {
+        "class_id": 3,
+        "class_name": "Major Damage",
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "iou": 0.0,
+        "support": 2335
+      },
+      "4": {
+        "class_id": 4,
+        "class_name": "Destroyed",
+        "precision": 0.0021141649048625794,
+        "recall": 0.0007575757575757576,
+        "f1": 0.0011154489682097045,
+        "iou": 0.0005580357142857143,
+        "support": 1320
+      }
+    }
+  },
+  "epoch_scaling_10_epochs": {
+    "epochs": 10,
+    "bldg_macro_f1": 0.027561813640456446,
+    "bldg_mIoU": 0.014489559190925849,
+    "train_loss_final": 0.6457010805606842,
+    "val_loss_final": 0.6083145260810852,
+    "duration_s": 448.46,
+    "per_class": {
+      "0": {
+        "class_id": 0,
+        "class_name": "Background",
+        "precision": 0.9027757291290665,
+        "recall": 0.971745967136427,
+        "f1": 0.9359920194656076,
+        "iou": 0.8796851495376101,
+        "support": 2324093
+      },
+      "1": {
+        "class_id": 1,
+        "class_name": "No Damage",
+        "precision": 0.33302217036172693,
+        "recall": 0.061319639902885505,
+        "f1": 0.10356903090015059,
+        "iou": 0.05461260261390383,
+        "support": 279258
+      },
+      "2": {
+        "class_id": 2,
+        "class_name": "Minor Damage",
+        "precision": 0.008953553441522105,
+        "recall": 0.0011084938340030484,
+        "f1": 0.0019727513716786883,
+        "iou": 0.0009873495834618945,
+        "support": 14434
+      },
+      "3": {
+        "class_id": 3,
+        "class_name": "Major Damage",
+        "precision": 0.002435321176771245,
+        "recall": 0.06937901498929336,
+        "f1": 0.004705472289996515,
+        "iou": 0.0023582845663376716,
+        "support": 2335
+      },
+      "4": {
+        "class_id": 4,
+        "class_name": "Destroyed",
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "iou": 0.0,
+        "support": 1320
+      }
+    }
+  },
+  "epoch_scaling_15_epochs": {
+    "epochs": 15,
+    "bldg_macro_f1": 0.01072967356654782,
+    "bldg_mIoU": 0.005474151211888169,
+    "train_loss_final": 0.753005842367808,
+    "val_loss_final": 0.6846644163131714,
+    "duration_s": 649.9,
+    "per_class": {
+      "0": {
+        "class_id": 0,
+        "class_name": "Background",
+        "precision": 0.9235772454131228,
+        "recall": 0.9383419682430952,
+        "f1": 0.9309010658778232,
+        "iou": 0.870734256827385,
+        "support": 2324093
+      },
+      "1": {
+        "class_id": 1,
+        "class_name": "No Damage",
+        "precision": 0.17450682852807284,
+        "recall": 0.00041180557047604727,
+        "f1": 0.0008216721385267777,
+        "iou": 0.0004110049249111872,
+        "support": 279258
+      },
+      "2": {
+        "class_id": 2,
+        "class_name": "Minor Damage",
+        "precision": 0.02184168262998007,
+        "recall": 0.3910211999445753,
+        "f1": 0.04137238444650508,
+        "iou": 0.021123149759538915,
+        "support": 14434
+      },
+      "3": {
+        "class_id": 3,
+        "class_name": "Major Damage",
+        "precision": 0.002352941176470588,
+        "recall": 0.00042826552462526765,
+        "f1": 0.0007246376811594203,
+        "iou": 0.0003624501631025734,
+        "support": 2335
+      },
+      "4": {
+        "class_id": 4,
+        "class_name": "Destroyed",
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "iou": 0.0,
+        "support": 1320
+      }
+    }
+  },
+  "loss_class_weighted_ce_dice": {
+    "bldg_macro_f1": 0.08266049230847872,
+    "bldg_mIoU": 0.04828482488823352,
+    "train_loss_final": 1.0229164958000183,
+    "val_loss_final": 1.1972939491271972,
+    "duration_s": 441.2,
+    "per_class": {
+      "0": {
+        "class_id": 0,
+        "class_name": "Background",
+        "precision": 0.9866860248522894,
+        "recall": 0.4877481236766343,
+        "f1": 0.652798577352294,
+        "iou": 0.48455900237198685,
+        "support": 2324093
+      },
+      "1": {
+        "class_id": 1,
+        "class_name": "No Damage",
+        "precision": 0.2706776204370346,
+        "recall": 0.3531250671422126,
+        "f1": 0.30645284091880226,
+        "iou": 0.18095323727805873,
+        "support": 279258
+      },
+      "2": {
+        "class_id": 2,
+        "class_name": "Minor Damage",
+        "precision": 0.009625256673511294,
+        "recall": 0.27019537203824306,
+        "f1": 0.01858833510478578,
+        "iou": 0.009381359479262384,
+        "support": 14434
+      },
+      "3": {
+        "class_id": 3,
+        "class_name": "Major Damage",
+        "precision": 0.0009720237592873378,
+        "recall": 0.1430406852248394,
+        "f1": 0.0019309260351266662,
+        "iou": 0.0009663960371975672,
+        "support": 2335
+      },
+      "4": {
+        "class_id": 4,
+        "class_name": "Destroyed",
+        "precision": 0.0018416718596991008,
+        "recall": 0.5015151515151515,
+        "f1": 0.003669867175200124,
+        "iou": 0.0018383067584153907,
+        "support": 1320
+      }
+    }
+  },
+  "loss_focal_weighted_dice": {
+    "bldg_macro_f1": 0.09348570091127328,
+    "bldg_mIoU": 0.056198582709649926,
+    "train_loss_final": 0.6514454583326975,
+    "val_loss_final": 0.6655167818069458,
+    "duration_s": 462.77,
+    "per_class": {
+      "0": {
+        "class_id": 0,
+        "class_name": "Background",
+        "precision": 0.9799561689273233,
+        "recall": 0.03559367030493186,
+        "f1": 0.06869231906225765,
+        "iou": 0.035567776041207595,
+        "support": 2324093
+      },
+      "1": {
+        "class_id": 1,
+        "class_name": "No Damage",
+        "precision": 0.24932216746136687,
+        "recall": 0.6016049674494554,
+        "f1": 0.352541241867302,
+        "iou": 0.2139909361172038,
+        "support": 279258
+      },
+      "2": {
+        "class_id": 2,
+        "class_name": "Minor Damage",
+        "precision": 0.010302741858720465,
+        "recall": 0.44242760149646665,
+        "f1": 0.020136566661779147,
+        "iou": 0.010170684665773718,
+        "support": 14434
+      },
+      "3": {
+        "class_id": 3,
+        "class_name": "Major Damage",
+        "precision": 0.00023859728076692537,
+        "recall": 0.052676659528907925,
+        "f1": 0.0004750428697223896,
+        "iou": 0.00023757786469650875,
+        "support": 2335
+      },
+      "4": {
+        "class_id": 4,
+        "class_name": "Destroyed",
+        "precision": 0.0003956924480447572,
+        "recall": 0.21818181818181817,
+        "f1": 0.0007899522462895559,
+        "iou": 0.0003951321909256795,
+        "support": 1320
+      }
+    }
+  },
+  "two_stage_binary_building_localization": {
+    "building_iou": 0.3349713198201375,
+    "building_f1": 0.5018404737942516,
+    "building_precision": 0.33795510512139443,
+    "building_recall": 0.9743195660289157,
+    "overall_accuracy": 0.7805892944335937,
+    "duration_s": 460.25
+  }
+}

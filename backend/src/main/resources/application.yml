@@ -1,0 +1,71 @@
+# ============================================================
+# Spring Boot Configuration
+# ============================================================
+# This file tells Spring Boot how to connect to the database,
+# what port to run on, and where the FastAPI AI service lives.
+# YAML format uses indentation (2 spaces) to show nesting.
+# ============================================================
+
+server:
+  # The port our backend API runs on (using 8081 as 8080 is occupied by httpd)
+  port: 8081
+
+spring:
+  application:
+    name: disaster-management-backend
+
+  # --- Database Connection ---
+  # These settings tell Spring Boot how to connect to PostgreSQL.
+  # We use PostGIS for geographic data (points, polygons on a map).
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/disaster_db}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+
+  # --- JPA / Hibernate Settings ---
+  # JPA (Java Persistence API) is how we talk to the database using
+  # Java objects instead of writing raw SQL.
+  jpa:
+    hibernate:
+      # 'update' means Hibernate will automatically create/update tables
+      # based on our Java entity classes. Good for development.
+      # In production, you'd use 'validate' or 'none' with migration scripts.
+      ddl-auto: update
+    properties:
+      hibernate:
+        # This tells Hibernate to use PostgreSQL-specific features
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        # Pretty-print SQL in the console (helpful for debugging)
+        format_sql: true
+    # Show the SQL queries Hibernate generates (helpful for learning)
+    show-sql: true
+
+  # --- File Upload Limits ---
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+# --- Our Custom Settings ---
+# These are settings we define ourselves (not built into Spring Boot).
+# We read them in our Java code using @Value annotations.
+ai-service:
+  url: ${AI_SERVICE_URL:http://localhost:8000}
+
+# --- Actuator (Health Checks) ---
+management:
+  endpoints:
+    web:
+      exposure:
+        # Expose health and info endpoints
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+
+# --- Logging ---
+logging:
+  level:
+    com.disastermgmt: DEBUG
+    org.hibernate.SQL: DEBUG

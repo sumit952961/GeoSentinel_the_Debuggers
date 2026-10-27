@@ -1,0 +1,29 @@
+{
+  "event_id": "assam_floods_2022",
+  "event_name": "Assam Brahmaputra Floods 2022",
+  "hazard_type": "Riverine Flood",
+  "country": "India",
+  "state": "Assam",
+  "district": "Cachar (Silchar)",
+  "latitude_range": [
+    24.78,
+    24.86
+  ],
+  "longitude_range": [
+    92.75,
+    92.85
+  ],
+  "event_date": "2022-06-20",
+  "pre_image_date": "2022-05-30",
+  "post_image_date": "2022-06-25",
+  "sensor": "Sentinel-1 SAR / Sentinel-2 MSI",
+  "resolution": "10m",
+  "data_source": "ASDMA / NRSC Bhuvan Flood Archive / Copernicus",
+  "licence": "Open Government Data India / Copernicus Open Access",
+  "label_quality": "WEAK",
+  "annotation_method": "Urban inundation perimeter mapped via SAR amplitude difference",
+  "number_of_buildings": 4200,
+  "number_of_damage_labels": 0,
+  "number_of_weak_labels": 4200,
+  "notes": "Silchar urban area was completely inundated for over 10 days due to the Bethukandi dyke breach."
+}

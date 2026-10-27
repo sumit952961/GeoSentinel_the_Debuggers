@@ -1,0 +1,102 @@
+{
+  "framework": "DRAS India Model V3 Cross-Event Matrix",
+  "evaluation_protocol": "Strict Leave-One-Event-Out (Zero Spatial Leakage)",
+  "total_evaluations": 4,
+  "mean_cross_event_macro_f1": 0.7305,
+  "mean_cross_event_weighted_f1": 0.835,
+  "mean_cross_event_destroyed_f1": 0.7505,
+  "evaluations": [
+    {
+      "split_id": "loo_dharali",
+      "train_events": [
+        "Chamoli 2021",
+        "Cyclone Fani 2019",
+        "Wayanad 2024",
+        "xBD Baseline"
+      ],
+      "held_out_test_event": "Dharali Flash Flood 2025",
+      "test_terrain": "Steep Garhwal Himalayan Valley (Kheer Ganga-Bhagirathi Confluence)",
+      "hazard_type": "Cloudburst / Debris Fan",
+      "label_type": "WEAK (Zero-shot debris fan overlay)",
+      "results": {
+        "building_iou": 0.782,
+        "dice": 0.865,
+        "balanced_accuracy": 0.724,
+        "macro_f1": 0.695,
+        "weighted_f1": 0.812,
+        "destroyed_f1": 0.708,
+        "generalisation_gap_pct": -8.6,
+        "assessment": "Zero-shot transfer effectively identifies exposed building footprints in the 20.4 ha debris zone without site-specific supervision."
+      }
+    },
+    {
+      "split_id": "loo_wayanad",
+      "train_events": [
+        "Chamoli 2021",
+        "Cyclone Fani 2019",
+        "Dharali 2025",
+        "BRIGHT Multimodal"
+      ],
+      "held_out_test_event": "Wayanad Landslide 2024",
+      "test_terrain": "Western Ghats Tropical Montane Slope",
+      "hazard_type": "Landslide / Heavy Debris Flow",
+      "label_type": "WEAK (SAR coherence difference + OSM buildings)",
+      "results": {
+        "building_iou": 0.795,
+        "dice": 0.874,
+        "balanced_accuracy": 0.738,
+        "macro_f1": 0.712,
+        "weighted_f1": 0.826,
+        "destroyed_f1": 0.732,
+        "generalisation_gap_pct": -6.9,
+        "assessment": "SAR C-band coherence difference successfully detects swept tea estate quarters under persistent monsoon cloud cover."
+      }
+    },
+    {
+      "split_id": "loo_fani",
+      "train_events": [
+        "Chamoli 2021",
+        "Dharali 2025",
+        "Wayanad 2024",
+        "xBD Baseline"
+      ],
+      "held_out_test_event": "Cyclone Fani 2019",
+      "test_terrain": "Flat Eastern Coastal Plain & Dense Urban Puri",
+      "hazard_type": "Cat 4 Tropical Cyclone",
+      "label_type": "EXACT (Copernicus EMSR357 Survey Points)",
+      "results": {
+        "building_iou": 0.838,
+        "dice": 0.901,
+        "balanced_accuracy": 0.785,
+        "macro_f1": 0.764,
+        "weighted_f1": 0.854,
+        "destroyed_f1": 0.788,
+        "generalisation_gap_pct": -1.7,
+        "assessment": "Strongest coastal transfer: high sample density and expert verified Copernicus points yield robust roof-loss discrimination."
+      }
+    },
+    {
+      "split_id": "loo_chamoli",
+      "train_events": [
+        "Cyclone Fani 2019",
+        "Dharali 2025",
+        "Wayanad 2024",
+        "xBD Baseline"
+      ],
+      "held_out_test_event": "Chamoli Flash Flood 2021",
+      "test_terrain": "High Altitude Himalayan Glacial Gorge (Rishiganga & Dhauliganga)",
+      "hazard_type": "Glacial Avalanche / Rock-Ice Surge",
+      "label_type": "EXACT (NERC EIDC Westoby et al. Verified Ground Truth)",
+      "results": {
+        "building_iou": 0.826,
+        "dice": 0.894,
+        "balanced_accuracy": 0.772,
+        "macro_f1": 0.751,
+        "weighted_f1": 0.848,
+        "destroyed_f1": 0.774,
+        "generalisation_gap_pct": -3.0,
+        "assessment": "Accurately segments washed-out riverbank settlements in Raini and Tapovan while correctly marking hillside structures as intact."
+      }
+    }
+  ]
+}

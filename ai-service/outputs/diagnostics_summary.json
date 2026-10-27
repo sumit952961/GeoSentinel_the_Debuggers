@@ -1,0 +1,88 @@
+{
+  "pixel_distribution": {
+    "0": 66218281,
+    "1": 3376117,
+    "2": 600975,
+    "3": 629628,
+    "4": 478167
+  },
+  "class_weights": {
+    "0": 0.2153579553054239,
+    "1": 4.223974939257141,
+    "2": 23.729162777153793,
+    "3": 22.64930022171822,
+    "4": 29.823541984285825
+  },
+  "alignment_samples": [
+    {
+      "pair_id": "midwest-flooding_00000046",
+      "disaster": "midwest-flooding",
+      "building_pixels": 183399,
+      "building_percentage": 17.49,
+      "diag_path": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\ai-service\\outputs\\diagnostics\\midwest-flooding_00000046_alignment_check.png"
+    },
+    {
+      "pair_id": "santa-rosa-wildfire_00000316",
+      "disaster": "santa-rosa-wildfire",
+      "building_pixels": 256245,
+      "building_percentage": 24.44,
+      "diag_path": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\ai-service\\outputs\\diagnostics\\santa-rosa-wildfire_00000316_alignment_check.png"
+    },
+    {
+      "pair_id": "hurricane-michael_00000483",
+      "disaster": "hurricane-michael",
+      "building_pixels": 87423,
+      "building_percentage": 8.34,
+      "diag_path": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\ai-service\\outputs\\diagnostics\\hurricane-michael_00000483_alignment_check.png"
+    },
+    {
+      "pair_id": "hurricane-michael_00000488",
+      "disaster": "hurricane-michael",
+      "building_pixels": 95729,
+      "building_percentage": 9.13,
+      "diag_path": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\ai-service\\outputs\\diagnostics\\hurricane-michael_00000488_alignment_check.png"
+    },
+    {
+      "pair_id": "hurricane-harvey_00000295",
+      "disaster": "hurricane-harvey",
+      "building_pixels": 6320,
+      "building_percentage": 0.6,
+      "diag_path": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\ai-service\\outputs\\diagnostics\\hurricane-harvey_00000295_alignment_check.png"
+    },
+    {
+      "pair_id": "hurricane-michael_00000062",
+      "disaster": "hurricane-michael",
+      "building_pixels": 2069,
+      "building_percentage": 0.2,
+      "diag_path": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\ai-service\\outputs\\diagnostics\\hurricane-michael_00000062_alignment_check.png"
+    },
+    {
+      "pair_id": "midwest-flooding_00000155",
+      "disaster": "midwest-flooding",
+      "building_pixels": 715,
+      "building_percentage": 0.07,
+      "diag_path": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\ai-service\\outputs\\diagnostics\\midwest-flooding_00000155_alignment_check.png"
+    },
+    {
+      "pair_id": "hurricane-michael_00000140",
+      "disaster": "hurricane-michael",
+      "building_pixels": 100035,
+      "building_percentage": 9.54,
+      "diag_path": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\ai-service\\outputs\\diagnostics\\hurricane-michael_00000140_alignment_check.png"
+    },
+    {
+      "pair_id": "hurricane-matthew_00000391",
+      "disaster": "hurricane-matthew",
+      "building_pixels": 645,
+      "building_percentage": 0.06,
+      "diag_path": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\ai-service\\outputs\\diagnostics\\hurricane-matthew_00000391_alignment_check.png"
+    },
+    {
+      "pair_id": "santa-rosa-wildfire_00000092",
+      "disaster": "santa-rosa-wildfire",
+      "building_pixels": 137997,
+      "building_percentage": 13.16,
+      "diag_path": "C:\\Users\\rajat\\OneDrive\\Desktop\\Disaster_Management_System\\ai-service\\outputs\\diagnostics\\santa-rosa-wildfire_00000092_alignment_check.png"
+    }
+  ]
+}

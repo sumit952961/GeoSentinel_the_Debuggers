@@ -1,0 +1,29 @@
+{
+  "event_id": "dharali_2025",
+  "event_name": "Dharali Flash Flood 2025",
+  "hazard_type": "Flash Flood / Cloudburst",
+  "country": "India",
+  "state": "Uttarakhand",
+  "district": "Uttarkashi",
+  "latitude_range": [
+    31.02,
+    31.06
+  ],
+  "longitude_range": [
+    78.75,
+    78.8
+  ],
+  "event_date": "2025-08-05",
+  "pre_image_date": "2025-07-04",
+  "post_image_date": "2025-08-06",
+  "sensor": "ISRO Cartosat-2S / Resourcesat-2 AWiFS / Sentinel-2",
+  "resolution": "10m - 23m",
+  "data_source": "ISRO NRSC Disaster Management Support / Bhuvan",
+  "licence": "ISRO Open Data Policy",
+  "label_quality": "WEAK",
+  "annotation_method": "Debris extent intersection & qualitative zero-shot footprint overlay",
+  "number_of_buildings": 48,
+  "number_of_damage_labels": 0,
+  "number_of_weak_labels": 48,
+  "notes": "Qualitative zero-shot generalisation domain. Debris fan overlay (20.4 ha) at Kheer Ganga-Bhagirathi confluence."
+}
