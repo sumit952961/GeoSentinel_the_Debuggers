@@ -455,7 +455,13 @@ class OperationalZoneGenerator:
                         "highest_priority_building_id": r[15],
                         "recommended_action": r[16],
                         "explanation": r[17],
-                        "constituent_building_ids": r[18] if isinstance(r[18], list) else (json.loads(r[18]) if r[18] else [])
+                        "constituent_building_ids": (
+                            r[18] if isinstance(r[18], list) else (
+                                [int(x.strip()) for x in r[18].split(",") if x.strip().isdigit()]
+                                if (isinstance(r[18], str) and not r[18].startswith("["))
+                                else (json.loads(r[18]) if r[18] else [])
+                            )
+                        )
                     }
                 })
 

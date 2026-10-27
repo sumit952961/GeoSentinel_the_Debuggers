@@ -851,8 +851,24 @@ function DisasterMap() {
   }
 
   // 5. Calculate and Prominently Draw Route on Map
-  async function calculateRoute(mode = 'RESPONSE', customDest = null) {
-    if (!selectedBuilding || !selectedBuilding.geometry) {
+  async function calculateRoute(mode = 'RESPONSE', customDest = null, overrideBuilding = null) {
+    const targetBldg = overrideBuilding || selectedBuilding;
+    if (!targetBldg || !targetBldg.geometry) {
+      // If a zone is selected, attempt to use its highest priority building
+      if (selectedZone && selectedZone.highestPriorityBuildingId) {
+        const bMatch = rawDataRef.current.damages?.features?.find(f => (f.properties?.buildingId || f.properties?.id) === selectedZone.highestPriorityBuildingId);
+        const priMatch = rawDataRef.current.priorities?.features?.find(f => (f.properties?.building_id || f.properties?.id) === selectedZone.highestPriorityBuildingId);
+        if (bMatch) {
+          const autoBldg = {
+            ...bMatch.properties,
+            id: selectedZone.highestPriorityBuildingId,
+            geometry: bMatch.geometry,
+            priorityInfo: priMatch?.properties
+          };
+          setSelectedBuilding(autoBldg);
+          return calculateRoute(mode, customDest, autoBldg);
+        }
+      }
       setError('Please select a priority building footprint on the map first.');
       return;
     }
@@ -864,15 +880,22 @@ function DisasterMap() {
     const destCategory = customDest || evacDestType;
 
     try {
-      const coords = selectedBuilding.geometry.coordinates[0];
-      let sumLon = 0, sumLat = 0;
-      coords.forEach(c => { sumLon += c[0]; sumLat += c[1]; });
-      const bldgLon = sumLon / coords.length;
-      const bldgLat = sumLat / coords.length;
+      let bldgLon = 0, bldgLat = 0;
+      if (targetBldg.geometry.type === 'Point') {
+        bldgLon = targetBldg.geometry.coordinates[0];
+        bldgLat = targetBldg.geometry.coordinates[1];
+      } else if (targetBldg.geometry.coordinates && targetBldg.geometry.coordinates[0]) {
+        const coords = targetBldg.geometry.coordinates[0];
+        let sumLon = 0, sumLat = 0;
+        coords.forEach(c => { sumLon += c[0]; sumLat += c[1]; });
+        bldgLon = sumLon / coords.length;
+        bldgLat = sumLat / coords.length;
+      }
 
+      const bldgId = targetBldg.id || targetBldg.buildingId || targetBldg.building_id;
       const resp = await api.post('/routes', {
         scenarioId: selectedScenarioId,
-        priorityId: selectedBuilding.id,
+        priorityId: bldgId,
         originLon: bldgLon,
         originLat: bldgLat,
         destinationType: destCategory,
@@ -935,7 +958,7 @@ function DisasterMap() {
 
             // Destination = Priority Structure Target
             const targetIcon = L.divIcon({
-              html: `<div style="background-color: #dc2626; color: white; padding: 3px 6px; border-radius: 4px; font-size: 10px; font-weight: 800; border: 2px solid white; box-shadow: 0 2px 6px rgba(0,0,0,0.5); white-space: nowrap;">🎯 PRIORITY TARGET #${selectedBuilding.id}</div>`,
+              html: `<div style="background-color: #0f172a; color: white; padding: 3px 6px; border-radius: 4px; font-size: 10px; font-weight: 800; border: 2px solid #ef4444; box-shadow: 0 2px 6px rgba(0,0,0,0.5); white-space: nowrap;">🎯 PRIORITY TARGET #${bldgId}</div>`,
               className: 'route-target-marker',
               iconSize: [120, 24],
               iconAnchor: [60, 12]
@@ -944,7 +967,7 @@ function DisasterMap() {
           } else {
             // Origin = Structure
             const originIcon = L.divIcon({
-              html: `<div style="background-color: #0f172a; color: white; padding: 3px 6px; border-radius: 4px; font-size: 10px; font-weight: 800; border: 2px solid #38bdf8; box-shadow: 0 2px 6px rgba(0,0,0,0.5); white-space: nowrap;">📍 ORIGIN #${selectedBuilding.id}</div>`,
+              html: `<div style="background-color: #0f172a; color: white; padding: 3px 6px; border-radius: 4px; font-size: 10px; font-weight: 800; border: 2px solid #38bdf8; box-shadow: 0 2px 6px rgba(0,0,0,0.5); white-space: nowrap;">📍 ORIGIN #${bldgId}</div>`,
               className: 'route-origin-marker',
               iconSize: [100, 24],
               iconAnchor: [50, 12]
@@ -2284,14 +2307,17 @@ function DisasterMap() {
                   onClick={() => {
                     const bMatch = rawDataRef.current.damages?.features?.find(f => (f.properties?.buildingId || f.properties?.id) === selectedZone.highestPriorityBuildingId);
                     const priMatch = rawDataRef.current.priorities?.features?.find(f => (f.properties?.building_id || f.properties?.id) === selectedZone.highestPriorityBuildingId);
+                    let bObj = null;
                     if (bMatch) {
-                      setSelectedBuilding({
+                      bObj = {
                         ...bMatch.properties,
+                        id: selectedZone.highestPriorityBuildingId,
                         geometry: bMatch.geometry,
                         priorityInfo: priMatch?.properties
-                      });
+                      };
+                      setSelectedBuilding(bObj);
                     }
-                    calculateRoute('RESPONSE');
+                    calculateRoute('RESPONSE', null, bObj);
                   }}
                   disabled={routingLoading}
                   style={{
@@ -2317,14 +2343,17 @@ function DisasterMap() {
                   onClick={() => {
                     const bMatch = rawDataRef.current.damages?.features?.find(f => (f.properties?.buildingId || f.properties?.id) === selectedZone.highestPriorityBuildingId);
                     const priMatch = rawDataRef.current.priorities?.features?.find(f => (f.properties?.building_id || f.properties?.id) === selectedZone.highestPriorityBuildingId);
+                    let bObj = null;
                     if (bMatch) {
-                      setSelectedBuilding({
+                      bObj = {
                         ...bMatch.properties,
+                        id: selectedZone.highestPriorityBuildingId,
                         geometry: bMatch.geometry,
                         priorityInfo: priMatch?.properties
-                      });
+                      };
+                      setSelectedBuilding(bObj);
                     }
-                    calculateRoute('EVACUATION', 'hospital');
+                    calculateRoute('EVACUATION', 'hospital', bObj);
                   }}
                   disabled={routingLoading}
                   style={{
