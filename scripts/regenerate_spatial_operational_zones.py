@@ -285,7 +285,7 @@ def run():
         # Fetch all buildings for scenario
         cur.execute("""
             SELECT b.id, ST_X(ST_Centroid(b.geometry)), ST_Y(ST_Centroid(b.geometry)),
-                   ST_Area(ST_Transform(b.geometry, 3857))
+                   ST_Area(ST_Transform(b.geometry, 3857)), b.damage_class
             FROM buildings b
             WHERE b.scenario_id = %s
             ORDER BY b.id;
@@ -305,51 +305,57 @@ def run():
             # Filter buildings in this non-overlapping slice
             sec_bldgs = []
             for b in bldg_rows:
-                b_id, bx, by, b_area = b
+                b_id, bx, by, b_area, b_dmg = b
                 val = bx if axis == "lon" else by
                 if val_min <= val <= val_max:
-                    sec_bldgs.append((b_id, bx, by, b_area or 85.0))
+                    sec_bldgs.append((b_id, bx, by, b_area or 85.0, b_dmg or sec["dmg"]))
 
             # If empty (boundary rounding), borrow closest
             if not sec_bldgs:
                 closest = min(bldg_rows, key=lambda b: abs((b[1] if axis == "lon" else b[2]) - (val_min + val_max) / 2))
-                sec_bldgs.append((closest[0], closest[1], closest[2], closest[3] or 85.0))
+                sec_bldgs.append((closest[0], closest[1], closest[2], closest[3] or 85.0, closest[4] or sec["dmg"]))
 
             sec_bldg_ids = [b[0] for b in sec_bldgs]
             total_b = len(sec_bldgs)
 
-            # Update damage predictions and priority assessments for these buildings
+            # Update damage predictions and priority assessments for these buildings preserving true building damage
             for idx, b in enumerate(sec_bldgs):
                 b_id = b[0]
-                dmg_class = sec["dmg"]
-                pri_level = sec["pri_level"]
-                # Slight variation
-                pri_val = min(0.99, max(0.05, sec["pri_base"] + (idx % 3) * 0.02 - 0.01))
-
-                probs = {
-                    "no-damage": 0.02,
-                    "minor-damage": 0.03,
-                    "major-damage": 0.05,
-                    "destroyed": 0.90
-                }
-                if dmg_class == "major-damage":
-                    probs = {"no-damage": 0.05, "minor-damage": 0.15, "major-damage": 0.70, "destroyed": 0.10}
+                dmg_class = b[4] or sec["dmg"]
+                
+                if dmg_class == "destroyed":
+                    pri_level = "CRITICAL"
+                    pri_val = min(0.99, max(0.85, 0.90 + (idx % 5) * 0.02))
+                    probs = {"no-damage": 0.01, "minor-damage": 0.02, "major-damage": 0.05, "destroyed": 0.92}
+                elif dmg_class == "major-damage":
+                    pri_level = "HIGH"
+                    pri_val = min(0.85, max(0.65, 0.72 + (idx % 5) * 0.02 - 0.02))
+                    probs = {"no-damage": 0.05, "minor-damage": 0.15, "major-damage": 0.72, "destroyed": 0.08}
                 elif dmg_class == "minor-damage":
-                    probs = {"no-damage": 0.20, "minor-damage": 0.65, "major-damage": 0.12, "destroyed": 0.03}
-                elif dmg_class == "no-damage":
+                    pri_level = "MEDIUM"
+                    pri_val = min(0.55, max(0.35, 0.42 + (idx % 5) * 0.02 - 0.02))
+                    probs = {"no-damage": 0.18, "minor-damage": 0.68, "major-damage": 0.11, "destroyed": 0.03}
+                else:
+                    dmg_class = "no-damage"
+                    pri_level = "LOW"
+                    pri_val = min(0.25, max(0.05, 0.10 + (idx % 5) * 0.02))
                     probs = {"no-damage": 0.92, "minor-damage": 0.06, "major-damage": 0.01, "destroyed": 0.01}
 
                 # Update damage_predictions
                 cur.execute("""
                     UPDATE damage_predictions
-                    SET damage_class = %s, confidence = %s, probabilities = %s
+                    SET damage_class = %s, confidence = %s,
+                        prob_no_damage = %s, prob_minor = %s, prob_major = %s, prob_destroyed = %s,
+                        probabilities = %s
                     WHERE building_id = %s;
-                """, (dmg_class, 0.92, json.dumps(probs), b_id))
+                """, (dmg_class, probs[dmg_class], probs["no-damage"], probs["minor-damage"], probs["major-damage"], probs["destroyed"], json.dumps(probs), b_id))
                 if cur.rowcount == 0:
                     cur.execute("""
-                        INSERT INTO damage_predictions (scenario_id, building_id, damage_class, confidence, probabilities, model_version, is_prediction, geometry)
-                        SELECT %s, %s, %s, %s, %s, %s, %s, geometry FROM buildings WHERE id = %s;
-                    """, (sc_id, b_id, dmg_class, 0.92, json.dumps(probs), "DRAS-v2.0-SpatialEnsemble", True, b_id))
+                        INSERT INTO damage_predictions (scenario_id, building_id, damage_class, confidence,
+                                                       prob_no_damage, prob_minor, prob_major, prob_destroyed,
+                                                       probabilities, model_version, is_prediction, geometry)
+                        SELECT %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, geometry FROM buildings WHERE id = %s;
+                    """, (sc_id, b_id, dmg_class, probs[dmg_class], probs["no-damage"], probs["minor-damage"], probs["major-damage"], probs["destroyed"], json.dumps(probs), "DRAS-v2.0-SpatialEnsemble", True, b_id))
 
                 # Update priority_assessments
                 cur.execute("""
@@ -373,13 +379,17 @@ def run():
                         f"Structure in {name} [{crit}]: {desc}"
                     ))
 
-            # Tally counts
-            dest_cnt = total_b if sec["dmg"] == "destroyed" else 0
-            maj_cnt = total_b if sec["dmg"] == "major-damage" else 0
-            min_cnt = total_b if sec["dmg"] == "minor-damage" else 0
-            no_cnt = total_b if sec["dmg"] == "no-damage" else 0
+            # Tally actual counts from constituent buildings
+            dest_cnt = sum(1 for b in sec_bldgs if b[4] == "destroyed")
+            maj_cnt = sum(1 for b in sec_bldgs if b[4] == "major-damage")
+            min_cnt = sum(1 for b in sec_bldgs if b[4] == "minor-damage")
+            no_cnt = sum(1 for b in sec_bldgs if b[4] == "no-damage")
             est_pop = int(sum(max(3, int(b[3] / 18.0)) for b in sec_bldgs))
-            apex_bldg_id = sec_bldg_ids[0]
+            
+            apex_candidates = [b for b in sec_bldgs if b[4] == "destroyed"] or \
+                              [b for b in sec_bldgs if b[4] == "major-damage"] or \
+                              [b for b in sec_bldgs if b[4] == "minor-damage"] or sec_bldgs
+            apex_bldg_id = apex_candidates[0][0]
 
             # Construct clean, non-overlapping geometric box for the sector
             if axis == "lon":
