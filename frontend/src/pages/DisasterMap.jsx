@@ -15,7 +15,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import L from 'leaflet';
-import { Layers, ChevronRight, X, Satellite } from 'lucide-react';
+import { 
+  Layers, ChevronRight, X, Satellite, BellRing, AlertTriangle, 
+  ShieldAlert, Radio, Volume2, VolumeX, ExternalLink, Zap, 
+  CheckCircle2, AlertOctagon, Flame 
+} from 'lucide-react';
 import CesiumGlobe from '../components/globe/CesiumGlobe';
 import api from '../services/api';
 import { useTheme } from '../context/ThemeContext';
@@ -62,7 +66,8 @@ function DisasterMap() {
     routeGlow: L.layerGroup(),
     route: L.layerGroup(),
     routeMarkers: L.layerGroup(),
-    selectionHighlight: L.layerGroup()
+    selectionHighlight: L.layerGroup(),
+    alerts: L.layerGroup()
   });
 
   // State
@@ -72,6 +77,16 @@ function DisasterMap() {
   const [loading, setLoading] = useState(false);
   const [routingLoading, setRoutingLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  // Alert System States
+  const [alerts, setAlerts] = useState([]);
+  const [isAlertDrawerOpen, setIsAlertDrawerOpen] = useState(false);
+  const [selectedCapAlert, setSelectedCapAlert] = useState(null);
+  const [selectedCapXml, setSelectedCapXml] = useState('');
+  const [capXmlLoading, setCapXmlLoading] = useState(false);
+  const [sirenPlaying, setSirenPlaying] = useState(false);
+  const [broadcastToast, setBroadcastToast] = useState(null);
+  const [newAlertZoneId, setNewAlertZoneId] = useState('');
 
   // View Level: 'BUILDINGS' | 'ZONES' | 'BOTH'
   const [viewLevel, setViewLevel] = useState('BOTH');
@@ -89,6 +104,7 @@ function DisasterMap() {
 
   // Layer Toggles
   const [layers, setLayers] = useState({
+    alerts: true,
     zones: true,
     hazards: true,
     damages: true,
@@ -122,6 +138,7 @@ function DisasterMap() {
     shelters: null,
     zones: null,
     hazards: null,
+    alerts: [],
     scenario: null
   });
 
@@ -204,7 +221,7 @@ function DisasterMap() {
     layerGroupsRef.current.selectionHighlight.clearLayers();
 
     try {
-      const [scenResp, damagesResp, priResp, bldgsResp, roadsResp, hospResp, sheltResp, sumResp, zonesResp, hazardsResp] = await Promise.all([
+      const [scenResp, damagesResp, priResp, bldgsResp, roadsResp, hospResp, sheltResp, sumResp, zonesResp, hazardsResp, alertsResp] = await Promise.all([
         api.get(`/scenarios/${scenarioId}`).catch(() => ({ data: null })),
         api.get(`/map/damages?scenarioId=${scenarioId}`).catch(() => ({ data: { features: [] } })),
         api.get(`/priorities/geojson?scenarioId=${scenarioId}`).catch(() => ({ data: { features: [] } })),
@@ -214,9 +231,11 @@ function DisasterMap() {
         api.get(`/map/shelters?scenarioId=${scenarioId}`).catch(() => ({ data: { features: [] } })),
         api.get(`/analysis/${scenarioId}/summary`).catch(() => ({ data: null })),
         api.get(`/map/zones?scenarioId=${scenarioId}`).catch(() => ({ data: { features: [] } })),
-        api.get(`/map/hazards?scenarioId=${scenarioId}`).catch(() => ({ data: { features: [] } }))
+        api.get(`/map/hazards?scenarioId=${scenarioId}`).catch(() => ({ data: { features: [] } })),
+        api.get(`/emergency/alerts/scenario/${scenarioId}`).catch(() => ({ data: [] }))
       ]);
 
+      const loadedAlerts = alertsResp.data || [];
       rawDataRef.current = {
         scenario: scenResp.data,
         damages: damagesResp.data,
@@ -226,9 +245,11 @@ function DisasterMap() {
         hospitals: hospResp.data,
         shelters: sheltResp.data,
         zones: zonesResp.data,
-        hazards: hazardsResp.data
+        hazards: hazardsResp.data,
+        alerts: loadedAlerts
       };
 
+      setAlerts(loadedAlerts);
       setSummary(sumResp.data);
       setGisDataVersion(v => v + 1);
       renderLayers();
@@ -825,6 +846,75 @@ function DisasterMap() {
       safeExtendBounds(sheltLayer);
     }
 
+    // H. Emergency Alerts (OASIS CAP 1.2) Layer
+    const alertsGroup = layerGroupsRef.current.alerts;
+    alertsGroup.clearLayers();
+
+    if (layers.alerts && rawDataRef.current.alerts && rawDataRef.current.alerts.length > 0) {
+      rawDataRef.current.alerts.forEach(alert => {
+        if (!alert.geometry) return;
+
+        const isExtreme = alert.severity === 'Extreme';
+        const alertCol = isExtreme ? '#ef4444' : '#f59e0b';
+
+        // 1. Red/Amber alert polygon with glowing dashed border
+        const aLayer = L.geoJSON(alert.geometry, {
+          style: {
+            color: alertCol,
+            weight: 3.5,
+            dashArray: '6, 6',
+            fillColor: alertCol,
+            fillOpacity: 0.20
+          }
+        });
+
+        // 2. Centroid siren marker badge
+        const pt = getPolygonCentroid(alert.geometry);
+        if (pt && pt[0] && pt[1]) {
+          const alertIcon = L.divIcon({
+            html: `
+              <div class="alert-beacon-strobe" style="
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                background-color: #0f172a;
+                color: #ffffff;
+                padding: 4px 8px;
+                border-radius: 6px;
+                font-size: 10px;
+                font-weight: 800;
+                border: 2px solid ${alertCol};
+                box-shadow: 0 0 16px ${alertCol};
+                white-space: nowrap;
+                cursor: pointer;
+              ">
+                <span class="alert-beacon-dot" style="background-color: ${alertCol};"></span>
+                <span>🚨 ${alert.event || 'CAP 1.2 ALERT'}</span>
+              </div>
+            `,
+            className: 'cap-alert-marker',
+            iconSize: [160, 26],
+            iconAnchor: [80, 13]
+          });
+
+          const m = L.marker([pt[1], pt[0]], { icon: alertIcon });
+          m.on('click', () => {
+            setSelectedCapAlert(alert);
+            setIsAlertDrawerOpen(true);
+          });
+          alertsGroup.addLayer(m);
+        }
+
+        aLayer.on('click', () => {
+          setSelectedCapAlert(alert);
+          setIsAlertDrawerOpen(true);
+        });
+
+        alertsGroup.addLayer(aLayer);
+        safeExtendBounds(aLayer);
+      });
+    }
+
     // If no route is active, fit cleanly to operational sectors / incident area
     if (!activeRoute) {
       const activeBounds = L.latLngBounds();
@@ -1001,6 +1091,97 @@ function DisasterMap() {
     layerGroupsRef.current.routeMarkers.clearLayers();
     setActiveRoute(null);
   }
+
+  // 6. Emergency Alert System Action Handlers
+  const playEmergencySiren = () => {
+    if (sirenPlaying) {
+      if (window._drasSirenOsc) {
+        try { window._drasSirenOsc.stop(); } catch(e){}
+      }
+      setSirenPlaying(false);
+      return;
+    }
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = new AudioCtx();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sawtooth';
+      gain.gain.setValueAtTime(0.12, ctx.currentTime);
+      const now = ctx.currentTime;
+      for (let i = 0; i < 6; i++) {
+        osc.frequency.setValueAtTime(550, now + i * 0.8);
+        osc.frequency.exponentialRampToValueAtTime(1000, now + i * 0.8 + 0.4);
+        osc.frequency.exponentialRampToValueAtTime(550, now + i * 0.8 + 0.8);
+      }
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      window._drasSirenOsc = osc;
+      setSirenPlaying(true);
+      setTimeout(() => {
+        try { osc.stop(); } catch(e){}
+        setSirenPlaying(false);
+      }, 4800);
+    } catch(e) {
+      console.warn('Audio siren unavailable:', e);
+    }
+  };
+
+  const handleBroadcastZoneCap = async (zoneId) => {
+    try {
+      const resp = await api.post(`/emergency/alerts/generate-from-zone/${zoneId}`);
+      if (resp.data) {
+        // Refresh alerts
+        const updated = await api.get(`/emergency/alerts/scenario/${selectedScenarioId}`);
+        const freshAlerts = updated.data || [];
+        rawDataRef.current.alerts = freshAlerts;
+        setAlerts(freshAlerts);
+        renderLayers();
+
+        // Highlight created alert
+        const created = freshAlerts.find(a => a.targetZoneId === parseInt(zoneId)) || resp.data;
+        setSelectedCapAlert(created);
+        setIsAlertDrawerOpen(true);
+
+        setBroadcastToast(`🚨 OASIS CAP 1.2 BROADCAST TRANSMITTED: ${resp.data.headline || 'Evacuation Order Issued'}`);
+        setTimeout(() => setBroadcastToast(null), 6000);
+      }
+    } catch (err) {
+      setError(`Failed to broadcast CAP alert: ${err.message}`);
+    }
+  };
+
+  const handleFetchCapXml = async (alertId) => {
+    setCapXmlLoading(true);
+    try {
+      const res = await fetch(`http://localhost:8081/api/emergency/alerts/${alertId}/cap.xml`);
+      if (res.ok) {
+        const text = await res.text();
+        setSelectedCapXml(text);
+      }
+    } catch (err) {
+      console.error('Failed to load CAP XML:', err);
+    } finally {
+      setCapXmlLoading(false);
+    }
+  };
+
+  const handleLocateAlert = (alert) => {
+    if (!alert || !alert.geometry) return;
+    const map = mapInstanceRef.current;
+    if (!map) return;
+    try {
+      const aLyr = L.geoJSON(alert.geometry);
+      if (aLyr.getBounds().isValid()) {
+        map.fitBounds(aLyr.getBounds(), { padding: [50, 50], maxZoom: 16 });
+      }
+      setSelectedCapAlert(alert);
+    } catch (e) {
+      console.error('Error locating alert:', e);
+    }
+  };
 
   return (
     <div style={{ display: 'flex', height: 'calc(100vh - 52px)', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif', backgroundColor: tokens.bgPrimary, color: tokens.textPrimary, overflow: 'hidden' }}>
@@ -1384,10 +1565,68 @@ function DisasterMap() {
 
         {/* Layer Toggles */}
         <div>
-          <div style={{ fontSize: '10px', fontWeight: 700, color: tokens.textSecondary, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '6px' }}>
-            Map Layers
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+            <span style={{ fontSize: '10px', fontWeight: 700, color: tokens.textSecondary, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              Map Layers
+            </span>
+            <button
+              onClick={() => setIsAlertDrawerOpen(true)}
+              style={{
+                background: alerts.length > 0 ? '#ef4444' : tokens.bgTertiary,
+                color: alerts.length > 0 ? '#ffffff' : tokens.textPrimary,
+                border: 'none',
+                padding: '2px 7px',
+                borderRadius: '4px',
+                fontSize: '9px',
+                fontWeight: 800,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px',
+                cursor: 'pointer'
+              }}
+              title="Open Emergency Alert Broadcast Center"
+            >
+              <BellRing size={10} className={alerts.length > 0 ? 'alert-beacon-strobe' : ''} />
+              <span>ALERTS ({alerts.length})</span>
+            </button>
           </div>
+
           <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', fontSize: '11px' }}>
+            {/* Emergency Alerts Layer Toggle */}
+            <label style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              cursor: 'pointer',
+              color: tokens.textPrimary,
+              backgroundColor: alerts.length > 0 ? (isDark ? 'rgba(239, 68, 68, 0.15)' : '#fee2e2') : 'transparent',
+              padding: '4px 6px',
+              borderRadius: '4px',
+              border: alerts.length > 0 ? '1px solid rgba(239, 68, 68, 0.4)' : '1px solid transparent'
+            }}>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <input
+                  type="checkbox"
+                  checked={layers.alerts}
+                  onChange={(e) => setLayers({ ...layers, alerts: e.target.checked })}
+                />
+                <span style={{ fontWeight: 700, color: '#ef4444', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  <BellRing size={12} className={alerts.length > 0 ? 'alert-beacon-strobe' : ''} />
+                  Emergency Alerts (CAP)
+                </span>
+              </span>
+              <span style={{
+                fontSize: '9px',
+                fontWeight: 800,
+                backgroundColor: alerts.length > 0 ? '#ef4444' : tokens.bgTertiary,
+                color: alerts.length > 0 ? '#ffffff' : tokens.textSecondary,
+                padding: '1px 5px',
+                borderRadius: '10px'
+              }}>
+                {alerts.length}
+              </span>
+            </label>
+
             <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer', color: tokens.textPrimary }}>
               <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                 <input
@@ -1617,6 +1856,501 @@ function DisasterMap() {
             <div style={{ fontSize: '10px', marginTop: '3px', color: isDark ? '#cbd5e1' : '#7f1d1d', lineHeight: 1.35 }}>
               Quantitative building damage metrics are <strong>N/A</strong> (no verified ground truth annotations). Operational priority sectors are derived from the 20.4 ha debris fan overlay at Kheer Ganga-Bhagirathi confluence & Cartosat-2S.
             </div>
+          </div>
+        )}
+
+        {/* ============================================================ */}
+        {/* LIVE EMERGENCY ALERT BAR ON DISASTER MAP                     */}
+        {/* ============================================================ */}
+        <div style={{
+          position: 'absolute',
+          top: selectedScenarioId === 4 ? '78px' : '12px',
+          left: '14px',
+          maxWidth: 'calc(100% - 215px)',
+          zIndex: 999,
+          display: 'flex',
+          alignItems: 'center',
+          gap: '10px',
+          backgroundColor: alerts.length > 0 
+            ? (isDark ? 'rgba(28, 10, 10, 0.95)' : 'rgba(254, 242, 242, 0.97)')
+            : (isDark ? 'rgba(15, 23, 42, 0.88)' : 'rgba(255, 255, 255, 0.92)'),
+          border: alerts.length > 0 ? '1.5px solid #ef4444' : `1px solid ${tokens.border}`,
+          boxShadow: alerts.length > 0 ? '0 4px 20px rgba(239, 68, 68, 0.35)' : tokens.shadow,
+          borderRadius: '8px',
+          padding: '6px 14px',
+          backdropFilter: 'blur(8px)',
+          boxSizing: 'border-box'
+        }}>
+          {/* Beacon Indicator */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
+            {alerts.length > 0 ? (
+              <span className="alert-beacon-dot" style={{ backgroundColor: '#ef4444' }}></span>
+            ) : (
+              <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#10b981' }}></span>
+            )}
+            <span style={{
+              fontSize: '11px',
+              fontWeight: 800,
+              color: alerts.length > 0 ? '#ef4444' : '#10b981',
+              letterSpacing: '0.02em',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '4px'
+            }}>
+              <BellRing size={12} className={alerts.length > 0 ? 'alert-beacon-strobe' : ''} />
+              {alerts.length > 0 ? `ALERT SYSTEM ACTIVE (${alerts.length})` : 'ALERT SYSTEM NOMINAL'}
+            </span>
+          </div>
+
+          {/* Headline snippet */}
+          <div style={{
+            flex: 1,
+            fontSize: '11px',
+            color: tokens.textPrimary,
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            fontWeight: 600
+          }}>
+            {alerts.length > 0 
+              ? alerts[0].headline || 'Immediate evacuation order in effect for active critical hazard sectors'
+              : 'All sectors within nominal hazard thresholds • Automated CAP 1.2 triggers standing by'}
+          </div>
+
+          {/* Quick Actions */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexShrink: 0 }}>
+            {alerts.length > 0 ? (
+              <>
+                <button
+                  onClick={() => {
+                    setSelectedCapAlert(alerts[0]);
+                    setIsAlertDrawerOpen(true);
+                  }}
+                  style={{
+                    backgroundColor: '#ef4444',
+                    color: '#ffffff',
+                    border: 'none',
+                    padding: '4px 10px',
+                    borderRadius: '4px',
+                    fontSize: '10px',
+                    fontWeight: 800,
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                    boxShadow: '0 2px 6px rgba(239, 68, 68, 0.4)'
+                  }}
+                >
+                  <span>BRIEFING</span>
+                  <span style={{ backgroundColor: '#b91c1c', padding: '1px 5px', borderRadius: '8px', fontSize: '9px' }}>{alerts.length}</span>
+                </button>
+
+                <button
+                  onClick={() => playEmergencySiren()}
+                  style={{
+                    backgroundColor: sirenPlaying ? '#b91c1c' : (isDark ? '#334155' : '#e2e8f0'),
+                    color: sirenPlaying ? '#ffffff' : tokens.textPrimary,
+                    border: 'none',
+                    padding: '4px 8px',
+                    borderRadius: '4px',
+                    fontSize: '10px',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '3px'
+                  }}
+                  title={sirenPlaying ? 'Silence Siren' : 'Test Acoustic Siren Array'}
+                >
+                  {sirenPlaying ? <VolumeX size={12} /> : <Volume2 size={12} />}
+                  <span>{sirenPlaying ? 'SILENCE' : 'SIREN'}</span>
+                </button>
+              </>
+            ) : (
+              <button
+                onClick={() => setIsAlertDrawerOpen(true)}
+                style={{
+                  backgroundColor: isDark ? '#1e293b' : '#f1f5f9',
+                  color: tokens.textPrimary,
+                  border: `1px solid ${tokens.border}`,
+                  padding: '4px 10px',
+                  borderRadius: '4px',
+                  fontSize: '10px',
+                  fontWeight: 700,
+                  cursor: 'pointer'
+                }}
+              >
+                + BROADCAST
+              </button>
+            )}
+
+            <button
+              onClick={() => navigate(`/scenario/${selectedScenarioId}/emergency`)}
+              style={{
+                backgroundColor: isDark ? '#1e293b' : '#f8fafc',
+                color: '#0284c7',
+                border: `1px solid ${isDark ? '#0284c7' : '#cbd5e1'}`,
+                padding: '4px 8px',
+                borderRadius: '4px',
+                fontSize: '10px',
+                fontWeight: 700,
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '3px'
+              }}
+              title="Open Emergency Dispatch CAD"
+            >
+              <span>CAD</span>
+              <ExternalLink size={10} />
+            </button>
+          </div>
+        </div>
+
+        {/* ============================================================ */}
+        {/* INTERACTIVE EMERGENCY ALERT BRIEFING DRAWER / MODAL          */}
+        {/* ============================================================ */}
+        {isAlertDrawerOpen && (
+          <div style={{
+            position: 'absolute',
+            top: '12px',
+            right: '14px',
+            width: '420px',
+            maxHeight: 'calc(100% - 24px)',
+            backgroundColor: isDark ? 'rgba(15, 23, 42, 0.96)' : 'rgba(255, 255, 255, 0.98)',
+            border: `1.5px solid ${isDark ? '#ef4444' : '#f87171'}`,
+            borderRadius: '10px',
+            boxShadow: '0 12px 36px rgba(0,0,0,0.5)',
+            zIndex: 1100,
+            display: 'flex',
+            flexDirection: 'column',
+            overflow: 'hidden',
+            backdropFilter: 'blur(10px)'
+          }}>
+            {/* Drawer Header */}
+            <div style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              padding: '12px 16px',
+              borderBottom: `1px solid ${tokens.border}`,
+              backgroundColor: isDark ? 'rgba(239, 68, 68, 0.12)' : '#fee2e2'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <ShieldAlert size={18} color="#ef4444" />
+                <div>
+                  <h3 style={{ margin: 0, fontSize: '13px', fontWeight: 800, color: '#ef4444' }}>
+                    OASIS CAP 1.2 Alert Center
+                  </h3>
+                  <span style={{ fontSize: '10px', color: tokens.textSecondary }}>
+                    Common Alerting Protocol Broadcast Subsystem
+                  </span>
+                </div>
+              </div>
+              <button
+                onClick={() => {
+                  setIsAlertDrawerOpen(false);
+                  setSelectedCapXml('');
+                }}
+                style={{
+                  background: 'transparent',
+                  border: 'none',
+                  color: tokens.textSecondary,
+                  cursor: 'pointer',
+                  padding: '4px'
+                }}
+              >
+                <X size={16} />
+              </button>
+            </div>
+
+            {/* Drawer Content */}
+            <div style={{ padding: '14px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '14px' }}>
+              {/* Quick Siren & Dissemination Bar */}
+              <div style={{
+                backgroundColor: tokens.bgTertiary,
+                padding: '10px',
+                borderRadius: '6px',
+                border: `1px solid ${tokens.border}`,
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center'
+              }}>
+                <div>
+                  <div style={{ fontSize: '10px', fontWeight: 700, color: tokens.textPrimary }}>
+                    Acoustic Siren Array: {sirenPlaying ? '🔊 TRANSMITTING' : 'IDLE'}
+                  </div>
+                  <div style={{ fontSize: '9px', color: tokens.textSecondary }}>
+                    Coverage: 115 dB Omni-Directional Alert Horns
+                  </div>
+                </div>
+                <button
+                  onClick={() => playEmergencySiren()}
+                  style={{
+                    backgroundColor: sirenPlaying ? '#b91c1c' : '#dc2626',
+                    color: '#ffffff',
+                    border: 'none',
+                    padding: '5px 10px',
+                    borderRadius: '4px',
+                    fontSize: '10px',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '4px'
+                  }}
+                >
+                  {sirenPlaying ? <VolumeX size={12} /> : <Volume2 size={12} />}
+                  <span>{sirenPlaying ? 'STOP SIREN' : 'TEST SIREN'}</span>
+                </button>
+              </div>
+
+              {/* Active Broadcasts List */}
+              <div>
+                <div style={{ fontSize: '11px', fontWeight: 800, color: tokens.textPrimary, textTransform: 'uppercase', marginBottom: '8px', display: 'flex', justifyContent: 'space-between' }}>
+                  <span>Active Broadcast Alerts ({alerts.length})</span>
+                  <span style={{ fontSize: '9px', color: '#10b981', fontWeight: 600 }}>🟢 EOC DISPATCH SYNCED</span>
+                </div>
+
+                {alerts.length === 0 ? (
+                  <div style={{ padding: '16px', textAlign: 'center', backgroundColor: tokens.bgTertiary, borderRadius: '6px', fontSize: '11px', color: tokens.textSecondary }}>
+                    No active emergency broadcasts for this scenario. Use the form below to generate a rapid evacuation order from any operational zone.
+                  </div>
+                ) : (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    {alerts.map(a => {
+                      const isExtreme = a.severity === 'Extreme';
+                      return (
+                        <div
+                          key={a.id}
+                          style={{
+                            backgroundColor: isDark ? 'rgba(30, 41, 59, 0.7)' : '#f8fafc',
+                            border: `1px solid ${isExtreme ? 'rgba(239, 68, 68, 0.5)' : 'rgba(245, 158, 11, 0.5)'}`,
+                            borderLeft: `4px solid ${isExtreme ? '#ef4444' : '#f59e0b'}`,
+                            borderRadius: '6px',
+                            padding: '10px',
+                            boxShadow: '0 2px 6px rgba(0,0,0,0.1)'
+                          }}
+                        >
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '4px' }}>
+                            <span style={{
+                              fontSize: '8px',
+                              fontWeight: 800,
+                              backgroundColor: isExtreme ? '#ef4444' : '#f59e0b',
+                              color: '#ffffff',
+                              padding: '2px 5px',
+                              borderRadius: '3px',
+                              textTransform: 'uppercase'
+                            }}>
+                              {a.severity} • {a.urgency}
+                            </span>
+                            <span style={{ fontSize: '9px', color: tokens.textSecondary, fontFamily: 'monospace' }}>
+                              {a.identifier}
+                            </span>
+                          </div>
+
+                          <div style={{ fontSize: '12px', fontWeight: 800, color: tokens.textPrimary, margin: '4px 0 2px 0' }}>
+                            {a.headline}
+                          </div>
+
+                          <div style={{ fontSize: '10px', color: tokens.textSecondary, marginBottom: '6px', lineHeight: 1.35 }}>
+                            {a.instruction || a.description}
+                          </div>
+
+                          {/* Broadcast Channel Indicators */}
+                          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', margin: '6px 0' }}>
+                            <span style={{ fontSize: '8px', fontWeight: 700, backgroundColor: 'rgba(16, 185, 129, 0.15)', color: '#10b981', padding: '2px 5px', borderRadius: '3px', display: 'flex', alignItems: 'center', gap: '3px' }}>
+                              <CheckCircle2 size={9} /> WEA / CMAS Cell Broadcast
+                            </span>
+                            <span style={{ fontSize: '8px', fontWeight: 700, backgroundColor: 'rgba(16, 185, 129, 0.15)', color: '#10b981', padding: '2px 5px', borderRadius: '3px', display: 'flex', alignItems: 'center', gap: '3px' }}>
+                              <CheckCircle2 size={9} /> EAS Radio Broadcast
+                            </span>
+                            <span style={{ fontSize: '8px', fontWeight: 700, backgroundColor: 'rgba(16, 185, 129, 0.15)', color: '#10b981', padding: '2px 5px', borderRadius: '3px', display: 'flex', alignItems: 'center', gap: '3px' }}>
+                              <CheckCircle2 size={9} /> PostGIS Perimeter
+                            </span>
+                          </div>
+
+                          {/* Action Buttons */}
+                          <div style={{ display: 'flex', gap: '6px', marginTop: '8px' }}>
+                            <button
+                              onClick={() => handleLocateAlert(a)}
+                              style={{
+                                flex: 1,
+                                backgroundColor: '#0284c7',
+                                color: '#ffffff',
+                                border: 'none',
+                                padding: '5px 8px',
+                                borderRadius: '4px',
+                                fontSize: '10px',
+                                fontWeight: 700,
+                                cursor: 'pointer'
+                              }}
+                            >
+                              🎯 Locate on Map
+                            </button>
+                            <button
+                              onClick={() => handleFetchCapXml(a.id)}
+                              disabled={capXmlLoading}
+                              style={{
+                                backgroundColor: isDark ? '#334155' : '#e2e8f0',
+                                color: tokens.textPrimary,
+                                border: 'none',
+                                padding: '5px 8px',
+                                borderRadius: '4px',
+                                fontSize: '10px',
+                                fontWeight: 700,
+                                cursor: 'pointer'
+                              }}
+                            >
+                              📜 CAP XML
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+
+              {/* CAP XML Viewer */}
+              {selectedCapXml && (
+                <div style={{
+                  backgroundColor: isDark ? '#020617' : '#f1f5f9',
+                  border: `1px solid ${tokens.border}`,
+                  borderRadius: '6px',
+                  padding: '10px'
+                }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                    <span style={{ fontSize: '10px', fontWeight: 800, color: '#38bdf8' }}>
+                      OASIS Common Alerting Protocol (CAP) v1.2 XML
+                    </span>
+                    <button
+                      onClick={() => {
+                        navigator.clipboard.writeText(selectedCapXml);
+                        setBroadcastToast('📋 CAP XML copied to clipboard');
+                        setTimeout(() => setBroadcastToast(null), 3000);
+                      }}
+                      style={{
+                        backgroundColor: '#0284c7',
+                        color: '#fff',
+                        border: 'none',
+                        padding: '2px 6px',
+                        borderRadius: '3px',
+                        fontSize: '9px',
+                        fontWeight: 700,
+                        cursor: 'pointer'
+                      }}
+                    >
+                      Copy XML
+                    </button>
+                  </div>
+                  <pre style={{
+                    fontSize: '9px',
+                    fontFamily: 'monospace',
+                    color: isDark ? '#a5f3fc' : '#0369a1',
+                    maxHeight: '140px',
+                    overflowY: 'auto',
+                    whiteSpace: 'pre-wrap',
+                    margin: 0
+                  }}>
+                    {selectedCapXml}
+                  </pre>
+                </div>
+              )}
+
+              {/* Rapid Zone Evacuation Order Broadcast Trigger */}
+              <div style={{
+                backgroundColor: tokens.bgTertiary,
+                padding: '12px',
+                borderRadius: '8px',
+                border: `1px solid ${tokens.border}`
+              }}>
+                <div style={{ fontSize: '11px', fontWeight: 800, color: tokens.textPrimary, textTransform: 'uppercase', marginBottom: '4px' }}>
+                  Issue Rapid Evacuation Broadcast
+                </div>
+                <div style={{ fontSize: '10px', color: tokens.textSecondary, marginBottom: '8px' }}>
+                  Select an operational sector to generate and transmit a certified CAP 1.2 alert.
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <select
+                    value={newAlertZoneId}
+                    onChange={(e) => setNewAlertZoneId(e.target.value)}
+                    style={{
+                      width: '100%',
+                      padding: '6px 8px',
+                      borderRadius: '4px',
+                      border: `1px solid ${tokens.border}`,
+                      backgroundColor: tokens.bgCard,
+                      color: tokens.textPrimary,
+                      fontSize: '11px',
+                      fontWeight: 600
+                    }}
+                  >
+                    <option value="">-- Select Operational Sector --</option>
+                    {(rawDataRef.current.zones?.features || []).map(f => (
+                      <option key={f.properties.id} value={f.properties.id}>
+                        [{f.properties.criticality}] {f.properties.name} ({f.properties.zoneCode})
+                      </option>
+                    ))}
+                  </select>
+
+                  <button
+                    onClick={() => {
+                      if (!newAlertZoneId) {
+                        alert('Please select an operational sector first.');
+                        return;
+                      }
+                      handleBroadcastZoneCap(newAlertZoneId);
+                    }}
+                    style={{
+                      backgroundColor: '#dc2626',
+                      color: '#ffffff',
+                      border: 'none',
+                      padding: '8px 12px',
+                      borderRadius: '4px',
+                      fontSize: '11px',
+                      fontWeight: 800,
+                      cursor: 'pointer',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      gap: '6px',
+                      boxShadow: '0 2px 8px rgba(220, 38, 38, 0.4)'
+                    }}
+                  >
+                    <Radio size={13} />
+                    <span>BROADCAST CAP 1.2 EMERGENCY ORDER</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Broadcast Toast Notification */}
+        {broadcastToast && (
+          <div style={{
+            position: 'absolute',
+            bottom: '24px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            zIndex: 2000,
+            backgroundColor: '#0f172a',
+            color: '#ffffff',
+            border: '2px solid #ef4444',
+            boxShadow: '0 8px 24px rgba(239, 68, 68, 0.5)',
+            padding: '10px 18px',
+            borderRadius: '8px',
+            fontSize: '12px',
+            fontWeight: 800,
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            animation: 'alertStrobe 1.5s ease-in-out'
+          }}>
+            <BellRing size={16} color="#ef4444" />
+            <span>{broadcastToast}</span>
           </div>
         )}
 

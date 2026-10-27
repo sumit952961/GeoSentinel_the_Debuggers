@@ -125,3 +125,29 @@ input, select, textarea {
   white-space: nowrap;
   border-width: 0;
 }
+
+/* ─── Emergency Alert Beacon Animations ────────────────── */
+@keyframes alertPulseRing {
+  0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.8); }
+  70% { transform: scale(1.1); box-shadow: 0 0 0 12px rgba(239, 68, 68, 0); }
+  100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+
+@keyframes alertStrobe {
+  0%, 100% { opacity: 1; filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.9)); }
+  50% { opacity: 0.4; filter: drop-shadow(0 0 2px rgba(239, 68, 68, 0.3)); }
+}
+
+.alert-beacon-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ef4444;
+  display: inline-block;
+  animation: alertPulseRing 1.5s infinite;
+}
+
+.alert-beacon-strobe {
+  animation: alertStrobe 1.2s infinite ease-in-out;
+}
+
