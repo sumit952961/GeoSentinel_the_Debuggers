@@ -87,6 +87,8 @@ function DisasterMap() {
   const [sirenPlaying, setSirenPlaying] = useState(false);
   const [broadcastToast, setBroadcastToast] = useState(null);
   const [newAlertZoneId, setNewAlertZoneId] = useState('');
+  const [isAlertBannerDismissed, setIsAlertBannerDismissed] = useState(false);
+  const [isAlertSystemMuted, setIsAlertSystemMuted] = useState(false);
 
   // View Level: 'BUILDINGS' | 'ZONES' | 'BOTH'
   const [viewLevel, setViewLevel] = useState('BOTH');
@@ -1183,6 +1185,26 @@ function DisasterMap() {
     }
   };
 
+  const toggleAlertSystemMaster = () => {
+    if (sirenPlaying) {
+      if (window._drasSirenOsc) {
+        try { window._drasSirenOsc.stop(); } catch(e){}
+      }
+      setSirenPlaying(false);
+    }
+    const newMuted = !isAlertSystemMuted;
+    setIsAlertSystemMuted(newMuted);
+    setLayers(prev => ({ ...prev, alerts: !newMuted }));
+    if (newMuted) {
+      setIsAlertBannerDismissed(true);
+      setBroadcastToast('🔕 Emergency Alert System turned OFF & siren silenced');
+    } else {
+      setIsAlertBannerDismissed(false);
+      setBroadcastToast('🔔 Emergency Alert System turned ON & live tracking active');
+    }
+    setTimeout(() => setBroadcastToast(null), 4000);
+  };
+
   return (
     <div style={{ display: 'flex', height: 'calc(100vh - 52px)', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif', backgroundColor: tokens.bgPrimary, color: tokens.textPrimary, overflow: 'hidden' }}>
       
@@ -1862,150 +1884,210 @@ function DisasterMap() {
         {/* ============================================================ */}
         {/* LIVE EMERGENCY ALERT BAR ON DISASTER MAP                     */}
         {/* ============================================================ */}
-        <div style={{
-          position: 'absolute',
-          top: selectedScenarioId === 4 ? '78px' : '12px',
-          left: '14px',
-          maxWidth: 'calc(100% - 215px)',
-          zIndex: 999,
-          display: 'flex',
-          alignItems: 'center',
-          gap: '10px',
-          backgroundColor: alerts.length > 0 
-            ? (isDark ? 'rgba(28, 10, 10, 0.95)' : 'rgba(254, 242, 242, 0.97)')
-            : (isDark ? 'rgba(15, 23, 42, 0.88)' : 'rgba(255, 255, 255, 0.92)'),
-          border: alerts.length > 0 ? '1.5px solid #ef4444' : `1px solid ${tokens.border}`,
-          boxShadow: alerts.length > 0 ? '0 4px 20px rgba(239, 68, 68, 0.35)' : tokens.shadow,
-          borderRadius: '8px',
-          padding: '6px 14px',
-          backdropFilter: 'blur(8px)',
-          boxSizing: 'border-box'
-        }}>
-          {/* Beacon Indicator */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
-            {alerts.length > 0 ? (
-              <span className="alert-beacon-dot" style={{ backgroundColor: '#ef4444' }}></span>
-            ) : (
-              <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#10b981' }}></span>
-            )}
-            <span style={{
+        {/* Collapsed Alert Mini Badge (When user turns off or dismisses the top banner) */}
+        {isAlertBannerDismissed && (
+          <button
+            onClick={() => setIsAlertBannerDismissed(false)}
+            style={{
+              position: 'absolute',
+              top: selectedScenarioId === 4 ? '78px' : '12px',
+              left: '14px',
+              zIndex: 999,
+              backgroundColor: alerts.length > 0 && !isAlertSystemMuted ? '#dc2626' : (isDark ? '#1e293b' : '#ffffff'),
+              color: alerts.length > 0 && !isAlertSystemMuted ? '#ffffff' : tokens.textPrimary,
+              border: `1.5px solid ${alerts.length > 0 && !isAlertSystemMuted ? '#ef4444' : tokens.border}`,
+              borderRadius: '20px',
+              padding: '5px 12px',
               fontSize: '11px',
               fontWeight: 800,
-              color: alerts.length > 0 ? '#ef4444' : '#10b981',
-              letterSpacing: '0.02em',
               display: 'flex',
               alignItems: 'center',
-              gap: '4px'
-            }}>
-              <BellRing size={12} className={alerts.length > 0 ? 'alert-beacon-strobe' : ''} />
-              {alerts.length > 0 ? `ALERT SYSTEM ACTIVE (${alerts.length})` : 'ALERT SYSTEM NOMINAL'}
-            </span>
-          </div>
+              gap: '6px',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+              cursor: 'pointer',
+              backdropFilter: 'blur(6px)'
+            }}
+            title="Reopen Emergency Alert Banner"
+          >
+            <BellRing size={13} className={alerts.length > 0 && !isAlertSystemMuted ? 'alert-beacon-strobe' : ''} />
+            <span>ALERTS ({alerts.length})</span>
+            <span style={{ fontSize: '9px', opacity: 0.85, fontWeight: 600 }}>[SHOW]</span>
+          </button>
+        )}
 
-          {/* Headline snippet */}
+        {/* Full Active Alert Bar (Collision-free: max-width bounded before 2D/3D toggle) */}
+        {!isAlertBannerDismissed && (
           <div style={{
-            flex: 1,
-            fontSize: '11px',
-            color: tokens.textPrimary,
-            whiteSpace: 'nowrap',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            fontWeight: 600
+            position: 'absolute',
+            top: selectedScenarioId === 4 ? '78px' : '12px',
+            left: '14px',
+            maxWidth: 'calc(100% - 250px)',
+            zIndex: 999,
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            backgroundColor: alerts.length > 0 && !isAlertSystemMuted
+              ? (isDark ? 'rgba(28, 10, 10, 0.95)' : 'rgba(254, 242, 242, 0.97)')
+              : (isDark ? 'rgba(15, 23, 42, 0.88)' : 'rgba(255, 255, 255, 0.92)'),
+            border: alerts.length > 0 && !isAlertSystemMuted ? '1.5px solid #ef4444' : `1px solid ${tokens.border}`,
+            boxShadow: alerts.length > 0 && !isAlertSystemMuted ? '0 4px 20px rgba(239, 68, 68, 0.35)' : tokens.shadow,
+            borderRadius: '8px',
+            padding: '5px 12px',
+            backdropFilter: 'blur(8px)',
+            boxSizing: 'border-box'
           }}>
-            {alerts.length > 0 
-              ? alerts[0].headline || 'Immediate evacuation order in effect for active critical hazard sectors'
-              : 'All sectors within nominal hazard thresholds • Automated CAP 1.2 triggers standing by'}
-          </div>
+            {/* Beacon Indicator */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexShrink: 0 }}>
+              {alerts.length > 0 && !isAlertSystemMuted ? (
+                <span className="alert-beacon-dot" style={{ backgroundColor: '#ef4444' }}></span>
+              ) : (
+                <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#10b981' }}></span>
+              )}
+              <span style={{
+                fontSize: '11px',
+                fontWeight: 800,
+                color: alerts.length > 0 && !isAlertSystemMuted ? '#ef4444' : '#10b981',
+                letterSpacing: '0.02em',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px'
+              }}>
+                <BellRing size={12} className={alerts.length > 0 && !isAlertSystemMuted ? 'alert-beacon-strobe' : ''} />
+                {alerts.length > 0 && !isAlertSystemMuted ? `ALERT ACTIVE (${alerts.length})` : 'ALERT SYSTEM NOMINAL'}
+              </span>
+            </div>
 
-          {/* Quick Actions */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexShrink: 0 }}>
-            {alerts.length > 0 ? (
-              <>
-                <button
-                  onClick={() => {
-                    setSelectedCapAlert(alerts[0]);
-                    setIsAlertDrawerOpen(true);
-                  }}
-                  style={{
-                    backgroundColor: '#ef4444',
-                    color: '#ffffff',
-                    border: 'none',
-                    padding: '4px 10px',
-                    borderRadius: '4px',
-                    fontSize: '10px',
-                    fontWeight: 800,
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '4px',
-                    boxShadow: '0 2px 6px rgba(239, 68, 68, 0.4)'
-                  }}
-                >
-                  <span>BRIEFING</span>
-                  <span style={{ backgroundColor: '#b91c1c', padding: '1px 5px', borderRadius: '8px', fontSize: '9px' }}>{alerts.length}</span>
-                </button>
+            {/* Headline snippet */}
+            <div style={{
+              flex: 1,
+              fontSize: '11px',
+              color: tokens.textPrimary,
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              fontWeight: 600,
+              minWidth: 0
+            }}>
+              {alerts.length > 0 && !isAlertSystemMuted
+                ? alerts[0].headline || 'Immediate evacuation order in effect for active critical hazard sectors'
+                : 'All sectors within nominal hazard thresholds • Automated CAP 1.2 triggers standing by'}
+            </div>
 
+            {/* Quick Actions */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '5px', flexShrink: 0 }}>
+              {alerts.length > 0 ? (
+                <>
+                  <button
+                    onClick={() => {
+                      setSelectedCapAlert(alerts[0]);
+                      setIsAlertDrawerOpen(true);
+                    }}
+                    style={{
+                      backgroundColor: '#ef4444',
+                      color: '#ffffff',
+                      border: 'none',
+                      padding: '4px 8px',
+                      borderRadius: '4px',
+                      fontSize: '10px',
+                      fontWeight: 800,
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '4px',
+                      boxShadow: '0 2px 6px rgba(239, 68, 68, 0.4)'
+                    }}
+                  >
+                    <span>BRIEFING</span>
+                    <span style={{ backgroundColor: '#b91c1c', padding: '1px 5px', borderRadius: '8px', fontSize: '9px' }}>{alerts.length}</span>
+                  </button>
+
+                  <button
+                    onClick={() => playEmergencySiren()}
+                    style={{
+                      backgroundColor: sirenPlaying ? '#b91c1c' : (isDark ? '#334155' : '#e2e8f0'),
+                      color: sirenPlaying ? '#ffffff' : tokens.textPrimary,
+                      border: 'none',
+                      padding: '4px 7px',
+                      borderRadius: '4px',
+                      fontSize: '10px',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '3px'
+                    }}
+                    title={sirenPlaying ? 'Silence Siren' : 'Test Acoustic Siren Array'}
+                  >
+                    {sirenPlaying ? <VolumeX size={12} /> : <Volume2 size={12} />}
+                    <span>{sirenPlaying ? 'SILENCE' : 'SIREN'}</span>
+                  </button>
+                </>
+              ) : (
                 <button
-                  onClick={() => playEmergencySiren()}
+                  onClick={() => setIsAlertDrawerOpen(true)}
                   style={{
-                    backgroundColor: sirenPlaying ? '#b91c1c' : (isDark ? '#334155' : '#e2e8f0'),
-                    color: sirenPlaying ? '#ffffff' : tokens.textPrimary,
-                    border: 'none',
+                    backgroundColor: isDark ? '#1e293b' : '#f1f5f9',
+                    color: tokens.textPrimary,
+                    border: `1px solid ${tokens.border}`,
                     padding: '4px 8px',
                     borderRadius: '4px',
                     fontSize: '10px',
                     fontWeight: 700,
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '3px'
+                    cursor: 'pointer'
                   }}
-                  title={sirenPlaying ? 'Silence Siren' : 'Test Acoustic Siren Array'}
                 >
-                  {sirenPlaying ? <VolumeX size={12} /> : <Volume2 size={12} />}
-                  <span>{sirenPlaying ? 'SILENCE' : 'SIREN'}</span>
+                  + BROADCAST
                 </button>
-              </>
-            ) : (
+              )}
+
               <button
-                onClick={() => setIsAlertDrawerOpen(true)}
+                onClick={() => navigate(`/scenario/${selectedScenarioId}/emergency`)}
                 style={{
-                  backgroundColor: isDark ? '#1e293b' : '#f1f5f9',
-                  color: tokens.textPrimary,
-                  border: `1px solid ${tokens.border}`,
-                  padding: '4px 10px',
+                  backgroundColor: isDark ? '#1e293b' : '#f8fafc',
+                  color: '#0284c7',
+                  border: `1px solid ${isDark ? '#0284c7' : '#cbd5e1'}`,
+                  padding: '4px 7px',
                   borderRadius: '4px',
                   fontSize: '10px',
                   fontWeight: 700,
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '3px'
                 }}
+                title="Open Emergency Dispatch CAD"
               >
-                + BROADCAST
+                <span>CAD</span>
+                <ExternalLink size={10} />
               </button>
-            )}
 
-            <button
-              onClick={() => navigate(`/scenario/${selectedScenarioId}/emergency`)}
-              style={{
-                backgroundColor: isDark ? '#1e293b' : '#f8fafc',
-                color: '#0284c7',
-                border: `1px solid ${isDark ? '#0284c7' : '#cbd5e1'}`,
-                padding: '4px 8px',
-                borderRadius: '4px',
-                fontSize: '10px',
-                fontWeight: 700,
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '3px'
-              }}
-              title="Open Emergency Dispatch CAD"
-            >
-              <span>CAD</span>
-              <ExternalLink size={10} />
-            </button>
+              {/* Turn Off / Dismiss Button */}
+              <button
+                onClick={() => {
+                  setIsAlertBannerDismissed(true);
+                  if (sirenPlaying) playEmergencySiren();
+                }}
+                style={{
+                  backgroundColor: isDark ? 'rgba(239, 68, 68, 0.18)' : '#fee2e2',
+                  color: '#ef4444',
+                  border: '1px solid rgba(239, 68, 68, 0.4)',
+                  padding: '3px 7px',
+                  borderRadius: '4px',
+                  fontSize: '10px',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '3px'
+                }}
+                title="Turn off / Dismiss this alert banner from the map view"
+              >
+                <span>✕</span>
+                <span style={{ fontSize: '9px' }}>Turn Off</span>
+              </button>
+            </div>
           </div>
-        </div>
+        )}
 
         {/* ============================================================ */}
         {/* INTERACTIVE EMERGENCY ALERT BRIEFING DRAWER / MODAL          */}
