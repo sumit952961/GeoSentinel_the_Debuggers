@@ -110,23 +110,39 @@ export function convertBuildingsTo3DEntities(features = [], options = {}) {
 
     const height = estimateBuildingHeight(props, priorityLevel);
 
-    // Case A: Point Observations (geometry type Point)
+    // Case A: Point Observations (render as extruded 3D architectural box instead of dots)
     if (feat.geometry.type === 'Point') {
       const coords = feat.geometry.coordinates;
       const lon = coords[0];
       const lat = coords[1];
+      const d = 0.00009; // ~10m x 10m footprint
+      const targetExtrudedHeight = isSelected ? Math.max(35, height * 2.2 + 15) : Math.max(22, height * 1.8);
 
+      const boxPositions = Cesium.Cartesian3.fromDegreesArray([
+        lon - d, lat - d,
+        lon + d, lat - d,
+        lon + d, lat + d,
+        lon - d, lat + d
+      ]);
+      const roofBoxPositions = [
+        Cesium.Cartesian3.fromDegrees(lon - d, lat - d, targetExtrudedHeight),
+        Cesium.Cartesian3.fromDegrees(lon + d, lat - d, targetExtrudedHeight),
+        Cesium.Cartesian3.fromDegrees(lon + d, lat + d, targetExtrudedHeight),
+        Cesium.Cartesian3.fromDegrees(lon - d, lat + d, targetExtrudedHeight),
+        Cesium.Cartesian3.fromDegrees(lon - d, lat - d, targetExtrudedHeight)
+      ];
+
+      // 3D Building Volume
       entities.push({
         id: `building-${bldgId}`,
-        name: `Structure #${bldgId} (Observation Point)`,
-        position: Cesium.Cartesian3.fromDegrees(lon, lat),
-        point: {
-          pixelSize: isSelected ? 16 : 10,
-          color: isSelected ? Cesium.Color.fromCssColorString('#ffffff') : baseColor,
-          outlineColor: isSelected ? Cesium.Color.RED : Cesium.Color.BLACK,
-          outlineWidth: isSelected ? 3 : 1.5,
-          heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
-          disableDepthTestDistance: Number.POSITIVE_INFINITY
+        name: `Structure #${bldgId}`,
+        polygon: {
+          hierarchy: boxPositions,
+          height: 0,
+          extrudedHeight: targetExtrudedHeight,
+          material: isSelected
+            ? new Cesium.ColorMaterialProperty(Cesium.Color.fromCssColorString('#ffffff').withAlpha(0.98))
+            : new Cesium.ColorMaterialProperty(baseColor)
         },
         properties: {
           ...props,
@@ -135,6 +151,43 @@ export function convertBuildingsTo3DEntities(features = [], options = {}) {
           estimatedHeightMeters: height
         }
       });
+
+      // Roof Outline
+      entities.push({
+        id: `building-roof-${bldgId}`,
+        name: `Structure #${bldgId} Roof Outline`,
+        polyline: {
+          positions: roofBoxPositions,
+          width: isSelected ? 3.5 : 2.0,
+          material: isSelected ? Cesium.Color.RED : Cesium.Color.fromCssColorString('#020617').withAlpha(0.9)
+        },
+        properties: {
+          ...props,
+          _drasType: 'building',
+          rawFeature: feat
+        }
+      });
+
+      // Active beacon ONLY when selected
+      if (isSelected) {
+        entities.push({
+          id: `building-pin-${bldgId}`,
+          name: `Structure #${bldgId} Active Target`,
+          position: Cesium.Cartesian3.fromDegrees(lon, lat, targetExtrudedHeight + 3.0),
+          point: {
+            pixelSize: 14,
+            color: Cesium.Color.WHITE,
+            outlineColor: Cesium.Color.RED,
+            outlineWidth: 3,
+            disableDepthTestDistance: Number.POSITIVE_INFINITY
+          },
+          properties: {
+            ...props,
+            _drasType: 'building',
+            rawFeature: feat
+          }
+        });
+      }
       continue;
     }
 
@@ -165,7 +218,7 @@ export function convertBuildingsTo3DEntities(features = [], options = {}) {
       const positions = Cesium.Cartesian3.fromDegreesArray(flatPositions);
       if (positions.length < 3) continue;
 
-      // 1. 3D Extruded Building Geometry
+      // 1. 3D Extruded Building Geometry (Pure 3D architectural volume)
       entities.push({
         id: `building-${bldgId}`,
         name: `Structure #${bldgId}`,
@@ -198,30 +251,33 @@ export function convertBuildingsTo3DEntities(features = [], options = {}) {
         },
         properties: {
           ...props,
-          _drasType: 'building_outline'
+          _drasType: 'building',
+          rawFeature: feat
         }
       });
 
-      // 3. Visible Building Pin Marker (Stands out at all altitudes with infinite depth test)
-      entities.push({
-        id: `building-pin-${bldgId}`,
-        name: `Structure #${bldgId} Indicator`,
-        position: Cesium.Cartesian3.fromDegrees(centroidLon, centroidLat, targetExtrudedHeight + 1.5),
-        point: {
-          pixelSize: isSelected ? 14 : 9,
-          color: isSelected ? Cesium.Color.WHITE : baseColor,
-          outlineColor: isSelected ? Cesium.Color.RED : Cesium.Color.fromCssColorString('#020617'),
-          outlineWidth: isSelected ? 3 : 2,
-          disableDepthTestDistance: Number.POSITIVE_INFINITY,
-          distanceDisplayCondition: new Cesium.DistanceDisplayCondition(5, 45000)
-        },
-        properties: {
-          ...props,
-          _drasType: 'building',
-          rawFeature: feat,
-          estimatedHeightMeters: height
-        }
-      });
+      // 3. Highlight Beacon ONLY when building is explicitly selected
+      // Regular structures display purely as 3D extruded buildings without distracting dot clutter
+      if (isSelected) {
+        entities.push({
+          id: `building-pin-${bldgId}`,
+          name: `Structure #${bldgId} Active Target`,
+          position: Cesium.Cartesian3.fromDegrees(centroidLon, centroidLat, targetExtrudedHeight + 3.0),
+          point: {
+            pixelSize: 14,
+            color: Cesium.Color.WHITE,
+            outlineColor: Cesium.Color.RED,
+            outlineWidth: 3,
+            disableDepthTestDistance: Number.POSITIVE_INFINITY
+          },
+          properties: {
+            ...props,
+            _drasType: 'building',
+            rawFeature: feat,
+            estimatedHeightMeters: height
+          }
+        });
+      }
     } catch (e) {
       console.warn(`Failed to parse building polygon #${bldgId}`, e);
     }

@@ -8,39 +8,39 @@ import * as Cesium from 'cesium';
 export const SCENARIO_VIEWPOINTS = {
   1: { // Woolsey Fire 2018 (California, USA)
     name: 'Woolsey Fire 2018 (Malibu Impact Core)',
-    lat: 34.045,
-    lon: -118.688,
-    range: 1400,
+    lat: 34.0738,
+    lon: -118.7247,
+    range: 1250,
     baseElevation: 0,
-    pitch: -45,
-    heading: 10
+    pitch: -42,
+    heading: 0
   },
   2: { // Chamoli Flash Flood 2021 (Uttarakhand, India)
     name: 'Chamoli Glacial Surge 2021 (Raini-Tapovan Corridor)',
-    lat: 30.441,
-    lon: 79.620,
-    range: 1700,
+    lat: 30.4796,
+    lon: 79.6139,
+    range: 1400,
     baseElevation: 0,
-    pitch: -38,
+    pitch: -40,
     heading: 10
   },
   3: { // Cyclone Fani 2019 (Odisha, India)
     name: 'Cyclone Fani 2019 (Puri Coastal Nexus)',
-    lat: 19.805,
-    lon: 85.825,
-    range: 1400,
+    lat: 19.8102,
+    lon: 85.8291,
+    range: 1300,
     baseElevation: 0,
     pitch: -45,
     heading: 0
   },
   4: { // Dharali Flash Flood 2025 (Uttarakhand, India)
     name: 'Dharali Cloudburst 2025 (Debris Fan Confluence)',
-    lat: 31.033,
-    lon: 78.745,
+    lat: 31.0281,
+    lon: 78.7438,
     range: 1100,
     baseElevation: 0,
     pitch: -40,
-    heading: 20
+    heading: 15
   }
 };
 
