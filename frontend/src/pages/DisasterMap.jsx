@@ -16,7 +16,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import L from 'leaflet';
 import { 
-  Layers, ChevronRight, X, Satellite, BellRing, AlertTriangle, 
+  Layers, ChevronRight, X, Satellite, BellRing, BellOff, AlertTriangle, 
   ShieldAlert, Radio, Volume2, VolumeX, ExternalLink, Zap, 
   CheckCircle2, AlertOctagon, Flame 
 } from 'lucide-react';
@@ -1185,24 +1185,36 @@ function DisasterMap() {
     }
   };
 
-  const toggleAlertSystemMaster = () => {
+  const handleTurnOffAlerts = () => {
     if (sirenPlaying) {
       if (window._drasSirenOsc) {
         try { window._drasSirenOsc.stop(); } catch(e){}
       }
       setSirenPlaying(false);
     }
-    const newMuted = !isAlertSystemMuted;
-    setIsAlertSystemMuted(newMuted);
-    setLayers(prev => ({ ...prev, alerts: !newMuted }));
-    if (newMuted) {
-      setIsAlertBannerDismissed(true);
-      setBroadcastToast('🔕 Emergency Alert System turned OFF & siren silenced');
-    } else {
-      setIsAlertBannerDismissed(false);
-      setBroadcastToast('🔔 Emergency Alert System turned ON & live tracking active');
+    if (layerGroupsRef.current?.alerts) {
+      layerGroupsRef.current.alerts.clearLayers();
     }
-    setTimeout(() => setBroadcastToast(null), 4000);
+    setIsAlertSystemMuted(true);
+    setLayers(prev => ({ ...prev, alerts: false }));
+    setBroadcastToast('🔕 Emergency alerts turned OFF from map & siren silenced');
+    setTimeout(() => setBroadcastToast(null), 3500);
+  };
+
+  const handleTurnOnAlerts = () => {
+    setIsAlertSystemMuted(false);
+    setLayers(prev => ({ ...prev, alerts: true }));
+    setIsAlertBannerDismissed(false);
+    setBroadcastToast('🔔 Emergency alerts turned ON on map');
+    setTimeout(() => setBroadcastToast(null), 3500);
+  };
+
+  const toggleAlertSystemMaster = () => {
+    if (layers.alerts) {
+      handleTurnOffAlerts();
+    } else {
+      handleTurnOnAlerts();
+    }
   };
 
   return (
@@ -1630,7 +1642,13 @@ function DisasterMap() {
                 <input
                   type="checkbox"
                   checked={layers.alerts}
-                  onChange={(e) => setLayers({ ...layers, alerts: e.target.checked })}
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      handleTurnOnAlerts();
+                    } else {
+                      handleTurnOffAlerts();
+                    }
+                  }}
                 />
                 <span style={{ fontWeight: 700, color: '#ef4444', display: 'flex', alignItems: 'center', gap: '4px' }}>
                   <BellRing size={12} className={alerts.length > 0 ? 'alert-beacon-strobe' : ''} />
@@ -1887,15 +1905,21 @@ function DisasterMap() {
         {/* Collapsed Alert Mini Badge (When user turns off or dismisses the top banner) */}
         {isAlertBannerDismissed && (
           <button
-            onClick={() => setIsAlertBannerDismissed(false)}
+            onClick={() => {
+              if (!layers.alerts) {
+                handleTurnOnAlerts();
+              } else {
+                setIsAlertBannerDismissed(false);
+              }
+            }}
             style={{
               position: 'absolute',
               top: selectedScenarioId === 4 ? '78px' : '12px',
               left: '14px',
               zIndex: 999,
-              backgroundColor: alerts.length > 0 && !isAlertSystemMuted ? '#dc2626' : (isDark ? '#1e293b' : '#ffffff'),
-              color: alerts.length > 0 && !isAlertSystemMuted ? '#ffffff' : tokens.textPrimary,
-              border: `1.5px solid ${alerts.length > 0 && !isAlertSystemMuted ? '#ef4444' : tokens.border}`,
+              backgroundColor: layers.alerts && alerts.length > 0 ? '#dc2626' : (isDark ? '#1e293b' : '#ffffff'),
+              color: layers.alerts && alerts.length > 0 ? '#ffffff' : tokens.textPrimary,
+              border: `1.5px solid ${layers.alerts && alerts.length > 0 ? '#ef4444' : tokens.border}`,
               borderRadius: '20px',
               padding: '5px 12px',
               fontSize: '11px',
@@ -1907,11 +1931,21 @@ function DisasterMap() {
               cursor: 'pointer',
               backdropFilter: 'blur(6px)'
             }}
-            title="Reopen Emergency Alert Banner"
+            title={layers.alerts ? "Reopen Emergency Alert Banner" : "Turn On Emergency Alerts on Map"}
           >
-            <BellRing size={13} className={alerts.length > 0 && !isAlertSystemMuted ? 'alert-beacon-strobe' : ''} />
-            <span>ALERTS ({alerts.length})</span>
-            <span style={{ fontSize: '9px', opacity: 0.85, fontWeight: 600 }}>[SHOW]</span>
+            {layers.alerts && alerts.length > 0 ? (
+              <>
+                <BellRing size={13} className="alert-beacon-strobe" />
+                <span>ALERTS ({alerts.length})</span>
+                <span style={{ fontSize: '9px', opacity: 0.85, fontWeight: 600 }}>[SHOW]</span>
+              </>
+            ) : (
+              <>
+                <BellOff size={13} color="#94a3b8" />
+                <span style={{ color: '#94a3b8' }}>ALERTS OFF ({alerts.length})</span>
+                <span style={{ fontSize: '9px', color: '#10b981', fontWeight: 800 }}>[TURN ON]</span>
+              </>
+            )}
           </button>
         )}
 
@@ -1926,11 +1960,11 @@ function DisasterMap() {
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
-            backgroundColor: alerts.length > 0 && !isAlertSystemMuted
+            backgroundColor: layers.alerts && alerts.length > 0
               ? (isDark ? 'rgba(28, 10, 10, 0.95)' : 'rgba(254, 242, 242, 0.97)')
               : (isDark ? 'rgba(15, 23, 42, 0.88)' : 'rgba(255, 255, 255, 0.92)'),
-            border: alerts.length > 0 && !isAlertSystemMuted ? '1.5px solid #ef4444' : `1px solid ${tokens.border}`,
-            boxShadow: alerts.length > 0 && !isAlertSystemMuted ? '0 4px 20px rgba(239, 68, 68, 0.35)' : tokens.shadow,
+            border: layers.alerts && alerts.length > 0 ? '1.5px solid #ef4444' : `1px solid ${tokens.border}`,
+            boxShadow: layers.alerts && alerts.length > 0 ? '0 4px 20px rgba(239, 68, 68, 0.35)' : tokens.shadow,
             borderRadius: '8px',
             padding: '5px 12px',
             backdropFilter: 'blur(8px)',
@@ -1938,23 +1972,39 @@ function DisasterMap() {
           }}>
             {/* Beacon Indicator */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexShrink: 0 }}>
-              {alerts.length > 0 && !isAlertSystemMuted ? (
-                <span className="alert-beacon-dot" style={{ backgroundColor: '#ef4444' }}></span>
+              {layers.alerts && alerts.length > 0 ? (
+                <>
+                  <span className="alert-beacon-dot" style={{ backgroundColor: '#ef4444' }}></span>
+                  <span style={{
+                    fontSize: '11px',
+                    fontWeight: 800,
+                    color: '#ef4444',
+                    letterSpacing: '0.02em',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '4px'
+                  }}>
+                    <BellRing size={12} className="alert-beacon-strobe" />
+                    ALERT ACTIVE ({alerts.length})
+                  </span>
+                </>
               ) : (
-                <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#10b981' }}></span>
+                <>
+                  <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#64748b' }}></span>
+                  <span style={{
+                    fontSize: '11px',
+                    fontWeight: 800,
+                    color: '#94a3b8',
+                    letterSpacing: '0.02em',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '4px'
+                  }}>
+                    <BellOff size={12} />
+                    ALERTS OFF
+                  </span>
+                </>
               )}
-              <span style={{
-                fontSize: '11px',
-                fontWeight: 800,
-                color: alerts.length > 0 && !isAlertSystemMuted ? '#ef4444' : '#10b981',
-                letterSpacing: '0.02em',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '4px'
-              }}>
-                <BellRing size={12} className={alerts.length > 0 && !isAlertSystemMuted ? 'alert-beacon-strobe' : ''} />
-                {alerts.length > 0 && !isAlertSystemMuted ? `ALERT ACTIVE (${alerts.length})` : 'ALERT SYSTEM NOMINAL'}
-              </span>
             </div>
 
             {/* Headline snippet */}
@@ -1968,9 +2018,9 @@ function DisasterMap() {
               fontWeight: 600,
               minWidth: 0
             }}>
-              {alerts.length > 0 && !isAlertSystemMuted
+              {layers.alerts && alerts.length > 0
                 ? alerts[0].headline || 'Immediate evacuation order in effect for active critical hazard sectors'
-                : 'All sectors within nominal hazard thresholds • Automated CAP 1.2 triggers standing by'}
+                : `Alert layers cleared from map • ${alerts.length} CAP warnings standby in EOC`}
             </div>
 
             {/* Quick Actions */}
@@ -2001,26 +2051,28 @@ function DisasterMap() {
                     <span style={{ backgroundColor: '#b91c1c', padding: '1px 5px', borderRadius: '8px', fontSize: '9px' }}>{alerts.length}</span>
                   </button>
 
-                  <button
-                    onClick={() => playEmergencySiren()}
-                    style={{
-                      backgroundColor: sirenPlaying ? '#b91c1c' : (isDark ? '#334155' : '#e2e8f0'),
-                      color: sirenPlaying ? '#ffffff' : tokens.textPrimary,
-                      border: 'none',
-                      padding: '4px 7px',
-                      borderRadius: '4px',
-                      fontSize: '10px',
-                      fontWeight: 700,
-                      cursor: 'pointer',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '3px'
-                    }}
-                    title={sirenPlaying ? 'Silence Siren' : 'Test Acoustic Siren Array'}
-                  >
-                    {sirenPlaying ? <VolumeX size={12} /> : <Volume2 size={12} />}
-                    <span>{sirenPlaying ? 'SILENCE' : 'SIREN'}</span>
-                  </button>
+                  {layers.alerts && (
+                    <button
+                      onClick={() => playEmergencySiren()}
+                      style={{
+                        backgroundColor: sirenPlaying ? '#b91c1c' : (isDark ? '#334155' : '#e2e8f0'),
+                        color: sirenPlaying ? '#ffffff' : tokens.textPrimary,
+                        border: 'none',
+                        padding: '4px 7px',
+                        borderRadius: '4px',
+                        fontSize: '10px',
+                        fontWeight: 700,
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '3px'
+                      }}
+                      title={sirenPlaying ? 'Silence Siren' : 'Test Acoustic Siren Array'}
+                    >
+                      {sirenPlaying ? <VolumeX size={12} /> : <Volume2 size={12} />}
+                      <span>{sirenPlaying ? 'SILENCE' : 'SIREN'}</span>
+                    </button>
+                  )}
                 </>
               ) : (
                 <button
@@ -2061,29 +2113,69 @@ function DisasterMap() {
                 <ExternalLink size={10} />
               </button>
 
-              {/* Turn Off / Dismiss Button */}
+              {/* Turn Off / Turn On Button directly controlling map layer */}
+              {layers.alerts ? (
+                <button
+                  onClick={handleTurnOffAlerts}
+                  style={{
+                    backgroundColor: isDark ? 'rgba(239, 68, 68, 0.22)' : '#fee2e2',
+                    color: '#ef4444',
+                    border: '1px solid rgba(239, 68, 68, 0.5)',
+                    padding: '3px 8px',
+                    borderRadius: '4px',
+                    fontSize: '10px',
+                    fontWeight: 800,
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '3px'
+                  }}
+                  title="Turn off emergency alerts and remove from the map"
+                >
+                  <BellOff size={11} />
+                  <span>Turn Off</span>
+                </button>
+              ) : (
+                <button
+                  onClick={handleTurnOnAlerts}
+                  style={{
+                    backgroundColor: '#10b981',
+                    color: '#ffffff',
+                    border: 'none',
+                    padding: '3px 8px',
+                    borderRadius: '4px',
+                    fontSize: '10px',
+                    fontWeight: 800,
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '3px',
+                    boxShadow: '0 2px 6px rgba(16, 185, 129, 0.4)'
+                  }}
+                  title="Turn on emergency alerts and render on the map"
+                >
+                  <BellRing size={11} />
+                  <span>Turn On</span>
+                </button>
+              )}
+
+              {/* Dismiss Banner Button */}
               <button
-                onClick={() => {
-                  setIsAlertBannerDismissed(true);
-                  if (sirenPlaying) playEmergencySiren();
-                }}
+                onClick={() => setIsAlertBannerDismissed(true)}
                 style={{
-                  backgroundColor: isDark ? 'rgba(239, 68, 68, 0.18)' : '#fee2e2',
-                  color: '#ef4444',
-                  border: '1px solid rgba(239, 68, 68, 0.4)',
-                  padding: '3px 7px',
-                  borderRadius: '4px',
-                  fontSize: '10px',
+                  backgroundColor: 'transparent',
+                  color: tokens.textSecondary,
+                  border: 'none',
+                  padding: '2px 4px',
+                  borderRadius: '3px',
+                  fontSize: '11px',
                   fontWeight: 700,
                   cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '3px'
+                  lineHeight: 1
                 }}
-                title="Turn off / Dismiss this alert banner from the map view"
+                title="Dismiss top banner (can restore anytime from mini badge)"
               >
-                <span>✕</span>
-                <span style={{ fontSize: '9px' }}>Turn Off</span>
+                ✕
               </button>
             </div>
           </div>
@@ -2184,6 +2276,48 @@ function DisasterMap() {
                 >
                   {sirenPlaying ? <VolumeX size={12} /> : <Volume2 size={12} />}
                   <span>{sirenPlaying ? 'STOP SIREN' : 'TEST SIREN'}</span>
+                </button>
+              </div>
+
+              {/* Master Map Alert Overlay Switch */}
+              <div style={{
+                backgroundColor: tokens.bgTertiary,
+                padding: '10px',
+                borderRadius: '6px',
+                border: `1px solid ${tokens.border}`,
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center'
+              }}>
+                <div>
+                  <div style={{ fontSize: '10px', fontWeight: 700, color: tokens.textPrimary, display: 'flex', alignItems: 'center', gap: '5px' }}>
+                    <span>Map Alert Overlays:</span>
+                    <span style={{ color: layers.alerts ? '#ef4444' : '#94a3b8', fontWeight: 800 }}>
+                      {layers.alerts ? '🔴 ACTIVE ON MAP' : '⚪ TURNED OFF (MUTED)'}
+                    </span>
+                  </div>
+                  <div style={{ fontSize: '9px', color: tokens.textSecondary }}>
+                    {layers.alerts ? 'Red hazard perimeters and siren badges rendered' : 'Alert polygons and badges removed from map view'}
+                  </div>
+                </div>
+                <button
+                  onClick={layers.alerts ? handleTurnOffAlerts : handleTurnOnAlerts}
+                  style={{
+                    backgroundColor: layers.alerts ? (isDark ? 'rgba(239, 68, 68, 0.2)' : '#fee2e2') : '#10b981',
+                    color: layers.alerts ? '#ef4444' : '#ffffff',
+                    border: layers.alerts ? '1px solid rgba(239, 68, 68, 0.4)' : 'none',
+                    padding: '5px 10px',
+                    borderRadius: '4px',
+                    fontSize: '10px',
+                    fontWeight: 800,
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '4px'
+                  }}
+                >
+                  {layers.alerts ? <BellOff size={12} /> : <BellRing size={12} />}
+                  <span>{layers.alerts ? 'Turn Off from Map' : 'Turn On on Map'}</span>
                 </button>
               </div>
 
