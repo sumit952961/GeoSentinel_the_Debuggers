@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
+  <identifier>AIDRS-CAP-SEC-S2-01-2949</identifier>
+  <sender>COMMAND-HQ@AIDRS.DISASTERMGMT.GOV</sender>
+  <sent>2026-10-28T00:14:52.949942</sent>
+  <status>Actual</status>
+  <msgType>Alert</msgType>
+  <scope>Public</scope>
+  <info>
+    <category>Safety</category>
+    <event>IMMEDIATE EVACUATION ORDER</event>
+    <urgency>Immediate</urgency>
+    <severity>Extreme</severity>
+    <certainty>Observed</certainty>
+    <expires>2026-10-28T06:14:52.949942</expires>
+    <headline>MANDATORY EVACUATION: Raini Ground Zero Core (Upper) (SEC-S2-01)</headline>
+    <description>Critical structural damage detected in 1 buildings with severe threats to life. Estimated exposed population: 159.</description>
+    <instruction>Evacuate immediately via designated green evacuation corridors toward nearest shelter. Do not return to damaged structures.</instruction>
+    <area>
+      <areaDesc>MANDATORY EVACUATION: Raini Ground Zero Core (Upper) (SEC-S2-01)</areaDesc>
+      <circle>30.449819351587816,79.62609547755221,5.0</circle>
+    </area>
+  </info>
+</alert>

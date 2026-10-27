@@ -1,0 +1,127 @@
+[
+  {
+    "id": 1,
+    "callsign": "USAR-RAPID-01",
+    "unitType": "URBAN_SEARCH_RESCUE",
+    "status": "AVAILABLE",
+    "personnelCount": 8,
+    "equipmentManifest": "Hydraulic Cutters, Life-Detectors, Inflatable Rafts",
+    "currentLocation": {
+      "type": "Point",
+      "coordinates": [
+        77.215,
+        28.618
+      ],
+      "crs": {
+        "type": "name",
+        "properties": {
+          "name": "EPSG:4326"
+        }
+      }
+    },
+    "heading": 90.0,
+    "speedKmh": 0.0,
+    "activeIncidentId": null,
+    "lastPing": "2026-10-27T18:35:30.268692"
+  },
+  {
+    "id": 5,
+    "callsign": "DRONE-SURVEILLANCE-1",
+    "unitType": "UAV_RECON",
+    "status": "AVAILABLE",
+    "personnelCount": 2,
+    "equipmentManifest": "FLIR Thermal Camera, LiDAR, 4K Optical Zoom",
+    "currentLocation": {
+      "type": "Point",
+      "coordinates": [
+        77.219,
+        28.614
+      ],
+      "crs": {
+        "type": "name",
+        "properties": {
+          "name": "EPSG:4326"
+        }
+      }
+    },
+    "heading": 0.0,
+    "speedKmh": 15.0,
+    "activeIncidentId": null,
+    "lastPing": "2026-10-27T18:35:30.268692"
+  },
+  {
+    "id": 3,
+    "callsign": "FIRE-RESCUE-07",
+    "unitType": "FIRE_HAZMAT",
+    "status": "AVAILABLE",
+    "personnelCount": 6,
+    "equipmentManifest": "Thermal Imaging, High-Volume Pump, Foam Canisters",
+    "currentLocation": {
+      "type": "Point",
+      "coordinates": [
+        77.228,
+        28.625
+      ],
+      "crs": {
+        "type": "name",
+        "properties": {
+          "name": "EPSG:4326"
+        }
+      }
+    },
+    "heading": 180.0,
+    "speedKmh": 0.0,
+    "activeIncidentId": null,
+    "lastPing": "2026-10-27T18:35:30.268692"
+  },
+  {
+    "id": 4,
+    "callsign": "POLICE-EVAC-02",
+    "unitType": "TACTICAL_PATROL",
+    "status": "AVAILABLE",
+    "personnelCount": 4,
+    "equipmentManifest": "Megaphones, Perimeter Tape, First Aid, Drones",
+    "currentLocation": {
+      "type": "Point",
+      "coordinates": [
+        77.21,
+        28.605
+      ],
+      "crs": {
+        "type": "name",
+        "properties": {
+          "name": "EPSG:4326"
+        }
+      }
+    },
+    "heading": 270.0,
+    "speedKmh": 0.0,
+    "activeIncidentId": null,
+    "lastPing": "2026-10-27T18:35:30.268692"
+  },
+  {
+    "id": 2,
+    "callsign": "MEDEVAC-AMB-04",
+    "unitType": "AMBULANCE",
+    "status": "AVAILABLE",
+    "personnelCount": 3,
+    "equipmentManifest": "Advanced Life Support, Oxygen, Trauma Kits",
+    "currentLocation": {
+      "type": "Point",
+      "coordinates": [
+        77.202,
+        28.612
+      ],
+      "crs": {
+        "type": "name",
+        "properties": {
+          "name": "EPSG:4326"
+        }
+      }
+    },
+    "heading": 45.0,
+    "speedKmh": 0.0,
+    "activeIncidentId": null,
+    "lastPing": "2026-10-27T18:35:30.268692"
+  }
+]
